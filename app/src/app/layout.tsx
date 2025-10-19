@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Study app",
 	description: "An app for managing and creating notes",
 };
