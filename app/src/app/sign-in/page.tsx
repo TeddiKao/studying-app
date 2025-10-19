@@ -1,7 +1,7 @@
-function SignIn() {
-    return (
-        <div>Auth</div>
-    );
+import { SignIn } from "@clerk/nextjs";
+
+function SignInPage() {
+    return <SignIn />;
 }
 
-export default SignIn;
+export default SignInPage;
