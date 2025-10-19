@@ -4,7 +4,9 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<ClerkProvider>
 			<html lang="en">
-				<body>{children}</body>
+				<body>
+                    {children}
+                </body>
 			</html>
 		</ClerkProvider>
 	);
