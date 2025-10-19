@@ -1,11 +1,10 @@
 import { SignedIn } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
-function ProtectedLayout({ children }: { children: React.ReactNode }) {
-	return (
-        <SignedIn>
-            {children}
-        </SignedIn>
-    );
+async function ProtectedLayout({ children }: { children: React.ReactNode }) {
+    await auth.protect();
+
+    return children;
 }
 
 export default ProtectedLayout;
