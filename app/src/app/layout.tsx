@@ -9,3 +9,5 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 		</ClerkProvider>
 	);
 }
+
+export default RootLayout;
