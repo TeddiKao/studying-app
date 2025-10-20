@@ -12,17 +12,17 @@ function DashboardNavbar() {
 			</div>
 
 			<div className="flex flex-col gap-5">
-				<Link href="/dashboard">
-					<NavIcon tooltip="Home">
+				<NavIcon tooltip="Home">
+					<Link href="/dashboard">
 						<HomeIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
-					</NavIcon>
-				</Link>
+					</Link>
+				</NavIcon>
 
-				<Link href="/dashboard/notebooks">
-					<NavIcon tooltip="Notebooks">
+				<NavIcon tooltip="Notebooks">
+					<Link href="/notebooks">
 						<NotebookIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
-					</NavIcon>
-				</Link>
+					</Link>
+				</NavIcon>
 			</div>
 		</nav>
 	);
