@@ -1,7 +1,19 @@
 import { UserProfile } from "@clerk/nextjs";
 
 function UserProfilePage() {
-    return <UserProfile />;
+    return <UserProfile appearance={{
+        elements: {
+            rootBox: {
+                width: "100vw",
+                maxWidth: "none",
+            },
+
+            cardBox: {
+                width: "100%",
+                maxWidth: "none",
+            }
+        }
+    }} />
 }
 
 export default UserProfilePage;
