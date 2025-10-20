@@ -16,7 +16,7 @@ function DashboardNavbar() {
 		<nav className="w-max flex flex-col gap-5 items-center bg-gray-100 h-screen py-3 px-4">
 			<div className="flex flex-col">
 				<DropdownMenu>
-					<DropdownMenuTrigger>
+					<DropdownMenuTrigger aria-label="Account menu" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
 						<ProfilePicture className="w-8 h-8 rounded-md bg-gray-950 hover:cursor-pointer" />
 					</DropdownMenuTrigger>
 
