@@ -2,7 +2,7 @@ type HomeIconProps = {
 	className?: string;
 };
 
-function Home({ className }: HomeIconProps) {
+function HomeIcon({ className }: HomeIconProps) {
 	return (
 		<svg
 			viewBox="0 0 24 24"
@@ -20,4 +20,4 @@ function Home({ className }: HomeIconProps) {
 	);
 }
 
-export default Home;
+export default HomeIcon;
