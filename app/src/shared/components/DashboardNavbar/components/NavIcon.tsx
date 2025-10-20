@@ -14,11 +14,11 @@ type NavIconProps = {
 
 function NavIcon({ children, tooltip }: NavIconProps) {
 	return (
-		<TooltipProvider>
+		<TooltipProvider delayDuration={0}>
 			<Tooltip>
 				<TooltipTrigger asChild>{children}</TooltipTrigger>
 
-				<TooltipContent>
+				<TooltipContent side="right" sideOffset={8}>
 					<p>{tooltip}</p>
 				</TooltipContent>
 			</Tooltip>
