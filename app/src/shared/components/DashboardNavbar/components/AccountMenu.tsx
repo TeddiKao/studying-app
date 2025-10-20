@@ -20,6 +20,7 @@ function AccountMenu() {
 				<UserIcon />
 				<p className="text-sm">Profile</p>
 			</DropdownMenuItem>
+			
 			<DropdownMenuItem className="flex flex-row hover:cursor-pointer">
 				<LogOutIcon className="stroke-red-500" />
 				<div className="text-red-500">
