@@ -1,5 +1,9 @@
+import DashboardNavbar from "@/shared/components/DashboardNavbar";
+
 function Dashboard() {
-	return <div>Dashboard</div>;
+	return (
+		<DashboardNavbar />
+	);
 }
 
 export default Dashboard;
