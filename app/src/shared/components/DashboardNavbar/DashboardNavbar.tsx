@@ -13,13 +13,13 @@ function DashboardNavbar() {
 
 			<div className="flex flex-col gap-5">
 				<NavIcon tooltip="Home">
-					<Link href="/dashboard">
+					<Link aria-label="Home" href="/dashboard">
 						<HomeIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
 					</Link>
 				</NavIcon>
 
 				<NavIcon tooltip="Notebooks">
-					<Link href="/notebooks">
+					<Link aria-label="Notebooks" href="/notebooks">
 						<NotebookIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
 					</Link>
 				</NavIcon>
