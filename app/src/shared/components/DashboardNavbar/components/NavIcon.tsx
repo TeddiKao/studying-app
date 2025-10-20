@@ -1,3 +1,5 @@
+"use client";
+
 import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@radix-ui/react-tooltip";
 
@@ -19,3 +21,5 @@ function NavIcon({ children, tooltip }: NavIconProps) {
         </Tooltip>
     )
 }
+
+export default NavIcon;
