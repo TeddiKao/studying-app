@@ -1,25 +1,29 @@
 "use client";
 
-import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
-import { TooltipContent } from "@radix-ui/react-tooltip";
+import {
+	Tooltip,
+	TooltipTrigger,
+	TooltipContent,
+    TooltipProvider
+} from "@/components/ui/tooltip";
 
 type NavIconProps = {
-    children: React.ReactNode;
-    tooltip: string;
-}
+	children: React.ReactNode;
+	tooltip: string;
+};
 
 function NavIcon({ children, tooltip }: NavIconProps) {
-    return (
-        <Tooltip>
-            <TooltipTrigger asChild>
-                {children}
-            </TooltipTrigger>
+	return (
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger asChild>{children}</TooltipTrigger>
 
-            <TooltipContent>
-                <p>{tooltip}</p>
-            </TooltipContent>
-        </Tooltip>
-    )
+				<TooltipContent>
+					<p>{tooltip}</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	);
 }
 
 export default NavIcon;
