@@ -1,5 +1,6 @@
 import HomeIcon from "../icons/Home";
 import ProfilePicture from "../ProfilePicture";
+import NavIcon from "./components/NavIcon";
 
 function DashboardNavbar() {
 	return (
@@ -9,7 +10,9 @@ function DashboardNavbar() {
 			</div>
 
 			<div className="flex flex-col">
-				<HomeIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
+				<NavIcon tooltip="Home">
+					<HomeIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
+				</NavIcon>
 			</div>
 		</div>
 	);
