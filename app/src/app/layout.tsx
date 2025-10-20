@@ -4,6 +4,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata } from "next";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 
+import { Inter } from "next/font/google"
+
+const inter = Inter({ subsets: ["latin"] })
+
 export const metadata: Metadata = {
 	title: "Study app",
 	description: "An app for managing and creating notes",
@@ -12,7 +16,7 @@ export const metadata: Metadata = {
 function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className="bg-gray-100">
+			<body className={inter.className}>
 				<ClerkProvider>
 					<ConvexClientProvider>
                         {children}
