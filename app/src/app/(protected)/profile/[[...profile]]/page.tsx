@@ -4,7 +4,7 @@ function UserProfilePage() {
     return <UserProfile appearance={{
         elements: {
             rootBox: {
-                width: "100vw",
+                width: "100%",
                 maxWidth: "none",
             },
 
