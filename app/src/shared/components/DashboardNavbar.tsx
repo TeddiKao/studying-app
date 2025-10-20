@@ -3,7 +3,7 @@ import ProfilePicture from "./ProfilePicture";
 
 function DashboardNavbar() {
     return (
-        <div className="w-max flex flex-col gap-5 items-center bg-gray-100 h-screen py-2 px-4">
+        <div className="w-max flex flex-col gap-5 items-center bg-gray-100 h-screen py-3 px-4">
             <div className="flex flex-col">
                 <ProfilePicture className="w-8 h-8 rounded-md bg-gray-950" />
             </div>
