@@ -2,7 +2,7 @@ import { DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-
 
 function AccountMenu() {
 	return (
-        <DropdownMenuContent>
+        <DropdownMenuContent side="right" sideOffset={8} align="start" alignOffset={0} className="border-gray-200">
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Logout</DropdownMenuItem>
         </DropdownMenuContent>
