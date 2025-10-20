@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SignOutButton } from "@clerk/nextjs";
 import { LogOutIcon, UserIcon } from "lucide-react";
+import Link from "next/link";
 
 function AccountMenu() {
 	return (
@@ -16,11 +17,13 @@ function AccountMenu() {
 			alignOffset={0}
 			className="border-gray-200"
 		>
-			<DropdownMenuItem className="flex flex-row hover:cursor-pointer">
-				<UserIcon />
-				<p className="text-sm">Profile</p>
+			<DropdownMenuItem asChild className="flex flex-row hover:cursor-pointer">
+				<Link href="/profile">
+					<UserIcon />
+					<p className="text-sm">Profile</p>
+				</Link>
 			</DropdownMenuItem>
-			
+
 			<DropdownMenuItem className="flex flex-row hover:cursor-pointer">
 				<LogOutIcon className="stroke-red-500" />
 				<div className="text-red-500">
