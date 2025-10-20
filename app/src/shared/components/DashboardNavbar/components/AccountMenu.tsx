@@ -14,11 +14,11 @@ function AccountMenu() {
 			alignOffset={0}
 			className="border-gray-200"
 		>
-			<DropdownMenuItem className="flex flex-row">
+			<DropdownMenuItem className="flex flex-row hover:cursor-pointer">
 				<UserIcon />
 				<p className="text-sm">Profile</p>
 			</DropdownMenuItem>
-			<DropdownMenuItem className="flex flex-row">
+			<DropdownMenuItem className="flex flex-row hover:cursor-pointer">
 				<LogOutIcon className="stroke-red-500" />
 				<div className="text-red-500">
 					<SignOutButton />
