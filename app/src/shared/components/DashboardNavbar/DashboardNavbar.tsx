@@ -15,7 +15,7 @@ function DashboardNavbar() {
 					<HomeIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
 				</NavIcon>
 
-				<NavIcon tooltip="Notebook">
+				<NavIcon tooltip="Notebooks">
 					<NotebookIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
 				</NavIcon>
 			</div>
