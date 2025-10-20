@@ -1,3 +1,4 @@
+import Link from "next/link";
 import HomeIcon from "../icons/Home";
 import NotebookIcon from "../icons/Notebook";
 import ProfilePicture from "../ProfilePicture";
@@ -11,13 +12,17 @@ function DashboardNavbar() {
 			</div>
 
 			<div className="flex flex-col gap-5">
-				<NavIcon tooltip="Home">
-					<HomeIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
-				</NavIcon>
+				<Link href="/dashboard">
+					<NavIcon tooltip="Home">
+						<HomeIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
+					</NavIcon>
+				</Link>
 
-				<NavIcon tooltip="Notebooks">
-					<NotebookIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
-				</NavIcon>
+				<Link href="/dashboard/notebooks">
+					<NavIcon tooltip="Notebooks">
+						<NotebookIcon className="fill-gray-950 w-6 h-6 hover:cursor-pointer" />
+					</NavIcon>
+				</Link>
 			</div>
 		</div>
 	);
