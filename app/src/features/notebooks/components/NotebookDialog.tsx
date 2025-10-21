@@ -38,6 +38,11 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 
 	function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+		
+		closeForm();
+		clearName();
+		clearDescription();
+
 		console.log("Form submitted");
 	}
 
