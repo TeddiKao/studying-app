@@ -79,6 +79,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 							value={description}
 							placeholder="Notebook description"
 							onChange={(e) => updateDescription(e.target.value)}
+							className="resize-none"
 						/>
 					</div>
 
