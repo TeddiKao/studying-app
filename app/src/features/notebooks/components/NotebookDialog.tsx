@@ -73,9 +73,9 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 					</div>
 
 					<div className="flex flex-col gap-1">
-						<Label htmlFor="name">Description</Label>
+						<Label htmlFor="description">Description</Label>
 						<Textarea
-							id="name"
+							id="description"
 							value={description}
 							placeholder="Notebook description"
 							onChange={(e) => updateDescription(e.target.value)}
