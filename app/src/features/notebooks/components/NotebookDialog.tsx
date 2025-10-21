@@ -80,6 +80,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 							placeholder="Notebook description"
 							onChange={(e) => updateDescription(e.target.value)}
 							className="resize-none"
+							rows={4}
 						/>
 					</div>
 
