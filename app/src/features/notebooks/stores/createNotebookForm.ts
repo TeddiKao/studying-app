@@ -1,23 +1,23 @@
 import { create } from "zustand";
 
 type CreateNotebookFormState = {
-    title: string;
+    name: string;
     description: string;
 
-    updateTitle: (title: string) => void;
+    updateName: (name: string) => void;
     updateDescription: (description: string) => void;
-    clearTitle: () => void;
+    clearName: () => void;
     clearDescription: () => void;
 }
 
 const createNotebookForm = create<CreateNotebookFormState>((set) => ({
-    title: "",
+    name: "",
     description: "",
 
-    updateTitle: (title: string) => set({ title }),
+    updateName: (name: string) => set({ name }),
     updateDescription: (description: string) => set({ description }),
 
-    clearTitle: () => set({ title: "" }),
+    clearName: () => set({ name: "" }),
     clearDescription: () => set({ description: "" }),
 }));
 
