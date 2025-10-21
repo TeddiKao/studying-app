@@ -1,4 +1,4 @@
-import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader";
+import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader/NotebookPageHeader";
 
 function Notebooks() {
 	return (
