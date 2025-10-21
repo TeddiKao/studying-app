@@ -10,7 +10,7 @@ type CreateNotebookFormState = {
     clearDescription: () => void;
 }
 
-const createNotebookForm = create<CreateNotebookFormState>((set) => ({
+const useCreateNotebookFormStore = create<CreateNotebookFormState>((set) => ({
     name: "",
     description: "",
 
@@ -21,4 +21,4 @@ const createNotebookForm = create<CreateNotebookFormState>((set) => ({
     clearDescription: () => set({ description: "" }),
 }));
 
-export { createNotebookForm };
+export { useCreateNotebookFormStore };
