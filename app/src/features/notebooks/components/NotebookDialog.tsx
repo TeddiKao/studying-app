@@ -4,6 +4,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
@@ -17,8 +18,7 @@ type NotebookDialogProps = {
 };
 
 function NotebookDialog({ mode }: NotebookDialogProps) {
-	const formTitle =
-		mode === "create" ? "Create notebook" : "Edit notebook";
+	const formTitle = mode === "create" ? "Create notebook" : "Edit notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
 	const submitButtonText = mode === "create" ? "Create" : "Save changes";
@@ -36,10 +36,10 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 	const openForm = createNotebookForm.openForm;
 	const closeForm = createNotebookForm.closeForm;
 
-    function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        console.log("Form submitted");
-    }
+	function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		console.log("Form submitted");
+	}
 
 	return (
 		<Dialog
@@ -60,7 +60,10 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 					<DialogDescription>{formDescription}</DialogDescription>
 				</DialogHeader>
 
-				<form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
+				<form
+					onSubmit={handleFormSubmit}
+					className="flex flex-col gap-4"
+				>
 					<div className="flex flex-col gap-1">
 						<Label htmlFor="name">Name</Label>
 						<Input
@@ -84,9 +87,14 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 						/>
 					</div>
 
-					<button type="submit" className="bg-gray-950 text-white px-4 py-2 rounded-md hover:cursor-pointer">
-						{submitButtonText}
-					</button>
+					<DialogFooter className="w-full">
+						<button
+							type="submit"
+							className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
+						>
+							{submitButtonText}
+						</button>
+					</DialogFooter>
 				</form>
 			</DialogContent>
 		</Dialog>
