@@ -1,5 +1,11 @@
+import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader";
+
 function Notebooks() {
-	return <div>Notebooks</div>;
+	return (
+		<div className="flex flex-col">
+			<NotebookPageHeader />
+		</div>
+	);
 }
 
 export default Notebooks;
