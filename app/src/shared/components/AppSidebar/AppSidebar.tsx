@@ -11,12 +11,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import AccountMenu from "./components/AccountMenu";
 
-function DashboardNavbar() {
+function AppSidebar() {
 	return (
 		<nav className="w-max flex flex-col gap-5 items-center bg-gray-100 h-screen py-3 px-4">
 			<div className="flex flex-col">
 				<DropdownMenu>
-					<DropdownMenuTrigger aria-label="Account menu" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+					<DropdownMenuTrigger
+						aria-label="Account menu"
+						className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+					>
 						<ProfilePicture className="w-8 h-8 rounded-md bg-gray-950 hover:cursor-pointer" />
 					</DropdownMenuTrigger>
 
@@ -49,4 +52,4 @@ function DashboardNavbar() {
 	);
 }
 
-export default DashboardNavbar;
+export default AppSidebar;
