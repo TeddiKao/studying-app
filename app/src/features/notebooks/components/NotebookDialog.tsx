@@ -18,7 +18,7 @@ type NotebookDialogProps = {
 
 function NotebookDialog({ mode }: NotebookDialogProps) {
 	const formTitle =
-		mode === "create" ? "Create a new notebook" : "Edit this notebook";
+		mode === "create" ? "Create notebook" : "Edit notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
 	const submitButtonText = mode === "create" ? "Create" : "Save changes";
