@@ -18,26 +18,46 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
+	const submitButtonText = mode === "create" ? "Create" : "Save changes";
 
 	const createNotebookForm = useCreateNotebookFormStore();
 
+	const isOpen = createNotebookForm.isOpen;
 	const name = createNotebookForm.name;
 	const description = createNotebookForm.description;
 
-    const updateName = createNotebookForm.updateName;
-    const updateDescription = createNotebookForm.updateDescription;
-    const clearName = createNotebookForm.clearName;
-    const clearDescription = createNotebookForm.clearDescription;
+	const updateName = createNotebookForm.updateName;
+	const updateDescription = createNotebookForm.updateDescription;
+	const clearName = createNotebookForm.clearName;
+	const clearDescription = createNotebookForm.clearDescription;
+	const openForm = createNotebookForm.openForm;
+	const closeForm = createNotebookForm.closeForm;
+
+    function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        console.log("Form submitted");
+    }
 
 	return (
-		<Dialog>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open: boolean) => {
+				if (open) {
+					openForm();
+				} else {
+					closeForm();
+					clearName();
+					clearDescription();
+				}
+			}}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>{formTitle}</DialogTitle>
 					<DialogDescription>{formDescription}</DialogDescription>
 				</DialogHeader>
 
-				<form className="flex flex-col gap-4">
+				<form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
 					<div className="flex flex-col gap-1">
 						<Label htmlFor="name">Name</Label>
 						<Input
@@ -48,7 +68,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 						/>
 					</div>
 
-                    <div className="flex flex-col gap-1">
+					<div className="flex flex-col gap-1">
 						<Label htmlFor="name">Description</Label>
 						<Input
 							type="text"
@@ -57,8 +77,14 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 							onChange={(e) => updateDescription(e.target.value)}
 						/>
 					</div>
+
+					<button type="submit" className="bg-gray-950 text-white px-4 py-2 rounded-md hover:cursor-pointer">
+						{submitButtonText}
+					</button>
 				</form>
 			</DialogContent>
 		</Dialog>
 	);
 }
+
+export default NotebookDialog;
