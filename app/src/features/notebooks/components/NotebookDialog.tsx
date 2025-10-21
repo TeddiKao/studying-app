@@ -67,6 +67,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 							type="text"
 							id="name"
 							value={name}
+							placeholder="Notebook name"
 							onChange={(e) => updateName(e.target.value)}
 						/>
 					</div>
@@ -76,6 +77,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 						<Textarea
 							id="name"
 							value={description}
+							placeholder="Notebook description"
 							onChange={(e) => updateDescription(e.target.value)}
 						/>
 					</div>
