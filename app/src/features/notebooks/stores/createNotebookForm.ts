@@ -1,8 +1,13 @@
 import { create } from "zustand";
 
 type CreateNotebookFormState = {
+    isOpen: boolean;
+    
     name: string;
     description: string;
+
+    openForm: () => void;
+    closeForm: () => void;
 
     updateName: (name: string) => void;
     updateDescription: (description: string) => void;
@@ -11,6 +16,7 @@ type CreateNotebookFormState = {
 }
 
 const useCreateNotebookFormStore = create<CreateNotebookFormState>((set) => ({
+    isOpen: false,
     name: "",
     description: "",
 
@@ -19,6 +25,9 @@ const useCreateNotebookFormStore = create<CreateNotebookFormState>((set) => ({
 
     clearName: () => set({ name: "" }),
     clearDescription: () => set({ description: "" }),
+
+    openForm: () => set({ isOpen: true }),
+    closeForm: () => set({ isOpen: false }),
 }));
 
 export { useCreateNotebookFormStore };
