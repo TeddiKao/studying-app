@@ -10,6 +10,7 @@ import {
 import { useCreateNotebookFormStore } from "../stores/createNotebookForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
@@ -72,8 +73,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 
 					<div className="flex flex-col gap-1">
 						<Label htmlFor="name">Description</Label>
-						<Input
-							type="text"
+						<Textarea
 							id="name"
 							value={description}
 							onChange={(e) => updateDescription(e.target.value)}
