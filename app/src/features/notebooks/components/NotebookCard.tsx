@@ -5,7 +5,7 @@ import { EllipsisVertical } from "lucide-react";
 
 function NotebookCard() {
 	return (
-		<div className="flex flex-row gap-2 items-center bg-gray-50 rounded-md shadow-md p-2">
+		<div className="flex flex-row items-center bg-gray-50 rounded-md shadow-md p-2">
 			<button
 				type="button"
 				className="flex flex-row gap-2 items-center hover:cursor-pointer grow"
