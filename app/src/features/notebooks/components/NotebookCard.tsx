@@ -3,7 +3,14 @@
 import NotebookIcon from "@/shared/components/icons/Notebook";
 import { EllipsisVertical } from "lucide-react";
 
-function NotebookCard() {
+type NotebookCardProps = {
+	name: string;
+	notesCount: number;
+};
+
+function NotebookCard({ name, notesCount }: NotebookCardProps) {
+    const noun = notesCount === 1 ? "note" : "notes";
+
 	return (
 		<div className="flex flex-row items-center bg-gray-50 rounded-md shadow-md p-2">
 			<button
@@ -13,15 +20,18 @@ function NotebookCard() {
 				<NotebookIcon className="w-6 h-6 fill-gray-500" />
 				<span className="flex flex-col gap-0.5">
 					<span className="text-lg font-semibold text-left">
-						History notebook
+						{name}
 					</span>
 					<span className="text-sm text-gray-500 text-left">
-						30 notes
+						{notesCount} {noun}
 					</span>
 				</span>
 			</button>
 
-			<button type="button" className="hover:cursor-pointer hover:bg-gray-300 rounded-md py-1">
+			<button
+				type="button"
+				className="hover:cursor-pointer hover:bg-gray-300 rounded-md py-1"
+			>
 				<EllipsisVertical className="stroke-gray-500" />
 			</button>
 		</div>
