@@ -4,6 +4,7 @@ import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHead
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import { auth } from "@clerk/nextjs/server";
+import NotebookCard from "@/features/notebooks/components/NotebookCard";
 
 async function Notebooks() {
 	const user = await auth();
@@ -17,7 +18,9 @@ async function Notebooks() {
 				<NotebookPageHeader />
 
 				<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gridcols-5">
-					{/* TODO: Add rendering logic here */}
+					{notebooks.map((notebook) => (
+						<NotebookCard key={notebook._id} name={notebook.name} notesCount={0} />
+					))}
 				</div>
 			</div>
 
