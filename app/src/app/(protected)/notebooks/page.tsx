@@ -5,10 +5,13 @@ import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHead
 function Notebooks() {
 	return (
 		<>
-			<div className="flex flex-col">
+			<div className="flex flex-col gap-2">
 				<NotebookPageHeader />
 
 				<div className="grid grid-cols-4 gap-2">
+					<NotebookCard />
+					<NotebookCard />
+					<NotebookCard />
 					<NotebookCard />
 				</div>
 			</div>
