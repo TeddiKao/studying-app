@@ -1,3 +1,5 @@
+"use client";
+
 import NotebookIcon from "@/shared/components/icons/Notebook";
 import { EllipsisVertical } from "lucide-react";
 
