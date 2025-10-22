@@ -8,7 +8,7 @@ function Notebooks() {
 			<div className="flex flex-col gap-2">
 				<NotebookPageHeader />
 
-				<div className="grid grid-cols-4 gap-2">
+				<div className="grid grid-cols-4 gap-4">
 					<NotebookCard />
 					<NotebookCard />
 					<NotebookCard />
