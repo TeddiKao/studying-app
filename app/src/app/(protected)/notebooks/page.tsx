@@ -1,7 +1,16 @@
 import NotebookDialog from "@/features/notebooks/components/NotebookDialog";
 import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader/NotebookPageHeader";
 
-function Notebooks() {
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
+import { auth } from "@clerk/nextjs/server";
+
+async function Notebooks() {
+	const user = await auth();
+	const notebooks = await fetchQuery(api.notebooks.queries.fetchNotebooks, {
+		ownerId: user.userId,
+	});
+
 	return (
 		<>
 			<div className="flex flex-col gap-3">
