@@ -1,4 +1,3 @@
-import NotebookCard from "@/features/notebooks/components/NotebookCard";
 import NotebookDialog from "@/features/notebooks/components/NotebookDialog";
 import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader/NotebookPageHeader";
 
@@ -9,10 +8,7 @@ function Notebooks() {
 				<NotebookPageHeader />
 
 				<div className="grid grid-cols-4 gap-4">
-					<NotebookCard />
-					<NotebookCard />
-					<NotebookCard />
-					<NotebookCard />
+					{/* TODO: Add rendering logic here */}
 				</div>
 			</div>
 
