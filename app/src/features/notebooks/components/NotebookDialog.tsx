@@ -12,6 +12,9 @@ import { useCreateNotebookFormStore } from "../stores/createNotebookForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
@@ -36,12 +39,29 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 	const openForm = createNotebookForm.openForm;
 	const closeForm = createNotebookForm.closeForm;
 
-	function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
+	const { user } = useUser();
+
+	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		
-		closeForm();
-		clearName();
-		clearDescription();
+
+		if (!user || !user?.id) return;
+
+		try {
+			if (mode === "create") {
+				await createNotebook({
+					name,
+					description,
+					ownerId: user.id,
+				});
+
+				closeForm();
+				clearName();
+				clearDescription();
+			}
+		} catch (error) {
+			console.error(error);
+		}
 
 		console.log("Form submitted");
 	}
