@@ -19,7 +19,11 @@ async function Notebooks() {
 
 				<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gridcols-5">
 					{notebooks.map((notebook) => (
-						<NotebookCard key={notebook._id} name={notebook.name} notesCount={0} />
+						<NotebookCard
+							key={notebook._id}
+							name={notebook.name}
+							notesCount={notebook.noteCount}
+						/>
 					))}
 				</div>
 			</div>
