@@ -21,7 +21,7 @@ function NotebookCard() {
 				</span>
 			</button>
 
-			<button type="button" className="hover:cursor-pointer hover:bg-gray-300">
+			<button type="button" className="hover:cursor-pointer hover:bg-gray-300 rounded-md">
 				<EllipsisVertical className="stroke-gray-500" />
 			</button>
 		</div>
