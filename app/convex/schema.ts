@@ -1,5 +1,5 @@
 import { defineSchema } from "convex/server";
-import notebooks from "../src/features/notebooks/db/schema";
+import notebooks from "./notebooks/schema";
 
 export default defineSchema({
     notebooks: notebooks
