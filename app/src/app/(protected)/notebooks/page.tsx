@@ -7,7 +7,7 @@ function Notebooks() {
 			<div className="flex flex-col gap-3">
 				<NotebookPageHeader />
 
-				<div className="grid grid-cols-4 gap-4">
+				<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gridcols-5">
 					{/* TODO: Add rendering logic here */}
 				</div>
 			</div>
