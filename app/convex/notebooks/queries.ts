@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query } from "../../../../convex/_generated/server";
+import { query } from "../_generated/server";
 
 const fetchNotebooks = query({
 	args: { ownerId: v.string() },
