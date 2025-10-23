@@ -4,9 +4,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { useMutation } from "convex/react";
 import { PencilIcon, Trash2Icon } from "lucide-react";
-import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { useDeleteNotebookAlertStore } from "../stores/deleteNotebookAlert";
 
