@@ -7,13 +7,17 @@ import { api } from "../../../../convex/_generated/api";
 import NotebookCard from "@/features/notebooks/components/NotebookCard";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
+import { useEditNotebookFormStore } from "@/features/notebooks/stores/editNotebookForm";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 function Notebooks() {
 	const { user } = useUser();
 
 	const notebooks = useQuery(api.notebooks.queries.fetchNotebooks, {
 		ownerId: user?.id ?? null,
-	})
+	});
+
+	const { notebookId } = useEditNotebookFormStore();
 
 	if (!notebooks) return null;
 
@@ -34,7 +38,11 @@ function Notebooks() {
 				</div>
 			</div>
 
-			<NotebookDialog mode="create" />
+			<NotebookDialog mode="create" notebookId={null} />
+			<NotebookDialog
+				mode="edit"
+				notebookId={(notebookId as Id<"notebooks">) ?? null}
+			/>
 		</>
 	);
 }

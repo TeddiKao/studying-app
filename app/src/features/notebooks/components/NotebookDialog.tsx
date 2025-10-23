@@ -16,34 +16,41 @@ import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "@/components/ui/spinner";
+import { Id } from "../../../../convex/_generated/dataModel";
+import { useEditNotebookFormStore } from "../stores/editNotebookForm";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
+	notebookId: Id<"notebooks"> | null;
 };
 
-function NotebookDialog({ mode }: NotebookDialogProps) {
+function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const formTitle = mode === "create" ? "Create notebook" : "Edit notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
 
 	const submitButtonText = mode === "create" ? "Create" : "Save changes";
-	const submittingButtonText = mode === "create" ? "Creating..." : "Saving...";
+	const submittingButtonText =
+		mode === "create" ? "Creating..." : "Saving...";
 
 	const createNotebookForm = useCreateNotebookFormStore();
+	const editNotebookForm = useEditNotebookFormStore();
 
-	const isOpen = createNotebookForm.isOpen;
-	const isSubmitting = createNotebookForm.isSubmitting;
-	const name = createNotebookForm.name;
-	const description = createNotebookForm.description;
+	const formStore = mode === "create" ? createNotebookForm : editNotebookForm;
 
-	const updateName = createNotebookForm.updateName;
-	const updateDescription = createNotebookForm.updateDescription;
-	const clearName = createNotebookForm.clearName;
-	const clearDescription = createNotebookForm.clearDescription;
-	const openForm = createNotebookForm.openForm;
-	const closeForm = createNotebookForm.closeForm;
-	const startSubmitting = createNotebookForm.startSubmitting;
-	const stopSubmitting = createNotebookForm.stopSubmitting;
+	const isOpen = formStore.isOpen;
+	const isSubmitting = formStore.isSubmitting;
+	const name = formStore.name;
+	const description = formStore.description;
+
+	const updateName = formStore.updateName;
+	const updateDescription = formStore.updateDescription;
+	const clearName = formStore.clearName;
+	const clearDescription = formStore.clearDescription;
+	const openForm = formStore.openForm;
+	const closeForm = formStore.closeForm;
+	const startSubmitting = formStore.startSubmitting;
+	const stopSubmitting = formStore.stopSubmitting;
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const { user } = useUser();
@@ -64,7 +71,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 			if (mode === "create") {
 				await createNotebook({
 					name: trimmedName,
-					description: trimmedDescription
+					description: trimmedDescription,
 				});
 
 				closeForm();
