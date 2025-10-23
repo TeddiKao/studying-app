@@ -1,28 +1,19 @@
 import { create } from "zustand";
 
 type NotebookDropdownStore = {
-    activeNotebookId: string | null;
-    
-    updateActiveNotebookId: (notebookId: string) => void;
-    clearActiveNotebookId: () => void;
+	activeNotebookDropdownId: string | null;
+
+	updateActiveNotebookDropdownId: (notebookDropdownId: string) => void;
+	clearActiveNotebookDropdownId: () => void;
 };
 
-
 const useNotebookDropdownStore = create<NotebookDropdownStore>()((set) => ({
-    activeNotebookId: null,
+	activeNotebookDropdownId: null,
 
-    updateActiveNotebookId: (notebookId: string) => {
-        set((state) => ({
-            activeNotebookId: notebookId,
-        }));
-    },
-
-    clearActiveNotebookId: () => {
-        set((state) => ({
-            activeNotebookId: null,
-        }));
-    },
+	updateActiveNotebookDropdownId: (notebookId: string) =>
+		set({ activeNotebookDropdownId: notebookId }),
+	clearActiveNotebookDropdownId: () =>
+		set({ activeNotebookDropdownId: null }),
 }));
 
 export { useNotebookDropdownStore };
-
