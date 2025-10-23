@@ -62,7 +62,7 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+					<AlertDialogAction className="bg-red-500 text-white" onClick={handleDelete}>Delete</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>
