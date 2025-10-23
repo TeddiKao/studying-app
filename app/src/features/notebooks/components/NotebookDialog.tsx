@@ -64,8 +64,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 			if (mode === "create") {
 				await createNotebook({
 					name: trimmedName,
-					description: trimmedDescription,
-					ownerId: user.id,
+					description: trimmedDescription
 				});
 
 				closeForm();
