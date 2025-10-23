@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type CreateNotebookFormState = {
     isOpen: boolean;
-    isEditing: boolean;
+    isSubmitting: boolean;
     
     name: string;
     description: string;
@@ -16,8 +16,8 @@ type CreateNotebookFormState = {
     clearName: () => void;
     clearDescription: () => void;
 
-    startEditing: () => void;
-    stopEditing: () => void;
+    startSubmitting: () => void;
+    stopSubmitting: () => void;
 
     updateNotebookId: (notebookId: string) => void;
     clearNotebookId: () => void;
@@ -25,7 +25,7 @@ type CreateNotebookFormState = {
 
 const useEditNotebookFormStore = create<CreateNotebookFormState>((set) => ({
     isOpen: false,
-    isEditing: false,
+    isSubmitting: false,
 
     notebookId: null,
     name: "",
@@ -40,8 +40,8 @@ const useEditNotebookFormStore = create<CreateNotebookFormState>((set) => ({
     openForm: () => set({ isOpen: true }),
     closeForm: () => set({ isOpen: false }),
 
-    startEditing: () => set({ isEditing: true }),
-    stopEditing: () => set({ isEditing: false }),
+    startSubmitting: () => set({ isSubmitting: true }),
+    stopSubmitting: () => set({ isSubmitting: false }),
 
     updateNotebookId: (notebookId: string) => set({ notebookId }),
     clearNotebookId: () => set({ notebookId: null }),
