@@ -50,10 +50,6 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const { user } = useUser();
 
-	if (mode === "edit" && !notebookId) {
-		throw new Error("Notebook ID is required in edit mode");
-	}
-
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
