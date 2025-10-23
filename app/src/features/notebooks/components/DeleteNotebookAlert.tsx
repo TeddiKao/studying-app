@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -9,8 +11,15 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useDeleteNotebookAlertStore } from "../stores/deleteNotebookAlert";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
 
-function DeleteNotebookAlert() {
+type DeleteNotebookAlertProps = {
+	notebookId: Id<"notebooks">;
+};
+
+function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 	const {
 		isOpen,
 		isDeleting,
@@ -19,6 +28,21 @@ function DeleteNotebookAlert() {
 		startDeleting,
 		stopDeleting,
 	} = useDeleteNotebookAlertStore();
+
+    const deleteNotebook = useMutation(api.notebooks.mutations.deleteNotebook);
+
+    async function handleDelete() {
+        startDeleting();
+
+        try {
+            await deleteNotebook({ notebookId })
+            closeAlert();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            stopDeleting();
+        }
+    }
 
 	return (
 		<AlertDialog open={isOpen} onOpenChange={(open) => {
@@ -38,7 +62,7 @@ function DeleteNotebookAlert() {
 
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction>Delete</AlertDialogAction>
+					<AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>
