@@ -10,8 +10,8 @@ type NotebookDropdownStore = {
 const useNotebookDropdownStore = create<NotebookDropdownStore>()((set) => ({
 	activeNotebookDropdownId: null,
 
-	updateActiveNotebookDropdownId: (notebookId: string) =>
-		set({ activeNotebookDropdownId: notebookId }),
+	updateActiveNotebookDropdownId: (notebookDropdownId: string) =>
+		set({ activeNotebookDropdownId: notebookDropdownId }),
 	clearActiveNotebookDropdownId: () =>
 		set({ activeNotebookDropdownId: null }),
 }));
