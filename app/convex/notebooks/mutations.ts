@@ -37,10 +37,20 @@ const editNotebook = mutation({
             throw new Error("Not authenticated");
         }
 
+        const notebookToEdit = await ctx.db.get(notebookId);
+        if (!notebookToEdit) {
+            throw new Error("Notebook not found");
+        }
+
+        const notebookOwner = notebookToEdit.owner;
+        if (notebookOwner !== userIdentity.subject) {
+            throw new Error("You do not have permission to edit this notebook");
+        }
+
         await ctx.db.patch(notebookId, {
             name,
             description,
-        })
+        });
     }
 })
 
