@@ -19,9 +19,10 @@ import { Spinner } from "@/components/ui/spinner";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
+	notebookId?: string;
 };
 
-function NotebookDialog({ mode }: NotebookDialogProps) {
+function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const formTitle = mode === "create" ? "Create notebook" : "Edit notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
@@ -47,6 +48,10 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const { user } = useUser();
+
+	if (mode === "edit" && !notebookId) {
+		throw new Error("Notebook ID is required in edit mode");
+	}
 
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
