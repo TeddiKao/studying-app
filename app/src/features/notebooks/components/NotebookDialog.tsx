@@ -75,10 +75,6 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 					name: trimmedName,
 					description: trimmedDescription,
 				});
-
-				closeForm();
-				clearName();
-				clearDescription();
 			} else if (mode === "edit") {
 				if (!notebookId) return;
 
@@ -86,8 +82,12 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 					notebookId: notebookId,
 					name: trimmedName,
 					description: trimmedDescription,
-				})
+				});
 			}
+
+			closeForm();
+			clearName();
+			clearDescription();
 		} catch (error) {
 			console.error(error);
 		} finally {
