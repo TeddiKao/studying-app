@@ -15,7 +15,7 @@ function EmptyNotebooksDisplay() {
 
             <EmptyContent>
                 <div className="flex flex-row gap-2">
-                    <Button type="button">Create notebook</Button>
+                    <Button className="hover:cursor-pointer" type="button">Create notebook</Button>
                 </div>
             </EmptyContent>
 		</Empty>
