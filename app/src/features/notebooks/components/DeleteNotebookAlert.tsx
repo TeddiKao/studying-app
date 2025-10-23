@@ -69,7 +69,7 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 					{isDeleting ? (
 						<AlertDialogAction
 							disabled={true}
-							className="bg-red-500 text-white opacity-75"
+							className="bg-red-500 text-white opacity-75 hover:cursor-not-allowed"
 							onClick={handleDelete}
 						>
 							<Spinner />
@@ -78,7 +78,7 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 					) : (
 						<AlertDialogAction
 							disabled={false}
-							className="bg-red-500 text-white"
+							className="bg-red-500 text-white hover:cursor-pointer"
 							onClick={handleDelete}
 						>
 							<span className="text-sm">Delete</span>
