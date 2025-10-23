@@ -54,6 +54,8 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 
 		if (!trimmedName) return;
 
+		startSubmitting();
+
 		try {
 			if (mode === "create") {
 				await createNotebook({
@@ -68,6 +70,8 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 			}
 		} catch (error) {
 			console.error(error);
+		} finally {
+			stopSubmitting();
 		}
 
 		console.log("Form submitted");
