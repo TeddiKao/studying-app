@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import NotebookIcon from "@/shared/components/icons/Notebook";
+import { useCreateNotebookFormStore } from "../stores/createNotebookForm";
 
 function EmptyNotebooksDisplay() {
+    const { openForm } = useCreateNotebookFormStore();
+
 	return (
 		<Empty>
 			<EmptyHeader>
@@ -15,7 +18,7 @@ function EmptyNotebooksDisplay() {
 
             <EmptyContent>
                 <div className="flex flex-row gap-2">
-                    <Button className="hover:cursor-pointer" type="button">Create notebook</Button>
+                    <Button onClick={openForm} className="hover:cursor-pointer" type="button">Create notebook</Button>
                 </div>
             </EmptyContent>
 		</Empty>
