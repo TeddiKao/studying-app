@@ -26,6 +26,7 @@ function Notebooks() {
 					{notebooks.map((notebook) => (
 						<NotebookCard
 							key={notebook._id}
+							notebookId={notebook._id}
 							name={notebook.name}
 							notesCount={notebook.noteCount}
 						/>

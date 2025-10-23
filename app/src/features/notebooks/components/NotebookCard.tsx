@@ -1,15 +1,29 @@
 "use client";
 
+import {
+	DropdownMenu,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import NotebookIcon from "@/shared/components/icons/Notebook";
 import { EllipsisVertical } from "lucide-react";
+import NotebookDropdown from "./NotebookDropdown";
+import { useNotebookDropdownStore } from "../stores/notebookDropdown";
 
 type NotebookCardProps = {
 	name: string;
 	notesCount: number;
+	notebookId: string;
 };
 
-function NotebookCard({ name, notesCount }: NotebookCardProps) {
-    const noun = notesCount === 1 ? "note" : "notes";
+function NotebookCard({ name, notesCount, notebookId }: NotebookCardProps) {
+	const noun = notesCount === 1 ? "note" : "notes";
+
+	const {
+		activeNotebookDropdownId,
+		updateActiveNotebookDropdownId,
+		clearActiveNotebookDropdownId,
+	} = useNotebookDropdownStore();
+	const isOpen = activeNotebookDropdownId === notebookId;
 
 	return (
 		<div className="flex flex-row items-center bg-gray-50 rounded-md shadow-md p-2">
@@ -29,13 +43,28 @@ function NotebookCard({ name, notesCount }: NotebookCardProps) {
 				</span>
 			</button>
 
-			<button
-				type="button"
-				aria-label={`Options for ${name}`}
-				className="hover:cursor-pointer hover:bg-gray-300 rounded-md py-1"
+			<DropdownMenu
+				open={isOpen}
+				onOpenChange={(open) => {
+					if (open) {
+						updateActiveNotebookDropdownId(notebookId);
+					} else {
+						clearActiveNotebookDropdownId();
+					}
+				}}
 			>
-				<EllipsisVertical className="stroke-gray-500" />
-			</button>
+				<DropdownMenuTrigger asChild>
+					<button
+						type="button"
+						aria-label={`Options for ${name}`}
+						className="hover:cursor-pointer hover:bg-gray-300 rounded-md py-1"
+					>
+						<EllipsisVertical className="stroke-gray-500" />
+					</button>
+				</DropdownMenuTrigger>
+
+				<NotebookDropdown />
+			</DropdownMenu>
 		</div>
 	);
 }
