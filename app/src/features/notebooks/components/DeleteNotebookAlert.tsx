@@ -69,6 +69,7 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 					{isDeleting ? (
 						<AlertDialogAction
 							disabled={true}
+                            aria-disabled={true}
 							className="bg-red-500 text-white opacity-75 hover:cursor-not-allowed"
 							onClick={handleDelete}
 						>
@@ -78,6 +79,7 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 					) : (
 						<AlertDialogAction
 							disabled={false}
+                            aria-disabled={false}
 							className="bg-red-500 text-white hover:cursor-pointer"
 							onClick={handleDelete}
 						>
