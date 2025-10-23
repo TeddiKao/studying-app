@@ -6,12 +6,10 @@ import {
 
 function NotebookDropdown() {
 	return (
-		<DropdownMenu>
-			<DropdownMenuContent side="right" sideOffset={8} align="start">
-				<DropdownMenuItem>Edit</DropdownMenuItem>
-				<DropdownMenuItem>Delete</DropdownMenuItem>
-			</DropdownMenuContent>
-		</DropdownMenu>
+		<DropdownMenuContent side="right" sideOffset={8} align="start">
+			<DropdownMenuItem>Edit</DropdownMenuItem>
+			<DropdownMenuItem>Delete</DropdownMenuItem>
+		</DropdownMenuContent>
 	);
 }
 
