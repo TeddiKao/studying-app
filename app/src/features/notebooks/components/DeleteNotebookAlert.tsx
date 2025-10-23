@@ -29,29 +29,32 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 		stopDeleting,
 	} = useDeleteNotebookAlertStore();
 
-    const deleteNotebook = useMutation(api.notebooks.mutations.deleteNotebook);
+	const deleteNotebook = useMutation(api.notebooks.mutations.deleteNotebook);
 
-    async function handleDelete() {
-        startDeleting();
+	async function handleDelete() {
+		startDeleting();
 
-        try {
-            await deleteNotebook({ notebookId })
-            closeAlert();
-        } catch (error) {
-            console.error(error);
-        } finally {
-            stopDeleting();
-        }
-    }
+		try {
+			await deleteNotebook({ notebookId });
+			closeAlert();
+		} catch (error) {
+			console.error(error);
+		} finally {
+			stopDeleting();
+		}
+	}
 
 	return (
-		<AlertDialog open={isOpen} onOpenChange={(open) => {
-            if (open) {
-                openAlert();
-            } else {
-                closeAlert();
-            }
-        }}>
+		<AlertDialog
+			open={isOpen}
+			onOpenChange={(open) => {
+				if (open) {
+					openAlert();
+				} else {
+					closeAlert();
+				}
+			}}
+		>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>Delete notebook?</AlertDialogTitle>
@@ -62,7 +65,13 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction disabled={isDeleting} className="bg-red-500 text-white" onClick={handleDelete}>Delete</AlertDialogAction>
+					<AlertDialogAction
+						disabled={isDeleting}
+						className="bg-red-500 text-white"
+						onClick={handleDelete}
+					>
+						{isDeleting ? "Deleting..." : "Delete"}
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>
