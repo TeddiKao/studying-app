@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
+import { Spinner } from "@/components/ui/spinner";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
@@ -131,9 +132,10 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 								type="submit"
 								disabled={isSubmitting}
 								aria-disabled={isSubmitting}
-								className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
+								className="flex flex-row gap-2 items-center justify-center bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer opacity-75"
 							>
-								{submittingButtonText}
+								<Spinner />
+								<span>{submittingButtonText}</span>
 							</button>
 						) : (
 							<button
