@@ -12,6 +12,10 @@ import { useCreateNotebookFormStore } from "../stores/createNotebookForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
+import { Spinner } from "@/components/ui/spinner";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
@@ -21,11 +25,14 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 	const formTitle = mode === "create" ? "Create notebook" : "Edit notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
+
 	const submitButtonText = mode === "create" ? "Create" : "Save changes";
+	const submittingButtonText = mode === "create" ? "Creating..." : "Saving...";
 
 	const createNotebookForm = useCreateNotebookFormStore();
 
 	const isOpen = createNotebookForm.isOpen;
+	const isSubmitting = createNotebookForm.isSubmitting;
 	const name = createNotebookForm.name;
 	const description = createNotebookForm.description;
 
@@ -35,13 +42,41 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 	const clearDescription = createNotebookForm.clearDescription;
 	const openForm = createNotebookForm.openForm;
 	const closeForm = createNotebookForm.closeForm;
+	const startSubmitting = createNotebookForm.startSubmitting;
+	const stopSubmitting = createNotebookForm.stopSubmitting;
 
-	function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
+	const { user } = useUser();
+
+	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		
-		closeForm();
-		clearName();
-		clearDescription();
+
+		if (!user || !user?.id) return;
+
+		const trimmedName = name.trim();
+		const trimmedDescription = description.trim();
+
+		if (!trimmedName) return;
+
+		startSubmitting();
+
+		try {
+			if (mode === "create") {
+				await createNotebook({
+					name: trimmedName,
+					description: trimmedDescription,
+					ownerId: user.id,
+				});
+
+				closeForm();
+				clearName();
+				clearDescription();
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
+			stopSubmitting();
+		}
 
 		console.log("Form submitted");
 	}
@@ -93,12 +128,26 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 					</div>
 
 					<DialogFooter className="w-full">
-						<button
-							type="submit"
-							className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
-						>
-							{submitButtonText}
-						</button>
+						{isSubmitting ? (
+							<button
+								type="submit"
+								disabled={isSubmitting}
+								aria-disabled={isSubmitting}
+								className="flex flex-row gap-2 items-center justify-center bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer opacity-75"
+							>
+								<Spinner />
+								<span>{submittingButtonText}</span>
+							</button>
+						) : (
+							<button
+								type="submit"
+								disabled={isSubmitting}
+								aria-disabled={isSubmitting}
+								className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
+							>
+								{submitButtonText}
+							</button>
+						)}
 					</DialogFooter>
 				</form>
 			</DialogContent>

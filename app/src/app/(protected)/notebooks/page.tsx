@@ -1,16 +1,21 @@
+"use client";
+
 import NotebookDialog from "@/features/notebooks/components/NotebookDialog";
 import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader/NotebookPageHeader";
 
-import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
-import { auth } from "@clerk/nextjs/server";
 import NotebookCard from "@/features/notebooks/components/NotebookCard";
+import { useUser } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
 
-async function Notebooks() {
-	const user = await auth();
-	const notebooks = await fetchQuery(api.notebooks.queries.fetchNotebooks, {
-		ownerId: user.userId,
-	});
+function Notebooks() {
+	const { user } = useUser();
+
+	const notebooks = useQuery(api.notebooks.queries.fetchNotebooks, {
+		ownerId: user?.id ?? null,
+	})
+
+	if (!notebooks) return null;
 
 	return (
 		<>
