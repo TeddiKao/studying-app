@@ -12,12 +12,13 @@ import { useCreateNotebookFormStore } from "../stores/createNotebookForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "@/components/ui/spinner";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { useEditNotebookFormStore } from "../stores/editNotebookForm";
+import { useEffect } from "react";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
@@ -56,8 +57,18 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const editNotebook = useMutation(api.notebooks.mutations.editNotebook);
+	const notebookInfo = useQuery(api.notebooks.queries.retrieveNotebookInfo, {
+		notebookId: notebookId
+	});
 
 	const { user } = useUser();
+
+	useEffect(() => {
+		if (mode === "edit") {
+			updateName(notebookInfo?.name ?? "");
+			updateDescription(notebookInfo?.description ?? "");
+		}
+	}, [updateName, updateDescription, notebookInfo]);
 
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
