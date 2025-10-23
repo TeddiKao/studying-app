@@ -4,9 +4,15 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { useMutation } from "convex/react";
 import { PencilIcon, Trash2Icon } from "lucide-react";
+import { api } from "../../../../convex/_generated/api";
 
-function NotebookDropdown() {
+type NotebookDropdownProps = {
+	notebookId: string;
+};
+
+function NotebookDropdown({ notebookId }: NotebookDropdownProps) {
 	return (
 		<DropdownMenuContent className="border-gray-300" side="right" sideOffset={8} align="start">
 			<DropdownMenuItem>
