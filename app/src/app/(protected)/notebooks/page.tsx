@@ -46,7 +46,7 @@ function Notebooks() {
 			<NotebookDialog mode="create" notebookId={null} />
 			<NotebookDialog
 				mode="edit"
-				notebookId={(notebookId as Id<"notebooks">) ?? null}
+				notebookId={notebookId ?? null}
 			/>
 		</>
 	);
