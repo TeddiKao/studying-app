@@ -59,4 +59,4 @@ const deleteNotebook = mutation({
     }
 })
 
-export { createNotebook, deleteNotebook }
+export { createNotebook, editNotebook, deleteNotebook }
