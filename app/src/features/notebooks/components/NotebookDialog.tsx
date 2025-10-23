@@ -16,10 +16,11 @@ import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "@/components/ui/spinner";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";
-	notebookId?: string;
+	notebookId: Id<"notebooks"> | null;
 };
 
 function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
