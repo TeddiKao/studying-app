@@ -47,6 +47,10 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 
 		if (!user || !user?.id) return;
 
+		const trimmedName = name.trim();
+
+		if (!trimmedName) return;
+
 		try {
 			if (mode === "create") {
 				await createNotebook({
