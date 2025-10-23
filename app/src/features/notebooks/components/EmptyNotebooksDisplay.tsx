@@ -7,7 +7,7 @@ function EmptyNotebooksDisplay() {
 		<Empty>
 			<EmptyHeader>
 				<EmptyMedia variant="icon">
-					<NotebookIcon />
+					<NotebookIcon className="fill-gray-950" />
 				</EmptyMedia>
                 <EmptyTitle>No notebooks yet</EmptyTitle>
                 <EmptyDescription>You do not have any notebooks yet. Get started by creating one.</EmptyDescription>
