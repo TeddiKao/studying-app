@@ -24,7 +24,9 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 	const formTitle = mode === "create" ? "Create notebook" : "Edit notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
+
 	const submitButtonText = mode === "create" ? "Create" : "Save changes";
+	const submittingButtonText = mode === "create" ? "Creating..." : "Saving...";
 
 	const createNotebookForm = useCreateNotebookFormStore();
 
@@ -124,14 +126,25 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 					</div>
 
 					<DialogFooter className="w-full">
-						<button
-							type="submit"
-							disabled={isSubmitting}
-							aria-disabled={isSubmitting}
-							className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
-						>
-							{submitButtonText}
-						</button>
+						{isSubmitting ? (
+							<button
+								type="submit"
+								disabled={isSubmitting}
+								aria-disabled={isSubmitting}
+								className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
+							>
+								{submittingButtonText}
+							</button>
+						) : (
+							<button
+								type="submit"
+								disabled={isSubmitting}
+								aria-disabled={isSubmitting}
+								className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
+							>
+								{submitButtonText}
+							</button>
+						)}
 					</DialogFooter>
 				</form>
 			</DialogContent>
