@@ -15,12 +15,17 @@ type NotebookDropdownProps = {
 };
 
 function NotebookDropdown({ notebookId }: NotebookDropdownProps) {
-	const { openAlert } = useDeleteNotebookAlertStore();
+	const { openAlert, updateNotebookId: updateAlertNotebookId } = useDeleteNotebookAlertStore();
 	const { openForm, updateNotebookId } = useEditNotebookFormStore();
 
 	function handleEdit() {
 		updateNotebookId(notebookId);
 		openForm();
+	}
+
+	function handleDelete() {
+		updateAlertNotebookId(notebookId);
+		openAlert();
 	}
 
 	return (
@@ -35,7 +40,7 @@ function NotebookDropdown({ notebookId }: NotebookDropdownProps) {
 					<PencilIcon />
 					<span className="text-sm">Edit</span>
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={openAlert}>
+				<DropdownMenuItem onClick={handleDelete}>
 					<Trash2Icon className="stroke-red-500" />
 					<span className="text-sm text-red-500">Delete</span>
 				</DropdownMenuItem>
