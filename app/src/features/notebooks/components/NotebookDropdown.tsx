@@ -6,7 +6,7 @@ import {
 
 function NotebookDropdown() {
 	return (
-		<DropdownMenuContent side="right" sideOffset={8} align="start">
+		<DropdownMenuContent className="border-gray-300" side="right" sideOffset={8} align="start">
 			<DropdownMenuItem>Edit</DropdownMenuItem>
 			<DropdownMenuItem>Delete</DropdownMenuItem>
 		</DropdownMenuContent>
