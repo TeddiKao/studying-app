@@ -21,6 +21,20 @@ const retrieveNotebookInfo = query({
 		if (!notebookId) return null;
 
 		const notebook = await ctx.db.get(notebookId);
+		if (!notebook) {
+			throw new Error("Notebook not found");
+		}
+
+		const userIdentity = await ctx.auth.getUserIdentity();
+		if (!userIdentity) {
+			throw new Error("Not authenticated");
+		}
+
+		const notebookOwner = notebook.owner;
+		if (notebookOwner !== userIdentity.subject) {
+			throw new Error("You do not have permission to view this notebook");
+		}
+
 		return notebook;
 	},
 })
