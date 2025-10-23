@@ -8,6 +8,7 @@ import NotebookIcon from "@/shared/components/icons/Notebook";
 import { EllipsisVertical } from "lucide-react";
 import NotebookDropdown from "./NotebookDropdown";
 import { useNotebookDropdownStore } from "../stores/notebookDropdown";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 type NotebookCardProps = {
 	name: string;
@@ -63,7 +64,7 @@ function NotebookCard({ name, notesCount, notebookId }: NotebookCardProps) {
 					</button>
 				</DropdownMenuTrigger>
 
-				<NotebookDropdown />
+				<NotebookDropdown notebookId={notebookId as Id<"notebooks">} />
 			</DropdownMenu>
 		</div>
 	);
