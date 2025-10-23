@@ -52,6 +52,8 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const startSubmitting = formStore.startSubmitting;
 	const stopSubmitting = formStore.stopSubmitting;
 
+	const clearNotebookId = editNotebookForm.clearNotebookId;
+
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const editNotebook = useMutation(api.notebooks.mutations.editNotebook);
 
@@ -83,6 +85,8 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 					name: trimmedName,
 					description: trimmedDescription,
 				});
+
+				clearNotebookId();
 			}
 
 			closeForm();
@@ -107,6 +111,10 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 					closeForm();
 					clearName();
 					clearDescription();
+
+					if (mode === "edit") {
+						clearNotebookId();
+					}
 				}
 			}}
 		>
