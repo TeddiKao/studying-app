@@ -15,4 +15,14 @@ const fetchNotebooks = query({
 	},
 });
 
-export { fetchNotebooks }
+const retrieveNotebookInfo = query({
+	args: { notebookId: v.union(v.id("notebooks"), v.null()) },
+	handler: async (ctx, { notebookId }) => {
+		if (!notebookId) return null;
+
+		const notebook = await ctx.db.get(notebookId);
+		return notebook;
+	},
+})
+
+export { fetchNotebooks, retrieveNotebookInfo }
