@@ -65,7 +65,15 @@ const deleteNotebook = mutation({
             throw new Error("Not authenticated");
         }
 
-        await ctx.db.delete(notebookId);
+        const notebookToDelete = await ctx.db.get(notebookId);
+        if (!notebookToDelete) {
+            throw new Error("Notebook not found");
+        }
+
+        const notebookOwner = notebookToDelete.owner;
+        if (notebookOwner !== userIdentity.subject) {
+            throw new Error("You do not have permission to delete this notebook");
+        }
     }
 })
 
