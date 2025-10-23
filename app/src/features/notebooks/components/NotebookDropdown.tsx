@@ -46,7 +46,7 @@ function NotebookDropdown({ notebookId }: NotebookDropdownProps) {
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 
-			<DeleteNotebookAlert notebookId={notebookId} />
+			<DeleteNotebookAlert />
 		</>
 	);
 }

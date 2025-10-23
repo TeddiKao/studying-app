@@ -16,11 +16,8 @@ import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { Spinner } from "@/components/ui/spinner";
 
-type DeleteNotebookAlertProps = {
-	notebookId: Id<"notebooks">;
-};
 
-function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
+function DeleteNotebookAlert() {
 	const {
 		isOpen,
 		isDeleting,
@@ -28,11 +25,14 @@ function DeleteNotebookAlert({ notebookId }: DeleteNotebookAlertProps) {
 		closeAlert,
 		startDeleting,
 		stopDeleting,
+		notebookId
 	} = useDeleteNotebookAlertStore();
 
 	const deleteNotebook = useMutation(api.notebooks.mutations.deleteNotebook);
 
 	async function handleDelete() {
+		if (!notebookId) return;
+		
 		startDeleting();
 
 		try {
