@@ -29,6 +29,7 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 	const createNotebookForm = useCreateNotebookFormStore();
 
 	const isOpen = createNotebookForm.isOpen;
+	const isSubmitting = createNotebookForm.isSubmitting;
 	const name = createNotebookForm.name;
 	const description = createNotebookForm.description;
 
@@ -38,6 +39,8 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 	const clearDescription = createNotebookForm.clearDescription;
 	const openForm = createNotebookForm.openForm;
 	const closeForm = createNotebookForm.closeForm;
+	const startSubmitting = createNotebookForm.startSubmitting;
+	const stopSubmitting = createNotebookForm.stopSubmitting;
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const { user } = useUser();
@@ -119,6 +122,8 @@ function NotebookDialog({ mode }: NotebookDialogProps) {
 					<DialogFooter className="w-full">
 						<button
 							type="submit"
+							disabled={isSubmitting}
+							aria-disabled={isSubmitting}
 							className="bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
 						>
 							{submitButtonText}
