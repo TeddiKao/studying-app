@@ -27,20 +27,20 @@ function Notebooks() {
 			<div className="flex flex-col gap-3">
 				<NotebookPageHeader />
 
-				<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-					{notebooks.length > 0 ? (
-						notebooks.map((notebook) => (
+				{notebooks.length > 0 ? (
+					<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+						{notebooks.map((notebook) => (
 							<NotebookCard
 								key={notebook._id}
 								notebookId={notebook._id}
 								name={notebook.name}
 								notesCount={notebook.noteCount}
 							/>
-						))
-					) : (
-						<EmptyNotebooksDisplay />
-					)}
-				</div>
+						))}
+					</div>
+				) : (
+					<EmptyNotebooksDisplay />
+				)}
 			</div>
 
 			<NotebookDialog mode="create" notebookId={null} />
