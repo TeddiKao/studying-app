@@ -9,6 +9,7 @@ import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { useEditNotebookFormStore } from "@/features/notebooks/stores/editNotebookForm";
 import { Id } from "../../../../convex/_generated/dataModel";
+import EmptyNotebooksDisplay from "@/features/notebooks/components/EmptyNotebooksDisplay";
 
 function Notebooks() {
 	const { user } = useUser();
@@ -27,14 +28,18 @@ function Notebooks() {
 				<NotebookPageHeader />
 
 				<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-					{notebooks.map((notebook) => (
-						<NotebookCard
-							key={notebook._id}
-							notebookId={notebook._id}
-							name={notebook.name}
-							notesCount={notebook.noteCount}
-						/>
-					))}
+					{notebooks.length > 0 ? (
+						notebooks.map((notebook) => (
+							<NotebookCard
+								key={notebook._id}
+								notebookId={notebook._id}
+								name={notebook.name}
+								notesCount={notebook.noteCount}
+							/>
+						))
+					) : (
+						<EmptyNotebooksDisplay />
+					)}
 				</div>
 			</div>
 
