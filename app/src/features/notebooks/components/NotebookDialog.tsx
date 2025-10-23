@@ -53,6 +53,8 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const stopSubmitting = formStore.stopSubmitting;
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
+	const editNotebook = useMutation(api.notebooks.mutations.editNotebook);
+
 	const { user } = useUser();
 
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -77,6 +79,14 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 				closeForm();
 				clearName();
 				clearDescription();
+			} else if (mode === "edit") {
+				if (!notebookId) return;
+
+				await editNotebook({
+					notebookId: notebookId,
+					name: trimmedName,
+					description: trimmedDescription,
+				})
 			}
 		} catch (error) {
 			console.error(error);
