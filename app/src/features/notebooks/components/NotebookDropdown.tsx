@@ -1,7 +1,6 @@
 "use client";
 
 import {
-	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
