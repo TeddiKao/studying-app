@@ -24,4 +24,19 @@ const createNotebook = mutation({
     }
 })
 
-export { createNotebook }
+const deleteNotebook = mutation({
+    args: {
+        notebookId: v.id("notebooks"),
+    },
+
+    handler: async (ctx, { notebookId }) => {
+        const userIdentity = await ctx.auth.getUserIdentity();
+        if (!userIdentity) {
+            throw new Error("Not authenticated");
+        }
+
+        await ctx.db.delete(notebookId);
+    }
+})
+
+export { createNotebook, deleteNotebook }
