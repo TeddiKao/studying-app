@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Id } from "../../../../convex/_generated/dataModel";
 
-type CreateNotebookFormState = {
+type EditNotebookFormState = {
     isOpen: boolean;
     isSubmitting: boolean;
     
@@ -24,7 +24,7 @@ type CreateNotebookFormState = {
     clearNotebookId: () => void;
 }
 
-const useEditNotebookFormStore = create<CreateNotebookFormState>((set) => ({
+const useEditNotebookFormStore = create<EditNotebookFormState>((set) => ({
     isOpen: false,
     isSubmitting: false,
 
