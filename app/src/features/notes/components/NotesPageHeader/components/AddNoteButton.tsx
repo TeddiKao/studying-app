@@ -5,7 +5,7 @@ import { PlusIcon } from "lucide-react";
 
 function AddNoteButton() {
     return (
-        <Button type="button">
+        <Button className="hover:cursor-pointer" type="button">
             <PlusIcon />
             <span>Add note</span>
         </Button>
