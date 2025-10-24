@@ -30,14 +30,14 @@ const retrieveNotebookInfo = query({
 	handler: async (ctx, { notebookId }) => {
 		if (!notebookId) return null;
 
-		const notebook = await ctx.db.get(notebookId);
-		if (!notebook) {
-			throw new Error("Notebook not found");
-		}
-
 		const userIdentity = await ctx.auth.getUserIdentity();
 		if (!userIdentity) {
 			throw new Error("Not authenticated");
+		}
+
+		const notebook = await ctx.db.get(notebookId);
+		if (!notebook) {
+			throw new Error("Notebook not found");
 		}
 
 		const notebookOwner = notebook.owner;
