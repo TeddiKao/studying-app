@@ -13,12 +13,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "@/components/ui/spinner";
-import { Id } from "../../../../convex/_generated/dataModel";
 import { useEditNotebookFormStore } from "../stores/editNotebookForm";
 import { useEffect } from "react";
+import { api } from "@convex/_generated/api";
+import { Id } from "@convex/_generated/dataModel";
 
 type NotebookDialogProps = {
 	mode: "create" | "edit";

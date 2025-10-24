@@ -5,10 +5,10 @@ import {
 	DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { PencilIcon, Trash2Icon } from "lucide-react";
-import { Id } from "../../../../convex/_generated/dataModel";
 import { useDeleteNotebookAlertStore } from "../stores/deleteNotebookAlert";
 import DeleteNotebookAlert from "./DeleteNotebookAlert";
 import { useEditNotebookFormStore } from "../stores/editNotebookForm";
+import { Id } from "@convex/_generated/dataModel";
 
 type NotebookDropdownProps = {
 	notebookId: Id<"notebooks">;

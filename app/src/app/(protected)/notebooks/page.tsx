@@ -3,12 +3,12 @@
 import NotebookDialog from "@/features/notebooks/components/NotebookDialog";
 import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader/NotebookPageHeader";
 
-import { api } from "../../../../convex/_generated/api";
 import NotebookCard from "@/features/notebooks/components/NotebookCard";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { useEditNotebookFormStore } from "@/features/notebooks/stores/editNotebookForm";
 import EmptyNotebooksDisplay from "@/features/notebooks/components/EmptyNotebooksDisplay";
+import { api } from "@convex/_generated/api";
 
 function Notebooks() {
 	const { user } = useUser();

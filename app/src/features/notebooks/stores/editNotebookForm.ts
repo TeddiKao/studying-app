@@ -1,5 +1,5 @@
+import { Id } from "@convex/_generated/dataModel";
 import { create } from "zustand";
-import { Id } from "../../../../convex/_generated/dataModel";
 
 type EditNotebookFormState = {
     isOpen: boolean;
