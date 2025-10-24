@@ -8,7 +8,6 @@ import NotebookCard from "@/features/notebooks/components/NotebookCard";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { useEditNotebookFormStore } from "@/features/notebooks/stores/editNotebookForm";
-import { Id } from "../../../../convex/_generated/dataModel";
 import EmptyNotebooksDisplay from "@/features/notebooks/components/EmptyNotebooksDisplay";
 
 function Notebooks() {
