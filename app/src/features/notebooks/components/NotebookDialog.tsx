@@ -52,6 +52,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const closeForm = formStore.closeForm;
 	const startSubmitting = formStore.startSubmitting;
 	const stopSubmitting = formStore.stopSubmitting;
+	const performFormCleanup = formStore.performFormCleanup;
 
 	const clearNotebookId = editNotebookForm.clearNotebookId;
 
@@ -96,13 +97,9 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 					name: trimmedName,
 					description: trimmedDescription,
 				});
-
-				clearNotebookId();
 			}
 
-			closeForm();
-			clearName();
-			clearDescription();
+			performFormCleanup();
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -119,13 +116,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 				if (open) {
 					openForm();
 				} else {
-					closeForm();
-					clearName();
-					clearDescription();
-
-					if (mode === "edit") {
-						clearNotebookId();
-					}
+					performFormCleanup();
 				}
 			}}
 		>
