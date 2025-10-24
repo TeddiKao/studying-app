@@ -6,6 +6,16 @@ const fetchNotebooks = query({
 	handler: async (ctx, { ownerId }) => {
 		if (!ownerId) return [];
 		
+		const userIdentity = await ctx.auth.getUserIdentity();
+		if (!userIdentity) {
+			throw new Error("Not authenticated");
+		}
+
+		const requesterId = userIdentity.subject;
+		if (requesterId !== ownerId) {
+			throw new Error("You do not have permission to view this notebook");
+		}
+
 		const notebooks = await ctx.db
 			.query("notebooks")
 			.withIndex("by_owner", (q) => q.eq("owner", ownerId))
