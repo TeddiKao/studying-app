@@ -9,6 +9,7 @@ import { EllipsisVertical } from "lucide-react";
 import NotebookDropdown from "./NotebookDropdown";
 import { useNotebookDropdownStore } from "../stores/notebookDropdown";
 import { Id } from "@convex/_generated/dataModel";
+import { useRouter } from "next/router";
 
 type NotebookCardProps = {
 	name: string;
@@ -24,13 +25,18 @@ function NotebookCard({ name, notesCount, notebookId }: NotebookCardProps) {
 		updateActiveNotebookDropdownId,
 		clearActiveNotebookDropdownId,
 	} = useNotebookDropdownStore();
+	
+	const router = useRouter();
+
 	const isOpen = activeNotebookDropdownId === notebookId;
+
 
 	return (
 		<div className="flex flex-row items-center bg-gray-50 rounded-md shadow-md p-2">
 			<button
 				type="button"
 				aria-label={`Open notebook ${name}`}
+				onClick={() => router.push(`/notebooks/${notebookId}`)}
 				className="flex flex-row gap-2 items-center hover:cursor-pointer grow"
 			>
 				<NotebookIcon className="w-6 h-6 fill-gray-500" />
