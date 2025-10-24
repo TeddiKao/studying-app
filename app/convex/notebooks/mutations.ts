@@ -74,6 +74,8 @@ const deleteNotebook = mutation({
         if (notebookOwner !== userIdentity.subject) {
             throw new Error("You do not have permission to delete this notebook");
         }
+
+        await ctx.db.delete(notebookId);
     }
 })
 

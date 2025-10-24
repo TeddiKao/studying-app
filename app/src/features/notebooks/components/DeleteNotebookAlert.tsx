@@ -12,9 +12,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useDeleteNotebookAlertStore } from "../stores/deleteNotebookAlert";
 import { useMutation } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
-import { Id } from "../../../../convex/_generated/dataModel";
 import { Spinner } from "@/components/ui/spinner";
+import { api } from "@convex/_generated/api";
 
 
 function DeleteNotebookAlert() {
