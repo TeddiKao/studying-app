@@ -17,6 +17,8 @@ type CreateNotebookFormState = {
 
     startSubmitting: () => void;
     stopSubmitting: () => void;
+
+    performFormCleanup: () => void;
 }
 
 const useCreateNotebookFormStore = create<CreateNotebookFormState>((set) => ({
@@ -36,6 +38,8 @@ const useCreateNotebookFormStore = create<CreateNotebookFormState>((set) => ({
 
     startSubmitting: () => set({ isSubmitting: true }),
     stopSubmitting: () => set({ isSubmitting: false }),
+
+    performFormCleanup: () => set({ name: "", description: "", isOpen: false }),
 }));
 
 export { useCreateNotebookFormStore };
