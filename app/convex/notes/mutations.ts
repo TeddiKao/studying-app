@@ -68,4 +68,4 @@ const deleteNote = mutation({
     }
 })
 
-export { createNote }
+export { createNote, deleteNote }
