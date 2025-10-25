@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogDescription, AlertDialogTitle, AlertDialogHeader, AlertDialogFooter, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { useDeleteNoteAlertStore } from "../stores/deleteNoteAlert";
 import { Spinner } from "@/components/ui/spinner";
