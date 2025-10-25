@@ -37,7 +37,7 @@ function NoteDropdown({ noteId }: NoteDropdownProps) {
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 
-			<DeleteNoteAlert />
+			<DeleteNoteAlert noteId={noteId} />
 		</>
 	);
 }
