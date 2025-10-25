@@ -1,4 +1,3 @@
-import NoteCard from "@/features/notes/components/NoteCard";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
 
 function NotesPage() {
