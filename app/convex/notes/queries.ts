@@ -13,9 +13,16 @@ const fetchNotes = query({
 		}
 
 		const requesterId = userIdentity.subject;
-		if (requesterId !== notebookId) {
-			throw new Error("You do not have permission to view this notebook");
-		}
+        const notebook = await ctx.db.get(notebookId);
+
+        if (!notebook) {
+            throw new Error("Notebook not found");
+        }
+
+        const notebookOwner = notebook.owner;
+        if (notebookOwner !== requesterId) {
+            throw new Error("You do not have permission to view this notebook");
+        }
 
 		const notes = await ctx.db
 			.query("notes")
