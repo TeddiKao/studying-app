@@ -31,6 +31,8 @@ const createNote = mutation({
             description,
             notebookId,
         });
+
+        return newNoteId;
     }
 })
 
