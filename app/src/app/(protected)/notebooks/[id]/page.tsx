@@ -1,9 +1,14 @@
+import NoteCard from "@/features/notes/components/NoteCard";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
 
 function NotesPage() {
     return (
         <div className="flex flex-col gap-3">
             <NotesPageHeader />
+
+            <div className="grid grid-cols-4">
+                <NoteCard />
+            </div>
         </div>
     )
 }
