@@ -6,7 +6,7 @@ function NotesPage() {
         <div className="flex flex-col gap-3">
             <NotesPageHeader />
 
-            <div className="grid grid-cols-4">
+            <div className="grid grid-cols-4 gap-4">
                 <NoteCard />
             </div>
         </div>
