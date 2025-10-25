@@ -27,7 +27,7 @@ function NoteCard({ noteName }: NoteCardProps) {
 			</button>
 
 			<DropdownMenu>
-				<DropdownMenuTrigger>
+				<DropdownMenuTrigger asChild>
 					<button
 						type="button"
 						aria-label={`Options for note ${noteName}`}
