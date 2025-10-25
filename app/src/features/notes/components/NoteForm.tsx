@@ -32,25 +32,25 @@ function NoteForm({ mode, noteId }: NoteFormProps) {
 		mode === "create" ? "Creating..." : "Saving...";
 
 	const createNoteFormStore = useCreateNoteFormStore();
+	const noteFormStore =
+		mode === "create" ? createNoteFormStore : createNoteFormStore;
 
-	const isOpen = createNoteFormStore.isOpen;
-	const isSubmitting = createNoteFormStore.isSubmitting;
-	const name = createNoteFormStore.name;
-	const description = createNoteFormStore.description;
-
-	const startSubmitting = createNoteFormStore.startSubmitting;
-	const stopSubmitting = createNoteFormStore.stopSubmitting;
-	const performFormCleanup = createNoteFormStore.performFormCleanup;
-
-	const openForm = createNoteFormStore.openForm;
-	const closeForm = createNoteFormStore.closeForm;
-
-	const updateName = createNoteFormStore.updateName;
-	const updateDescription = createNoteFormStore.updateDescription;
-
-	const clearName = createNoteFormStore.clearName;
-	const clearDescription = createNoteFormStore.clearDescription;
-
+	const {
+		isOpen,
+		isSubmitting,
+		name,
+		description,
+		startSubmitting,
+		stopSubmitting,
+		performFormCleanup,
+		openForm,
+		closeForm,
+		updateName,
+		updateDescription,
+		clearName,
+		clearDescription,
+	} = noteFormStore;
+	
 	function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
