@@ -15,9 +15,10 @@ import { Spinner } from "@/components/ui/spinner";
 import { Id } from "@convex/_generated/dataModel";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { useEditNoteFormStore } from "../stores/editNoteForm";
+import { useEffect } from "react";
 
 type NoteFormProps = {
 	mode: "create" | "edit";
@@ -54,6 +55,15 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 
 	const createNote = useMutation(api.notes.mutations.createNote);
 	const editNote = useMutation(api.notes.mutations.editNote);
+
+	const noteInfo = useQuery(api.notes.queries.retrieveNoteInfo, noteId ? {
+		noteId: noteId
+	} : "skip")
+
+	useEffect(() => {
+		updateName(noteInfo?.name ?? "");
+		updateDescription(noteInfo?.description ?? "");
+	}, []);
 	
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
