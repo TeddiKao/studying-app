@@ -33,4 +33,36 @@ const fetchNotes = query({
 	},
 });
 
-export { fetchNotes };
+const retrieveNoteInfo = query({
+	args: {
+		noteId: v.id("notes"),
+	},
+
+	handler: async (ctx, { noteId }) => {
+		const userIdentity = await ctx.auth.getUserIdentity();
+		if (!userIdentity) {
+			throw new Error("Not authenticated");
+		}
+
+		const requesterId = userIdentity.subject;
+		const note = await ctx.db.get(noteId);
+
+		if (!note) {
+			throw new Error("Note not found");
+		}
+
+		const notebook = await ctx.db.get(note.notebookId);
+		if (!notebook) {
+			throw new Error("Notebook not found");
+		}
+
+		const notebookOwner = notebook.owner;
+		if (notebookOwner !== requesterId) {
+			throw new Error("You do not have permission to view this note");
+		}
+
+		return note;
+	},
+});
+
+export { fetchNotes, retrieveNoteInfo };

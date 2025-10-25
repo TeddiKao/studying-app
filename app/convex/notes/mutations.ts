@@ -36,6 +36,41 @@ const createNote = mutation({
     }
 });
 
+const editNote = mutation({
+    args: {
+        noteId: v.id("notes"),
+        name: v.string(),
+        description: v.string(),
+    },
+
+    handler: async (ctx, { noteId, name, description }) => {
+        const userIdentity = await ctx.auth.getUserIdentity();
+        if (!userIdentity) {
+            throw new Error("Not authenticated");
+        }
+
+        const noteToEdit = await ctx.db.get(noteId);
+        if (!noteToEdit) {
+            throw new Error("Note not found");
+        }
+
+        const notebook = await ctx.db.get(noteToEdit.notebookId);
+        if (!notebook) {
+            throw new Error("Notebook not found");
+        }
+
+        const notebookOwner = notebook.owner;
+        if (notebookOwner !== userIdentity.subject) {
+            throw new Error("You do not have permission to edit this note");
+        }
+
+        await ctx.db.patch(noteId, {
+            name,
+            description,
+        });
+    }
+})
+
 const deleteNote = mutation({
     args: {
         noteId: v.id("notes"),
@@ -68,4 +103,4 @@ const deleteNote = mutation({
     }
 })
 
-export { createNote, deleteNote }
+export { createNote, editNote, deleteNote }
