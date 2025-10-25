@@ -15,15 +15,16 @@ import { Spinner } from "@/components/ui/spinner";
 import { Id } from "@convex/_generated/dataModel";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "convex/react";
+import { api } from "@convex/_generated/api";
 
 type NoteFormProps = {
 	mode: "create" | "edit";
-
-	// @ts-ignore Functionality will be implemented later
 	noteId: Id<"notes"> | null;
+	notebookId: Id<"notebooks">;
 };
 
-function NoteForm({ mode, noteId }: NoteFormProps) {
+function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	const formTitle = mode === "create" ? "Create Note" : "Edit Note";
 	const formDescription =
 		mode === "create" ? "Create a new note" : "Edit this note";
@@ -47,14 +48,26 @@ function NoteForm({ mode, noteId }: NoteFormProps) {
 		closeForm,
 		updateName,
 		updateDescription,
-		clearName,
-		clearDescription,
 	} = noteFormStore;
+
+	const createNote = useMutation(api.notes.mutations.createNote);
 	
-	function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
 		startSubmitting();
+
+		try {
+			if (mode === "create") {
+				await createNote({ name, description, notebookId });
+			}
+
+			performFormCleanup();
+		} catch (error) {
+			console.error(error);
+		} finally {
+			stopSubmitting();
+		}
 	}
 
 	return (
