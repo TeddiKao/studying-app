@@ -33,8 +33,10 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		mode === "create" ? "Creating..." : "Saving...";
 
 	const createNoteFormStore = useCreateNoteFormStore();
+	const editNoteFormStore = useCreateNoteFormStore();
+
 	const noteFormStore =
-		mode === "create" ? createNoteFormStore : createNoteFormStore;
+		mode === "create" ? createNoteFormStore : editNoteFormStore;
 
 	const {
 		isOpen,
@@ -45,7 +47,6 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		stopSubmitting,
 		performFormCleanup,
 		openForm,
-		closeForm,
 		updateName,
 		updateDescription,
 	} = noteFormStore;
