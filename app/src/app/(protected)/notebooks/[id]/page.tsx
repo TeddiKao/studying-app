@@ -1,7 +1,20 @@
 import NoteForm from "@/features/notes/components/NoteForm";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
+import { api } from "@convex/_generated/api";
+import { Id } from "@convex/_generated/dataModel";
+import { useQuery } from "convex/react";
 
-function NotesPage() {
+type NotesPageProps = {
+	params: Promise<{ id: Id<"notebooks"> }>;
+};
+
+async function NotesPage({ params }: NotesPageProps) {
+	const { id } = await params;
+
+	const fetchNotebooks = useQuery(api.notes.queries.fetchNotes, {
+		notebookId: id,
+	})
+
 	return (
 		<>
 			<div className="flex flex-col gap-3">
