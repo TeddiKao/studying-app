@@ -87,7 +87,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 					<DialogDescription>{formDescription}</DialogDescription>
 				</DialogHeader>
 
-				<form className="flex flex-col gap-4">
+				<form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
 					<div className="flex flex-col gap-1">
 						<Label htmlFor="name">Name</Label>
 						<Input
