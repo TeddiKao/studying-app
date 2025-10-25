@@ -52,6 +52,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	} = noteFormStore;
 
 	const createNote = useMutation(api.notes.mutations.createNote);
+	const editNote = useMutation(api.notes.mutations.editNote);
 	
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -61,6 +62,10 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		try {
 			if (mode === "create") {
 				await createNote({ name, description, notebookId });
+			} else {
+				if (!noteId) return;
+
+				await editNote({ noteId, name, description });
 			}
 
 			performFormCleanup();
