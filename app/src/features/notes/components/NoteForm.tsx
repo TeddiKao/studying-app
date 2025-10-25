@@ -56,14 +56,18 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	const createNote = useMutation(api.notes.mutations.createNote);
 	const editNote = useMutation(api.notes.mutations.editNote);
 
+	console.log(noteId);
+
 	const noteInfo = useQuery(api.notes.queries.retrieveNoteInfo, noteId ? {
 		noteId: noteId
 	} : "skip")
 
 	useEffect(() => {
-		updateName(noteInfo?.name ?? "");
-		updateDescription(noteInfo?.description ?? "");
-	}, []);
+		if (mode === "edit") {
+			updateName(noteInfo?.name ?? "");
+			updateDescription(noteInfo?.description ?? "");
+		}
+	}, [noteInfo, updateName, updateDescription]);
 	
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
