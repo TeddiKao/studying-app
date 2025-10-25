@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
+import { useEditNoteFormStore } from "../stores/editNoteForm";
 
 type NoteFormProps = {
 	mode: "create" | "edit";
@@ -33,10 +34,12 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		mode === "create" ? "Creating..." : "Saving...";
 
 	const createNoteFormStore = useCreateNoteFormStore();
-	const editNoteFormStore = useCreateNoteFormStore();
+	const editNoteFormStore = useEditNoteFormStore();
 
 	const noteFormStore =
 		mode === "create" ? createNoteFormStore : editNoteFormStore;
+
+	console.log(mode, noteFormStore.isOpen);
 
 	const {
 		isOpen,
