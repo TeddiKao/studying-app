@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
@@ -5,12 +7,21 @@ import {
 import NoteIcon from "@/shared/components/icons/Note";
 import { EllipsisVertical } from "lucide-react";
 import NoteDropdown from "./NoteDropdown";
+import { useNoteDropdownStore } from "../stores/noteDropdown";
+import { Id } from "@convex/_generated/dataModel";
 
 type NoteCardProps = {
 	noteName: string;
+	noteId: Id<"notes">;
 };
 
-function NoteCard({ noteName }: NoteCardProps) {
+function NoteCard({ noteName, noteId }: NoteCardProps) {
+	const {
+		activeNoteDropdownId,
+		updateActiveNoteDropdownId,
+		clearActiveNoteDropdownId,
+	} = useNoteDropdownStore();
+
 	return (
 		<div className="flex flex-row items-center bg-gray-50 rounded-md shadow-md p-2">
 			<button
@@ -26,7 +37,16 @@ function NoteCard({ noteName }: NoteCardProps) {
 				</span>
 			</button>
 
-			<DropdownMenu>
+			<DropdownMenu
+				open={activeNoteDropdownId === noteId}
+				onOpenChange={(open) => {
+					if (open) {
+						updateActiveNoteDropdownId(noteId);
+					} else {
+						clearActiveNoteDropdownId();
+					}
+				}}
+			>
 				<DropdownMenuTrigger asChild>
 					<button
 						type="button"
