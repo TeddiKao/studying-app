@@ -27,7 +27,7 @@ function NoteForm({ mode, noteId }: NoteFormProps) {
 	const formTitle = mode === "create" ? "Create Note" : "Edit Note";
 	const formDescription =
 		mode === "create" ? "Create a new note" : "Edit this note";
-	const submitButtonText = mode === "create" ? "Create" : "Save changes";
+	const submitButtonText = mode === "create" ? "Create note" : "Save changes";
 	const submittingButtonText =
 		mode === "create" ? "Creating..." : "Saving...";
 
