@@ -23,7 +23,7 @@ const createNote = mutation({
 
         const notebookOwner = notebook.owner;
         if (notebookOwner !== requesterId) {
-            throw new Error("You do not have permission to view this notebook");
+            throw new Error("You do not have permission to create notes in this notebook");
         }
 
         const newNoteId = await ctx.db.insert("notes", {
@@ -61,7 +61,7 @@ const deleteNote = mutation({
 
         const notebookOwner = notebook.owner;
         if (notebookOwner !== requesterId) {
-            throw new Error("You do not have permission to view this notebook");
+            throw new Error("You do not have permission to delete notes from this notebook");
         }
 
         await ctx.db.delete(noteId);
