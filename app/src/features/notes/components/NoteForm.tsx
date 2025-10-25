@@ -51,6 +51,12 @@ function NoteForm({ mode, noteId }: NoteFormProps) {
 	const clearName = createNoteFormStore.clearName;
 	const clearDescription = createNoteFormStore.clearDescription;
 
+	function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+
+		startSubmitting();
+	}
+
 	return (
 		<Dialog
 			open={isOpen}
