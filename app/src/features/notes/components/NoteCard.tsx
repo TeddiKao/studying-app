@@ -57,7 +57,7 @@ function NoteCard({ noteName, noteId }: NoteCardProps) {
 					</button>
 				</DropdownMenuTrigger>
 
-				<NoteDropdown />
+				<NoteDropdown noteId={noteId} />
 			</DropdownMenu>
 		</div>
 	);
