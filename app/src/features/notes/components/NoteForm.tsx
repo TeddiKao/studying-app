@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Id } from "@convex/_generated/dataModel";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 type NoteFormProps = {
 	mode: "create" | "edit";
@@ -93,24 +94,24 @@ function NoteForm({ mode, noteId }: NoteFormProps) {
 
 					<DialogFooter className="w-full">
 						{isSubmitting ? (
-							<button
+							<Button
 								type="submit"
 								disabled={isSubmitting}
 								aria-disabled={isSubmitting}
-								className="flex flex-row gap-2 items-center justify-center bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer opacity-75"
+								className="flex flex-row gap-2 items-center justify-center hover:cursor-pointer opacity-75 w-full"
 							>
 								<Spinner />
 								<span>{submittingButtonText}</span>
-							</button>
+							</Button>
 						) : (
-							<button
+							<Button
 								type="submit"
 								disabled={isSubmitting}
 								aria-disabled={isSubmitting}
-								className="flex flex-row gap-2 items-center justify-center bg-gray-950 text-white px-4 py-2 rounded-md w-full hover:cursor-pointer"
+								className="flex flex-row gap-2 items-center justify-center hover:cursor-pointer w-full"
 							>
 								<span>{submitButtonText}</span>
-							</button>
+							</Button>
 						)}
 					</DialogFooter>
 				</form>
