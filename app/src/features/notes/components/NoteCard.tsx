@@ -1,7 +1,11 @@
 import NoteIcon from "@/shared/components/icons/Note";
 import { EllipsisVertical } from "lucide-react";
 
-function NoteCard() {
+type NoteCardProps = {
+    noteName: string;
+}
+
+function NoteCard({ noteName }: NoteCardProps) {
 	return (
 		<div className="flex flex-row items-center bg-gray-50 rounded-md shadow-md p-2">
 			<button
@@ -11,7 +15,7 @@ function NoteCard() {
 				<NoteIcon className="w-6 h-6 stroke-gray-500" />
 				<span className="flex flex-col gap-0.5 text-left">
 					<span className="text-lg font-semibold text-left">
-						Chapter 5
+						{noteName}
 					</span>
 				</span>
 			</button>
