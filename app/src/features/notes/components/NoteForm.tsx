@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Id } from "@convex/_generated/dataModel";
+import { Textarea } from "@/components/ui/textarea";
 
 type NoteFormProps = {
 	mode: "create" | "edit";
@@ -80,12 +81,13 @@ function NoteForm({ mode, noteId }: NoteFormProps) {
 
 					<div className="flex flex-col gap-1">
 						<Label htmlFor="description">Description</Label>
-						<Input
-							type="text"
+						<Textarea
 							id="description"
 							value={description}
 							placeholder="Note description"
 							onChange={(e) => updateDescription(e.target.value)}
+							rows={4}
+							className="resize-none"
 						/>
 					</div>
 
