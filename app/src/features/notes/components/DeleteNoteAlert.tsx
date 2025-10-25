@@ -18,9 +18,9 @@ function DeleteNoteAlert() {
 		>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Delete notebook?</AlertDialogTitle>
+					<AlertDialogTitle>Delete note?</AlertDialogTitle>
 					<AlertDialogDescription>
-						Are you sure you want to delete this notebook?
+						Are you sure you want to delete this note?
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 
