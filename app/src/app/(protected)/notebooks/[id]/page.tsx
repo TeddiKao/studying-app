@@ -1,16 +1,19 @@
+"use client";
+
 import NoteCard from "@/features/notes/components/NoteCard";
 import NoteForm from "@/features/notes/components/NoteForm";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { useQuery } from "convex/react";
+import { useParams } from "next/navigation";
 
-type NotesPageProps = {
-	params: Promise<{ id: Id<"notebooks"> }>;
-};
+type NotesPageParams = {
+	id: Id<"notebooks">;
+}
 
-async function NotesPage({ params }: NotesPageProps) {
-	const { id } = await params;
+function NotesPage() {
+	const { id } = useParams() as NotesPageParams;
 
 	const notes = useQuery(api.notes.queries.fetchNotes, {
 		notebookId: id,
