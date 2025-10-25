@@ -33,7 +33,7 @@ function NotesPage() {
 				</div>
 			</div>
 
-			<NoteForm mode="create" noteId={null} />
+			<NoteForm mode="create" noteId={null} notebookId={id} />
 		</>
 	);
 }
