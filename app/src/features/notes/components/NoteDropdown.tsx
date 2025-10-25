@@ -6,17 +6,24 @@ import { Id } from "@convex/_generated/dataModel";
 import { PencilIcon, Trash2Icon } from "lucide-react";
 import { useDeleteNoteAlertStore } from "../stores/deleteNoteAlert";
 import DeleteNoteAlert from "./DeleteNoteAlert";
+import { useEditNoteFormStore } from "../stores/editNoteForm";
 
 type NoteDropdownProps = {
 	noteId: Id<"notes">;
 };
 
 function NoteDropdown({ noteId }: NoteDropdownProps) {
-	const { openAlert, updateNoteId } = useDeleteNoteAlertStore();
+	const { openAlert, updateNoteId: updateAlertNoteId } = useDeleteNoteAlertStore();
+	const { openForm, updateNoteId } = useEditNoteFormStore();
 
 	function handleDelete() {
-		updateNoteId(noteId);
+		updateAlertNoteId(noteId);
 		openAlert();
+	}
+
+	function handleEdit() {
+		updateNoteId(noteId);
+		openForm();
 	}
 
 	return (
@@ -27,7 +34,7 @@ function NoteDropdown({ noteId }: NoteDropdownProps) {
 				sideOffset={8}
 				align="start"
 			>
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleEdit}>
 					<PencilIcon />
 					<span className="text-sm">Edit</span>
 				</DropdownMenuItem>
