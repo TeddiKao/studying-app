@@ -7,4 +7,4 @@ const notes = defineTable({
     notebookId: v.id("notebooks"),
 }).index("by_notebook_id", ["notebookId"]);
 
-export { notes }
+export default notes;
