@@ -39,8 +39,6 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	const noteFormStore =
 		mode === "create" ? createNoteFormStore : editNoteFormStore;
 
-	console.log(mode, noteFormStore.isOpen);
-
 	const {
 		isOpen,
 		isSubmitting,
