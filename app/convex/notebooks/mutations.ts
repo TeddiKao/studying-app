@@ -68,6 +68,22 @@ const editNotebook = mutation({
 			throw new Error("You do not have permission to edit this notebook");
 		}
 
+        const existingNotebooks = await ctx.db
+			.query("notebooks")
+			.withIndex("by_owner_and_name", (q) =>
+				q.eq("owner", userIdentity.subject).eq("name", name)
+			)
+			.collect();
+
+		if (existingNotebooks.length > 0) {
+            return {
+                success: false,
+                errors: {
+                    name: ["Notebook with this name already exists"],
+                }
+            }
+		}
+
 		await ctx.db.patch(notebookId, {
 			name,
 			description,
