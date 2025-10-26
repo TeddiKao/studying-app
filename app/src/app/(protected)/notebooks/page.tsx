@@ -10,7 +10,7 @@ import { useEditNotebookFormStore } from "@/features/notebooks/stores/editNotebo
 import EmptyNotebooksDisplay from "@/features/notebooks/components/EmptyNotebooksDisplay";
 import { api } from "@convex/_generated/api";
 
-function Notebooks() {
+function NotebooksPage() {
 	const { user } = useUser();
 
 	const notebooks = useQuery(api.notebooks.queries.fetchNotebooks, {
@@ -51,4 +51,4 @@ function Notebooks() {
 	);
 }
 
-export default Notebooks;
+export default NotebooksPage;
