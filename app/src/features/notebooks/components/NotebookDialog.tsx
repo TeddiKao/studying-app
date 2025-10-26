@@ -105,8 +105,6 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 		} finally {
 			stopSubmitting();
 		}
-
-		console.log("Form submitted");
 	}
 
 	return (

@@ -3,6 +3,7 @@
 import NoteCard from "@/features/notes/components/NoteCard";
 import NoteForm from "@/features/notes/components/NoteForm";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
+import { useEditNoteFormStore } from "@/features/notes/stores/editNoteForm";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { useQuery } from "convex/react";
@@ -19,6 +20,8 @@ function NotesPage() {
 		notebookId: id,
 	});
 
+	const { noteId } = useEditNoteFormStore();
+
 	if (!notes) return null;
 
 	return (
@@ -34,6 +37,7 @@ function NotesPage() {
 			</div>
 
 			<NoteForm mode="create" noteId={null} notebookId={id} />
+			<NoteForm mode="edit" noteId={noteId} notebookId={id} />
 		</>
 	);
 }
