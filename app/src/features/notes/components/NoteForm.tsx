@@ -43,30 +43,35 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	const {
 		isOpen,
 		isSubmitting,
-		name,
+		title,
 		description,
 		startSubmitting,
 		stopSubmitting,
 		performFormCleanup,
 		openForm,
-		updateName,
+		updateTitle,
 		updateDescription,
 	} = noteFormStore;
 
 	const createNote = useMutation(api.notes.mutations.createNote);
 	const editNote = useMutation(api.notes.mutations.editNote);
 
-	const noteInfo = useQuery(api.notes.queries.retrieveNoteInfo, noteId ? {
-		noteId: noteId
-	} : "skip")
+	const noteInfo = useQuery(
+		api.notes.queries.retrieveNoteInfo,
+		noteId
+			? {
+					noteId: noteId,
+				}
+			: "skip"
+	);
 
 	useEffect(() => {
 		if (mode === "edit") {
-			updateName(noteInfo?.name ?? "");
+			updateTitle(noteInfo?.title ?? "");
 			updateDescription(noteInfo?.description ?? "");
 		}
-	}, [noteInfo, updateName, updateDescription]);
-	
+	}, [noteInfo, updateTitle, updateDescription]);
+
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
@@ -74,11 +79,11 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 
 		try {
 			if (mode === "create") {
-				await createNote({ name, description, notebookId });
+				await createNote({ title, description, notebookId });
 			} else {
 				if (!noteId) return;
 
-				await editNote({ noteId, name, description });
+				await editNote({ noteId, title, description });
 			}
 
 			performFormCleanup();
@@ -106,15 +111,18 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 					<DialogDescription>{formDescription}</DialogDescription>
 				</DialogHeader>
 
-				<form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
+				<form
+					onSubmit={handleFormSubmit}
+					className="flex flex-col gap-4"
+				>
 					<div className="flex flex-col gap-1">
 						<Label htmlFor="name">Name</Label>
 						<Input
 							type="text"
 							id="name"
-							value={name}
+							value={title}
 							placeholder="Note name"
-							onChange={(e) => updateName(e.target.value)}
+							onChange={(e) => updateTitle(e.target.value)}
 						/>
 					</div>
 
