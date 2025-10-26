@@ -79,11 +79,20 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 
 		try {
 			if (mode === "create") {
-				await createNote({ title, description, notebookId });
+				const res = await createNote({ title, description, notebookId });
+
+				if (!res?.success) {
+					return;
+				}
+
 			} else {
 				if (!noteId) return;
 
-				await editNote({ noteId, title, description });
+				const res = await editNote({ noteId, title, description });
+
+				if (!res?.success) {
+					return;
+				}
 			}
 
 			performFormCleanup();
