@@ -5,7 +5,7 @@ type EditNoteFormState = {
     isOpen: boolean;
 	isSubmitting: boolean;
 
-	name: string;
+	title: string;
 	description: string;
 
     noteId: Id<"notes"> | null;
@@ -13,10 +13,10 @@ type EditNoteFormState = {
 	openForm: () => void;
 	closeForm: () => void;
 
-	updateName: (name: string) => void;
+	updateTitle: (title: string) => void;
 	updateDescription: (description: string) => void;
 
-	clearName: () => void;
+	clearTitle: () => void;
 	clearDescription: () => void;
 
 	startSubmitting: () => void;
@@ -32,7 +32,7 @@ const useEditNoteFormStore = create<EditNoteFormState>((set) => ({
     isOpen: false,
 	isSubmitting: false,
 
-	name: "",
+	title: "",
 	description: "",
 
     noteId: null,
@@ -40,17 +40,17 @@ const useEditNoteFormStore = create<EditNoteFormState>((set) => ({
     openForm: () => set({ isOpen: true }),
     closeForm: () => set({ isOpen: false }),
 
-	updateName: (name: string) => set({ name }),
+	updateTitle: (title: string) => set({ title }),
 	updateDescription: (description: string) => set({ description }),
 
-	clearName: () => set({ name: "" }),
+	clearTitle: () => set({ title: "" }),
 	clearDescription: () => set({ description: "" }),
 
 	startSubmitting: () => set({ isSubmitting: true }),
 	stopSubmitting: () => set({ isSubmitting: false }),
 
 	performFormCleanup: () =>
-		set({ isOpen: false, isSubmitting: false, name: "", description: "", noteId: null }),
+		set({ isOpen: false, isSubmitting: false, title: "", description: "", noteId: null }),
 
     updateNoteId: (noteId: Id<"notes">) => set({ noteId }),
     clearNoteId: () => set({ noteId: null }),

@@ -4,16 +4,16 @@ type CreateNoteFormState = {
 	isOpen: boolean;
 	isSubmitting: boolean;
 
-	name: string;
+	title: string;
 	description: string;
 
 	openForm: () => void;
 	closeForm: () => void;
 
-	updateName: (name: string) => void;
+	updateTitle: (title: string) => void;
 	updateDescription: (description: string) => void;
 
-	clearName: () => void;
+	clearTitle: () => void;
 	clearDescription: () => void;
 
 	startSubmitting: () => void;
@@ -26,23 +26,23 @@ const useCreateNoteFormStore = create<CreateNoteFormState>((set) => ({
 	isOpen: false,
 	isSubmitting: false,
 
-	name: "",
+	title: "",
 	description: "",
 
 	openForm: () => set({ isOpen: true }),
 	closeForm: () => set({ isOpen: false }),
 
-	updateName: (name: string) => set({ name }),
+	updateTitle: (title: string) => set({ title: title }),
 	updateDescription: (description: string) => set({ description }),
 
-	clearName: () => set({ name: "" }),
+	clearTitle: () => set({ title: "" }),
 	clearDescription: () => set({ description: "" }),
 
 	startSubmitting: () => set({ isSubmitting: true }),
 	stopSubmitting: () => set({ isSubmitting: false }),
 
 	performFormCleanup: () =>
-		set({ isOpen: false, isSubmitting: false, name: "", description: "" }),
+		set({ isOpen: false, isSubmitting: false, title: "", description: "" }),
 }));
 
 export { useCreateNoteFormStore };
