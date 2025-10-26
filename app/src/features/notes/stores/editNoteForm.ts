@@ -16,7 +16,7 @@ type EditNoteFormState = {
 	updateTitle: (title: string) => void;
 	updateDescription: (description: string) => void;
 
-	clearName: () => void;
+	clearTitle: () => void;
 	clearDescription: () => void;
 
 	startSubmitting: () => void;
@@ -43,7 +43,7 @@ const useEditNoteFormStore = create<EditNoteFormState>((set) => ({
 	updateTitle: (name: string) => set({ title: name }),
 	updateDescription: (description: string) => set({ description }),
 
-	clearName: () => set({ title: "" }),
+	clearTitle: () => set({ title: "" }),
 	clearDescription: () => set({ description: "" }),
 
 	startSubmitting: () => set({ isSubmitting: true }),
