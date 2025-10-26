@@ -42,11 +42,11 @@ const createNotebook = mutation({
 		});
 
 		return {
-            success: true,
-            data: {
-                notebookId: newNotebookId
-            }
-        };
+			success: true,
+			data: {
+				notebookId: newNotebookId,
+			},
+		};
 	},
 });
 
@@ -100,9 +100,9 @@ const editNotebook = mutation({
 			description,
 		});
 
-        return {
-            success: true,
-        }
+		return {
+			success: true,
+		};
 	},
 });
 
@@ -134,9 +134,9 @@ const deleteNotebook = mutation({
 			.withIndex("by_notebook_id", (q) => q.eq("notebookId", notebookId))
 			.collect();
 
-        for (const note of associatedNotes) {
-            await ctx.db.delete(note._id);
-        }
+		for (const note of associatedNotes) {
+			await ctx.db.delete(note._id);
+		}
 
 		await ctx.db.delete(notebookId);
 	},
