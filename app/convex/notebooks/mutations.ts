@@ -120,6 +120,15 @@ const deleteNotebook = mutation({
 			);
 		}
 
+		const associatedNotes = await ctx.db
+			.query("notes")
+			.withIndex("by_notebook_id", (q) => q.eq("notebookId", notebookId))
+			.collect();
+
+        for (const note of associatedNotes) {
+            await ctx.db.delete(note._id);
+        }
+
 		await ctx.db.delete(notebookId);
 	},
 });
