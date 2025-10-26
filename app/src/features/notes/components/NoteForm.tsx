@@ -116,12 +116,12 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 					className="flex flex-col gap-4"
 				>
 					<div className="flex flex-col gap-1">
-						<Label htmlFor="name">Name</Label>
+						<Label htmlFor="title">Title</Label>
 						<Input
 							type="text"
-							id="name"
+							id="title"
 							value={title}
-							placeholder="Note name"
+							placeholder="Note title"
 							onChange={(e) => updateTitle(e.target.value)}
 						/>
 					</div>
