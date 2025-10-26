@@ -35,7 +35,7 @@ function NotesPage() {
 						{notes.map((note) => (
 							<NoteCard
 								key={note._id}
-								noteName={note.name}
+								noteName={note.title}
 								noteId={note._id}
 							/>
 						))}
