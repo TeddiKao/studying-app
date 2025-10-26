@@ -56,8 +56,6 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	const createNote = useMutation(api.notes.mutations.createNote);
 	const editNote = useMutation(api.notes.mutations.editNote);
 
-	console.log(noteId);
-
 	const noteInfo = useQuery(api.notes.queries.retrieveNoteInfo, noteId ? {
 		noteId: noteId
 	} : "skip")
