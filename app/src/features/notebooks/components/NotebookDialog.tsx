@@ -59,7 +59,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const editNotebook = useMutation(api.notebooks.mutations.editNotebook);
 	const notebookInfo = useQuery(api.notebooks.queries.retrieveNotebookInfo, {
-		notebookId: notebookId
+		notebookId: notebookId,
 	});
 
 	const { user } = useUser();
@@ -85,18 +85,27 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 
 		try {
 			if (mode === "create") {
-				await createNotebook({
+				const res = await createNotebook({
 					name: trimmedName,
 					description: trimmedDescription,
 				});
+
+				if (!res?.success) {
+					return;
+				}
+
 			} else if (mode === "edit") {
 				if (!notebookId) return;
 
-				await editNotebook({
+				const res = await editNotebook({
 					notebookId: notebookId,
 					name: trimmedName,
 					description: trimmedDescription,
 				});
+
+				if (!res?.success) {
+					return;
+				}
 			}
 
 			performFormCleanup();
