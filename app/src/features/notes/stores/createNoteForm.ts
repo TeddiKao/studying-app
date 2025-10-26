@@ -32,7 +32,7 @@ const useCreateNoteFormStore = create<CreateNoteFormState>((set) => ({
 	openForm: () => set({ isOpen: true }),
 	closeForm: () => set({ isOpen: false }),
 
-	updateTitle: (name: string) => set({ title: name }),
+	updateTitle: (title: string) => set({ title: title }),
 	updateDescription: (description: string) => set({ description }),
 
 	clearTitle: () => set({ title: "" }),
