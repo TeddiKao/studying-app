@@ -4,11 +4,11 @@ import { mutation } from "../_generated/server";
 const createNote = mutation({
     args: {
         notebookId: v.id("notebooks"),
-        name: v.string(),
+        title: v.string(),
         description: v.string(),
     },
 
-    handler: async (ctx, { notebookId, name, description }) => {
+    handler: async (ctx, { notebookId, title, description }) => {
         const userIdentity = await ctx.auth.getUserIdentity();
         if (!userIdentity) {
             throw new Error("Not authenticated");
@@ -27,7 +27,7 @@ const createNote = mutation({
         }
 
         const newNoteId = await ctx.db.insert("notes", {
-            name,
+            title,
             description,
             notebookId,
         });
@@ -39,11 +39,11 @@ const createNote = mutation({
 const editNote = mutation({
     args: {
         noteId: v.id("notes"),
-        name: v.string(),
+        title: v.string(),
         description: v.string(),
     },
 
-    handler: async (ctx, { noteId, name, description }) => {
+    handler: async (ctx, { noteId, title, description }) => {
         const userIdentity = await ctx.auth.getUserIdentity();
         if (!userIdentity) {
             throw new Error("Not authenticated");
@@ -65,7 +65,7 @@ const editNote = mutation({
         }
 
         await ctx.db.patch(noteId, {
-            name,
+            title,
             description,
         });
     }
