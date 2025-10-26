@@ -26,12 +26,12 @@ const createNotebook = mutation({
 			.collect();
 
 		if (existingNotebooks.length > 0) {
-            return {
-                success: false,
-                errors: {
-                    name: ["Notebook with this name already exists"],
-                }
-            }
+			return {
+				success: false,
+				errors: {
+					name: ["Notebook with this name already exists"],
+				},
+			};
 		}
 
 		const newNotebookId = await ctx.db.insert("notebooks", {
@@ -52,7 +52,10 @@ const editNotebook = mutation({
 		description: v.string(),
 	},
 
-	handler: async (ctx, { notebookId, name, description }): Promise<void | ErrorResponse> => {
+	handler: async (
+		ctx,
+		{ notebookId, name, description }
+	): Promise<void | ErrorResponse> => {
 		const userIdentity = await ctx.auth.getUserIdentity();
 		if (!userIdentity) {
 			throw new Error("Not authenticated");
@@ -68,20 +71,23 @@ const editNotebook = mutation({
 			throw new Error("You do not have permission to edit this notebook");
 		}
 
-        const existingNotebooks = await ctx.db
+		const existingNotebooks = await ctx.db
 			.query("notebooks")
 			.withIndex("by_owner_and_name", (q) =>
 				q.eq("owner", userIdentity.subject).eq("name", name)
 			)
 			.collect();
 
-		if (existingNotebooks.length > 0) {
-            return {
-                success: false,
-                errors: {
-                    name: ["Notebook with this name already exists"],
-                }
-            }
+		if (
+			existingNotebooks.filter((notebook) => notebook._id === notebookId)
+				.length > 0
+		) {
+			return {
+				success: false,
+				errors: {
+					name: ["Notebook with this name already exists"],
+				},
+			};
 		}
 
 		await ctx.db.patch(notebookId, {
