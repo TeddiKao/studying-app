@@ -77,18 +77,30 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 
 		startSubmitting();
 
+		const trimmedTitle = title.trim();
+		const trimmedDescription = description.trim();
+
+		if (!trimmedTitle) return;
+
 		try {
 			if (mode === "create") {
-				const res = await createNote({ title, description, notebookId });
+				const res = await createNote({
+					title: trimmedTitle,
+					description: trimmedDescription,
+					notebookId,
+				});
 
 				if (!res?.success) {
 					return;
 				}
-
 			} else {
 				if (!noteId) return;
 
-				const res = await editNote({ noteId, title, description });
+				const res = await editNote({
+					noteId,
+					title: trimmedTitle,
+					description: trimmedDescription,
+				});
 
 				if (!res?.success) {
 					return;
