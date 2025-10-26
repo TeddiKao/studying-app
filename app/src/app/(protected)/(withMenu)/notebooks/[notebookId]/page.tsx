@@ -36,6 +36,7 @@ function NotesPage() {
 							<NoteCard
 								key={note._id}
 								noteName={note.title}
+								notebookId={note.notebookId}
 								noteId={note._id}
 							/>
 						))}
