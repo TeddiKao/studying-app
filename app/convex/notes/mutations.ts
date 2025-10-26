@@ -98,7 +98,7 @@ const editNote = mutation({
 			)
 			.collect();
 
-        if (existingNotes.length > 0) {
+        if (existingNotes.filter((note) => note._id === noteId).length > 0) {
             return {
                 success: false,
                 errors: {
