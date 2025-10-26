@@ -32,6 +32,10 @@ const createNote = mutation({
             notebookId,
         });
 
+        await ctx.db.patch(notebookId, {
+            noteCount: notebook.noteCount + 1,
+        })
+
         return newNoteId;
     }
 });
