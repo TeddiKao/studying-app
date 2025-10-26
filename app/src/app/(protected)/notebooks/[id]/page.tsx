@@ -1,5 +1,6 @@
 "use client";
 
+import EmptyNotesDisplay from "@/features/notes/components/EmptyNotesDisplay";
 import NoteCard from "@/features/notes/components/NoteCard";
 import NoteForm from "@/features/notes/components/NoteForm";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
@@ -11,7 +12,7 @@ import { useParams } from "next/navigation";
 
 type NotesPageParams = {
 	id: Id<"notebooks">;
-}
+};
 
 function NotesPage() {
 	const { id } = useParams() as NotesPageParams;
@@ -29,11 +30,19 @@ function NotesPage() {
 			<div className="flex flex-col gap-3">
 				<NotesPageHeader />
 
-				<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-					{notes.map((note) => (
-						<NoteCard key={note._id} noteName={note.name} noteId={note._id} />
-					))}
-				</div>
+				{notes.length > 0 ? (
+					<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+						{notes.map((note) => (
+							<NoteCard
+								key={note._id}
+								noteName={note.name}
+								noteId={note._id}
+							/>
+						))}
+					</div>
+				) : (
+					<EmptyNotesDisplay />
+				)}
 			</div>
 
 			<NoteForm mode="create" noteId={null} notebookId={id} />
