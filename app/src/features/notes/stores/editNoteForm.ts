@@ -50,7 +50,7 @@ const useEditNoteFormStore = create<EditNoteFormState>((set) => ({
 	stopSubmitting: () => set({ isSubmitting: false }),
 
 	performFormCleanup: () =>
-		set({ isOpen: false, isSubmitting: false, name: "", description: "" }),
+		set({ isOpen: false, isSubmitting: false, name: "", description: "", noteId: null }),
 
     updateNoteId: (noteId: Id<"notes">) => set({ noteId }),
     clearNoteId: () => set({ noteId: null }),
