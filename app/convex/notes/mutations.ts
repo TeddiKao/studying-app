@@ -91,6 +91,22 @@ const editNote = mutation({
 			throw new Error("You do not have permission to edit this note");
 		}
 
+        const existingNotes = await ctx.db
+			.query("notes")
+			.withIndex("by_notebook_id_and_title", (q) =>
+				q.eq("notebookId", notebook._id).eq("title", title)
+			)
+			.collect();
+
+        if (existingNotes.length > 0) {
+            return {
+                success: false,
+                errors: {
+                    title: ["Note with this title already exists"],
+                }
+            };
+        }
+
 		await ctx.db.patch(noteId, {
 			title,
 			description,
