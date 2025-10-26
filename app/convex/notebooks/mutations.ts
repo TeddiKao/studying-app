@@ -26,6 +26,12 @@ const createNotebook = mutation({
 			.collect();
 
 		if (existingNotebooks.length > 0) {
+            return {
+                success: false,
+                errors: {
+                    name: ["Notebook with this name already exists"],
+                }
+            }
 		}
 
 		const newNotebookId = await ctx.db.insert("notebooks", {
