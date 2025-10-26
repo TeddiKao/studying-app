@@ -32,7 +32,7 @@ function EmptyNotesDisplay() {
 						className="hover:cursor-pointer"
 						type="button"
 					>
-						Create notes
+						Create note
 					</Button>
 				</div>
 			</EmptyContent>
