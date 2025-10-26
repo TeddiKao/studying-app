@@ -7,3 +7,5 @@ function ProfileLayout({ children }: { children: React.ReactNode }) {
         </RootLayout>
     )
 }
+
+export default ProfileLayout;
