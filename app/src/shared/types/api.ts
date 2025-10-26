@@ -1,5 +1,5 @@
 type ErrorResponse = {
-    error: true;
+    success: false;
     errors: Record<string, string[] | string>;
 }
 
