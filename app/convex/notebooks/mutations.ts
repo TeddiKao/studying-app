@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
-import { ErrorResponse } from "../../src/shared/types/api";
+import { ErrorResponse, SuccessResponse } from "../../src/shared/types/api";
 import { Id } from "../_generated/dataModel";
 
 const createNotebook = mutation({
@@ -12,7 +12,7 @@ const createNotebook = mutation({
 	handler: async (
 		ctx,
 		{ name, description }
-	): Promise<ErrorResponse | Id<"notebooks">> => {
+	): Promise<ErrorResponse | SuccessResponse> => {
 		const userIdentity = await ctx.auth.getUserIdentity();
 		if (!userIdentity) {
 			throw new Error("Not authenticated");
@@ -41,7 +41,12 @@ const createNotebook = mutation({
 			noteCount: 0,
 		});
 
-		return newNotebookId;
+		return {
+            success: true,
+            data: {
+                notebookId: newNotebookId
+            }
+        };
 	},
 });
 
@@ -55,7 +60,7 @@ const editNotebook = mutation({
 	handler: async (
 		ctx,
 		{ notebookId, name, description }
-	): Promise<void | ErrorResponse> => {
+	): Promise<SuccessResponse | ErrorResponse> => {
 		const userIdentity = await ctx.auth.getUserIdentity();
 		if (!userIdentity) {
 			throw new Error("Not authenticated");
@@ -94,6 +99,10 @@ const editNotebook = mutation({
 			name,
 			description,
 		});
+
+        return {
+            success: true,
+        }
 	},
 });
 
