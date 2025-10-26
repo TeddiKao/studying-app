@@ -3,7 +3,7 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { NotebookIcon } from "lucide-react";
 import { useCreateNoteFormStore } from "../stores/createNoteForm";
 
-function EmptyNoteDisplay() {
+function EmptyNotesDisplay() {
     const { openForm } = useCreateNoteFormStore();
 
 	return (
@@ -34,4 +34,4 @@ function EmptyNoteDisplay() {
 	);
 }
 
-export default EmptyNoteDisplay;
+export default EmptyNotesDisplay;

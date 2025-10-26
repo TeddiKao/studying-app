@@ -1,6 +1,6 @@
 "use client";
 
-import EmptyNoteDisplay from "@/features/notes/components/EmptyNotesDisplay";
+import EmptyNotesDisplay from "@/features/notes/components/EmptyNotesDisplay";
 import NoteCard from "@/features/notes/components/NoteCard";
 import NoteForm from "@/features/notes/components/NoteForm";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
@@ -41,7 +41,7 @@ function NotesPage() {
 						))}
 					</div>
 				) : (
-					<EmptyNoteDisplay />
+					<EmptyNotesDisplay />
 				)}
 			</div>
 
