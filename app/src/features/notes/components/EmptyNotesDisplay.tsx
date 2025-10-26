@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { NotebookIcon } from "lucide-react";
 import { useCreateNoteFormStore } from "../stores/createNoteForm";
+import NoteIcon from "@/shared/components/icons/Note";
 
 function EmptyNotesDisplay() {
     const { openForm } = useCreateNoteFormStore();
@@ -10,7 +11,7 @@ function EmptyNotesDisplay() {
 		<Empty> 
 			<EmptyHeader>
 				<EmptyMedia variant="icon">
-					<NotebookIcon className="fill-gray-950" />
+					<NoteIcon className="stroke-gray-950" />
 				</EmptyMedia>
 				<EmptyTitle>No notes yet</EmptyTitle>
 				<EmptyDescription>
