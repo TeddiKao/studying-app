@@ -104,6 +104,10 @@ const deleteNote = mutation({
         }
 
         await ctx.db.delete(noteId);
+
+        await ctx.db.patch(note.notebookId, {
+            noteCount: notebook.noteCount - 1,
+        })
     }
 })
 
