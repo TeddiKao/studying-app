@@ -3,4 +3,9 @@ type ErrorResponse = {
     errors: Record<string, string[] | string>;
 }
 
-export type { ErrorResponse };
+type SuccessResponse = {
+    success: true;
+    data: Record<string, unknown>;
+}
+
+export type { ErrorResponse, SuccessResponse };
