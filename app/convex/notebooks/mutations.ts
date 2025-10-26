@@ -79,7 +79,7 @@ const editNotebook = mutation({
 			.collect();
 
 		if (
-			existingNotebooks.filter((notebook) => notebook._id === notebookId)
+			existingNotebooks.filter((notebook) => notebook._id !== notebookId)
 				.length > 0
 		) {
 			return {
