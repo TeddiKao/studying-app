@@ -56,7 +56,7 @@ const createNote = mutation({
 		});
 
 		await ctx.db.patch(notebookId, {
-			noteCount: notebook.noteCount + 1,
+			noteCount: Math.max((notebook.noteCount ?? 0) + 1, 0),
 		});
 
 		return newNoteId;
