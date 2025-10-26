@@ -119,7 +119,6 @@ const editNote = mutation({
 
         return {
             success: true,
-            data: {}
         }
 	},
 });
