@@ -70,7 +70,7 @@ const editNote = mutation({
 		description: v.string(),
 	},
 
-	handler: async (ctx, { noteId, title, description }) => {
+	handler: async (ctx, { noteId, title, description }): Promise<void | ErrorResponse> => {
 		const userIdentity = await ctx.auth.getUserIdentity();
 		if (!userIdentity) {
 			throw new Error("Not authenticated");
