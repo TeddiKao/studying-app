@@ -41,7 +41,12 @@ const createNote = mutation({
 			.collect();
 
 		if (existingNotes.length > 0) {
-			return {};
+			return {
+                success: false,
+                errors: {
+                    title: ["Note with this title already exists"],
+                }
+            };
 		}
 
 		const newNoteId = await ctx.db.insert("notes", {
