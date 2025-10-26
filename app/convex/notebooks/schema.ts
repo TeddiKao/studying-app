@@ -6,6 +6,8 @@ const notebooks = defineTable({
 	description: v.string(),
 	owner: v.string(),
 	noteCount: v.number(),
-}).index("by_owner", ["owner"]);
+})
+	.index("by_owner", ["owner"])
+	.index("by_owner_and_name", ["owner", "name"]);
 
 export default notebooks;
