@@ -62,7 +62,7 @@ const createNote = mutation({
 		await ctx.db.insert("blocks", {
 			noteId: newNoteId,
 			position: 0,
-			content: [],
+			content: [{ type: "text", text: title }],
 			additionalAttributes: {},
 			type: "title"
 		})
