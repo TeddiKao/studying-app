@@ -8,3 +8,5 @@ function getEditorSelection(editor: Editor) {
 
     return selection;
 }
+
+export { getEditorSelection };
