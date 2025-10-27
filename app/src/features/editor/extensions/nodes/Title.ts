@@ -33,3 +33,5 @@ const Title = Node.create({
         return ["h1", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
     }
 });
+
+export { Title };
