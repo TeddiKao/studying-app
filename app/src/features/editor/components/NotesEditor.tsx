@@ -10,6 +10,7 @@ import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { getEditorSelection } from "../utils/utils";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
+import { useEditorStore } from "../stores/editorStore";
 
 type NotesEditorProps = {
 	noteId: Id<"notes">;
@@ -17,6 +18,8 @@ type NotesEditorProps = {
 
 function NotesEditor({ noteId }: NotesEditorProps) {
 	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
+	const { selectedBlockId, selectedBlockContent, updateSelectedBlockId, clearSelectedBlockId, updateSelectedBlockContent } = useEditorStore();
+
 	const editor = useEditor({
 		extensions: [Document, Text, CustomParagraph, Title],
 		immediatelyRender: false,
@@ -24,10 +27,18 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 		onSelectionUpdate: ({ editor }) => {
 			const selectedNode = getEditorSelection(editor);
 
+			if (selectedNode.attrs.id === selectedBlockId) {
+				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
+
+				return;
+			};
+
 			updateBlock({
-				id: selectedNode.attrs.id,
-				content: selectedNode.content.toJSON() ?? []
+				id: selectedBlockId ?? selectedNode.attrs.id,
+				content: selectedBlockContent ?? selectedNode.content.toJSON() ?? []
 			})
+
+			updateSelectedBlockId(selectedNode.attrs.id);
 		}
 	});
 
