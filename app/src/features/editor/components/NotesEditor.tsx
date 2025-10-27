@@ -3,13 +3,13 @@
 import { EditorContent, useEditor } from "@tiptap/react";
 import { Document } from "@tiptap/extension-document";
 import { Text } from "@tiptap/extension-text";
-import { Paragraph } from "@tiptap/extension-paragraph";
 import { Title } from "../extensions/nodes/Title";
 import { useEffect } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { getEditorSelection } from "../utils/utils";
+import { CustomParagraph } from "../extensions/nodes/Paragraph";
 
 type NotesEditorProps = {
 	noteId: Id<"notes">;
@@ -18,7 +18,7 @@ type NotesEditorProps = {
 function NotesEditor({ noteId }: NotesEditorProps) {
 	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
 	const editor = useEditor({
-		extensions: [Document, Text, Paragraph, Title],
+		extensions: [Document, Text, CustomParagraph, Title],
 		immediatelyRender: false,
 
 		onSelectionUpdate: ({ editor }) => {
@@ -26,7 +26,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 			updateBlock({
 				id: selectedNode.attrs.id,
-				content: selectedNode.content.toJSON(),
+				content: Array.from(selectedNode.content.content)
 			})
 		}
 	});
