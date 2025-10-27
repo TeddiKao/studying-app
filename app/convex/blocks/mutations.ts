@@ -12,7 +12,7 @@ const updateBlock = mutation({
     },
 
     handler: async (ctx, args) => {
-        const { id, ...fields } = args;
+        const { id: blockId, ...fields } = args;
         const userIdentity = await ctx.auth.getUserIdentity();
 
         if (!userIdentity) {
@@ -20,8 +20,6 @@ const updateBlock = mutation({
         }
 
         const fieldsToUpdate = removeUndefinedFields(fields);
-
-        const blockId = args.id;
         const block = await ctx.db.get(blockId);
 
         if (!block) {
