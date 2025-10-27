@@ -8,19 +8,21 @@ import { Title } from "../extensions/nodes/Title";
 import { useEffect } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
-import { useEditorStateStore } from "../stores/editorState";
+import { Id } from "@convex/_generated/dataModel";
 
-function NotesEditor() {
+type NotesEditorProps = {
+	noteId: Id<"notes">;
+}
+
+function NotesEditor({ noteId }: NotesEditorProps) {
 	const editor = useEditor({
 		extensions: [Document, Text, Paragraph, Title],
 		immediatelyRender: false,
 	});
 
-	const { noteId } = useEditorStateStore();
-
 	const blocks = useQuery(
 		api.blocks.queries.fetchBlocks,
-		noteId ? { noteId } : "skip"
+		{ noteId }
 	);
 
 	useEffect(() => {
