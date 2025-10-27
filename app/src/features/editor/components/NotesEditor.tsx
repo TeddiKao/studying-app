@@ -26,7 +26,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 			updateBlock({
 				id: selectedNode.attrs.id,
-				content: Array.from(selectedNode.content.toJSON() ?? [])
+				content: selectedNode.content.toJSON() ?? []
 			})
 		}
 	});
