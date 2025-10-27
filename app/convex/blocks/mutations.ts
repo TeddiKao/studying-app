@@ -51,3 +51,5 @@ const updateBlock = mutation({
         await ctx.db.patch(blockId, fieldsToUpdate);
     }
 })
+
+export { updateBlock }
