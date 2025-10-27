@@ -51,6 +51,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			});
 
 			updateSelectedBlockId(selectedNode.attrs.id);
+			updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
 		},
 	});
 
