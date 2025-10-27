@@ -26,6 +26,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 		onSelectionUpdate: ({ editor }) => {
 			const selectedNode = getEditorSelection(editor);
+			if (!selectedNode?.attrs?.id) return;
 
 			if (selectedNode.attrs.id === selectedBlockId) {
 				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
