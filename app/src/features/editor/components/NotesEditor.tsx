@@ -31,7 +31,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			type: "doc",
 			content: blocks,
 		});
-	}, [blocks]);
+	}, [blocks, editor]);
 
 	return <EditorContent className="ml-12 mt-16" editor={editor} />;
 }
