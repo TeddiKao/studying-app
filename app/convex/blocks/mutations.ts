@@ -12,13 +12,14 @@ const updateBlock = mutation({
     },
 
     handler: async (ctx, args) => {
+        const { id, ...fields } = args;
         const userIdentity = await ctx.auth.getUserIdentity();
 
         if (!userIdentity) {
             throw new Error("User not authenticated");
         }
 
-        const fieldsToUpdate = removeUndefinedFields(args);
+        const fieldsToUpdate = removeUndefinedFields(fields);
 
         const blockId = args.id;
         const block = await ctx.db.get(blockId);
