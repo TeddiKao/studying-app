@@ -27,7 +27,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 	useEffect(() => {
 		if (!editor) return;
-		if (editor.isEmpty) return;
+		if (!editor.isEmpty) return;
 		if (!blocks) return;
 
 		editor.commands.setContent(blocks);
