@@ -12,3 +12,5 @@ function convertBlocksToTiptapJSON(blocks: Doc<"blocks">[]) {
         }
     }))
 }
+
+export { convertBlocksToTiptapJSON };
