@@ -13,4 +13,4 @@ const useEditorStore = create<EditorStore>((set) => ({
     clearSelectedBlockId: () => set({ selectedBlockId: null }),
 }));
 
-export default useEditorStore;
+export { useEditorStore };
