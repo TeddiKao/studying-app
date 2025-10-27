@@ -17,3 +17,5 @@ const fetchBlocks = query({
         return tiptapJSONBlocks;
     }
 })
+
+export { fetchBlocks };
