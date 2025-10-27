@@ -7,7 +7,6 @@ function convertBlocksToTiptapJSON(blocks: Doc<"blocks">[]) {
         attrs: {
             id: block._id,
             position: block.position,
-            noteId: block.noteId,
             ...block.additionalAttributes ?? {},
         }
     }))
