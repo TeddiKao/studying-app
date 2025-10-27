@@ -12,7 +12,7 @@ import { Id } from "@convex/_generated/dataModel";
 
 type NotesEditorProps = {
 	noteId: Id<"notes">;
-}
+};
 
 function NotesEditor({ noteId }: NotesEditorProps) {
 	const editor = useEditor({
@@ -20,17 +20,17 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 		immediatelyRender: false,
 	});
 
-	const blocks = useQuery(
-		api.blocks.queries.fetchBlocks,
-		{ noteId }
-	);
+	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
 
 	useEffect(() => {
 		if (!editor) return;
 		if (!editor.isEmpty) return;
 		if (!blocks) return;
 
-		editor.commands.setContent(blocks);
+		editor.commands.setContent({
+			type: "doc",
+			content: blocks,
+		});
 	}, [blocks]);
 
 	return <EditorContent className="ml-12 mt-16" editor={editor} />;
