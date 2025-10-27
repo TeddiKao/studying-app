@@ -31,6 +31,14 @@ const Title = Node.create({
 
     renderHTML({ HTMLAttributes }) {
         return ["h1", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+    },
+
+    parseHTML() {
+        return [
+            {
+                tag: "h1",
+            }
+        ]
     }
 });
 
