@@ -1,4 +1,4 @@
-import { Node } from "@tiptap/core";
+import { mergeAttributes, Node } from "@tiptap/core";
 
 const Title = Node.create({
 	name: "title",
@@ -28,4 +28,8 @@ const Title = Node.create({
 			},
 		};
 	},
+
+    renderHTML({ HTMLAttributes }) {
+        return ["h1.title", mergeAttributes(HTMLAttributes, this.options.HTMLAttributes), 0];
+    }
 });
