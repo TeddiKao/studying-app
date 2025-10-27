@@ -34,8 +34,13 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 				return;
 			};
 
+			if (!selectedBlockId) {
+				updateSelectedBlockId(selectedNode.attrs.id);
+				return;
+			};
+
 			updateBlock({
-				id: selectedBlockId ?? selectedNode.attrs.id,
+				id: selectedBlockId,
 				content: selectedBlockContent ?? []
 			})
 
