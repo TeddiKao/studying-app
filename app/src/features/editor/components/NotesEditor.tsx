@@ -33,7 +33,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 		});
 	}, [blocks, editor]);
 
-	return <EditorContent className="ml-12 mt-16" editor={editor} />;
+	return <EditorContent className="ml-16 mt-16" editor={editor} />;
 }
 
 export default NotesEditor;
