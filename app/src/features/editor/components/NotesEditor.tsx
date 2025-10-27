@@ -18,7 +18,13 @@ type NotesEditorProps = {
 
 function NotesEditor({ noteId }: NotesEditorProps) {
 	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
-	const { selectedBlockId, selectedBlockContent, updateSelectedBlockId, clearSelectedBlockId, updateSelectedBlockContent } = useEditorStore();
+	const {
+		selectedBlockId,
+		selectedBlockContent,
+		updateSelectedBlockId,
+		clearSelectedBlockId,
+		updateSelectedBlockContent,
+	} = useEditorStore();
 
 	const editor = useEditor({
 		extensions: [Document, Text, CustomParagraph, Title],
@@ -32,20 +38,20 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
 
 				return;
-			};
+			}
 
 			if (!selectedBlockId) {
 				updateSelectedBlockId(selectedNode.attrs.id);
 				return;
-			};
+			}
 
 			updateBlock({
 				id: selectedBlockId,
-				content: selectedBlockContent ?? []
-			})
+				content: selectedBlockContent ?? [],
+			});
 
 			updateSelectedBlockId(selectedNode.attrs.id);
-		}
+		},
 	});
 
 	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
