@@ -3,10 +3,11 @@ import { Editor } from "@tiptap/react";
 function getEditorSelection(editor: Editor) {
     const { state } = editor;
     const { selection } = state;
+    const { $from } = selection;
 
-    console.log(selection.toJSON());
+    const node = $from.node();
 
-    return selection;
+    return node;
 }
 
 export { getEditorSelection };
