@@ -30,6 +30,6 @@ const Title = Node.create({
 	},
 
     renderHTML({ HTMLAttributes }) {
-        return ["h1", mergeAttributes(HTMLAttributes, this.options.HTMLAttributes), 0];
+        return ["h1", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
     }
 });
