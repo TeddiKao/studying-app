@@ -6,6 +6,14 @@ const Title = Node.create({
 	group: "block",
 	content: "inline*",
 	defining: true,
+    
+    addOptions() {
+        return {
+            HTMLAttributes: {
+                class: "text-5xl font-bold"
+            },
+        }
+    },
 
 	addAttributes() {
 		return {
