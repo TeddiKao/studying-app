@@ -6,7 +6,7 @@
 	pointer-events: none;
 }
 
-.tiptap.title.is-empty::before {
+.tiptap .title.is-empty::before {
 	color: #adb5bd;
 	content: attr(data-placeholder);
 	float: left;
