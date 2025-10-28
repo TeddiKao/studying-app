@@ -13,8 +13,6 @@ import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
-import "../styles/editor.css";
-
 type NotesEditorProps = {
 	noteId: Id<"notes">;
 };
@@ -37,6 +35,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			Title,
 			Placeholder.configure({
 				placeholder: ({ node }) => {
+					console.log(node.type.name);
 					if (node.type.name === "title") return "Enter title";
 					
 					return "Enter content";
