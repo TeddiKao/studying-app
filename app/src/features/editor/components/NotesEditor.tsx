@@ -32,23 +32,23 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 		onSelectionUpdate: ({ editor }) => {
 			const selectedNode = getEditorSelection(editor);
-			if (!selectedNode?.attrs?.id) return;
-
-			if (selectedNode.attrs.id === selectedBlockId) {
-				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
-
-				return;
-			}
+			if (!selectedNode.attrs.id) return;
 
 			if (!selectedBlockId) {
 				updateSelectedBlockId(selectedNode.attrs.id);
+				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
+				return;
+			}
+
+			if (selectedBlockId === selectedNode.attrs.id) {
+				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
 				return;
 			}
 
 			updateBlock({
 				id: selectedBlockId,
 				content: selectedBlockContent ?? [],
-			});
+			})
 
 			updateSelectedBlockId(selectedNode.attrs.id);
 			updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
