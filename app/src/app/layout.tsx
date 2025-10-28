@@ -1,5 +1,4 @@
 import "./globals.css";
-import "./editor.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata } from "next";

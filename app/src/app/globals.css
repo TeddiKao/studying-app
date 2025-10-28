@@ -4,6 +4,8 @@
 
 @plugin "tailwindcss-animate";
 
+@import "./editor.css";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
