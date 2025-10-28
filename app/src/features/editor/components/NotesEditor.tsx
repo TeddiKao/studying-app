@@ -10,6 +10,7 @@ import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { getEditorSelection } from "../utils/utils";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
+import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
 type NotesEditorProps = {
@@ -27,7 +28,19 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 	} = useEditorStore();
 
 	const editor = useEditor({
-		extensions: [Document, Text, CustomParagraph, Title],
+		extensions: [
+			Document,
+			Text,
+			CustomParagraph,
+			Title,
+			Placeholder.configure({
+				placeholder: ({ node }) => {
+					if (node.type.name === "title") return "Enter title";
+					
+					return "Enter content";
+				}
+			}),
+		],
 		immediatelyRender: false,
 
 		onSelectionUpdate: ({ editor }) => {
@@ -48,7 +61,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			updateBlock({
 				id: selectedBlockId,
 				content: selectedBlockContent ?? [],
-			})
+			});
 
 			updateSelectedBlockId(selectedNode.attrs.id);
 			updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
