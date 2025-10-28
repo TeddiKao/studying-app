@@ -13,6 +13,8 @@ import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
+import "../styles/editor.css";
+
 type NotesEditorProps = {
 	noteId: Id<"notes">;
 };
