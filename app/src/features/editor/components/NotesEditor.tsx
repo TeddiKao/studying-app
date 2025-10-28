@@ -35,7 +35,6 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			Title,
 			Placeholder.configure({
 				placeholder: ({ node }) => {
-					console.log(node.type.name);
 					if (node.type.name === "title") return "Enter title";
 					
 					return "Enter content";
