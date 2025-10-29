@@ -1,0 +1,68 @@
+"use client";
+
+import { useEditor } from "@tiptap/react";
+import { CustomParagraph } from "../extensions/nodes/Paragraph";
+import { Title } from "../extensions/nodes/Title";
+import { getEditorSelection } from "../utils/utils";
+import { Placeholder } from "@tiptap/extensions";
+import { useEditorStore } from "../stores/editorStore";
+
+import { Document } from "@tiptap/extension-document";
+import { Text } from "@tiptap/extension-text";
+import { useMutation } from "convex/react";
+import { api } from "@convex/_generated/api";
+
+function useNotesEditor() {
+	const {
+		selectedBlockId,
+		selectedBlockContent,
+		updateSelectedBlockId,
+		clearSelectedBlockId,
+		updateSelectedBlockContent,
+	} = useEditorStore();
+
+	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
+
+	return useEditor({
+		extensions: [
+			Document,
+			Text,
+			CustomParagraph,
+			Title,
+			Placeholder.configure({
+				placeholder: ({ node }) => {
+					if (node.type.name === "title") return "Enter title";
+
+					return "Enter content";
+				},
+			}),
+		],
+		immediatelyRender: false,
+
+		onSelectionUpdate: ({ editor }) => {
+			const selectedNode = getEditorSelection(editor);
+			if (!selectedNode.attrs.id) return;
+
+			if (!selectedBlockId) {
+				updateSelectedBlockId(selectedNode.attrs.id);
+				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
+				return;
+			}
+
+			if (selectedBlockId === selectedNode.attrs.id) {
+				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
+				return;
+			}
+
+			updateBlock({
+				id: selectedBlockId,
+				content: selectedBlockContent ?? [],
+			});
+
+			updateSelectedBlockId(selectedNode.attrs.id);
+			updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
+		},
+	});
+}
+
+export default useNotesEditor;
