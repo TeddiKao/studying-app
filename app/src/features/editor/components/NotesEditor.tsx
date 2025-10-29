@@ -70,7 +70,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 	});
 
 	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
-	const bulkUpdateBlocks = useMutation(api.blocks.mutations.bulkUdpateBlocks);
+	const bulkUpdateBlocks = useMutation(api.blocks.mutations.bulkUpdateBlocks);
 
 	useEffect(() => {
 		if (!editor) return;

@@ -53,7 +53,7 @@ const updateBlock = mutation({
 	},
 });
 
-const bulkUdpateBlocks = mutation({
+const bulkUpdateBlocks = mutation({
 	args: {
 		blocks: v.array(
 			v.object({
@@ -139,4 +139,4 @@ const bulkUdpateBlocks = mutation({
 	},
 });
 
-export { updateBlock, bulkUdpateBlocks };
+export { updateBlock, bulkUpdateBlocks };
