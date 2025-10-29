@@ -1,4 +1,5 @@
 import { mergeAttributes, Node } from "@tiptap/core";
+import { isCursorAtStartOfNode } from "../../utils/utils";
 
 const Title = Node.create({
 	name: "title",
@@ -28,6 +29,18 @@ const Title = Node.create({
 			},
 		};
 	},
+
+    addKeyboardShortcuts() {
+        return {
+            Enter: ({ editor }) => {
+                if (isCursorAtStartOfNode(editor)) {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+    },
 
     renderHTML({ HTMLAttributes }) {
         return ["h1", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
