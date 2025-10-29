@@ -6,12 +6,6 @@ type KnownAttrs = {
 	position: number;
 };
 
-type TiptapJSONNode = {
-	type: string;
-	attrs: KnownAttrs & Record<string, unknown>;
-	content?: JSONContent[];
-};
-
 type DBBlock = {
 	id: Id<"blocks">;
 	position: number;
@@ -32,21 +26,25 @@ function convertBlocksToTiptapJSON(blocks: Doc<"blocks">[]) {
 	}));
 }
 
-function convertBlocksToDBFormat(blocks: TiptapJSONNode[]) {
+function convertBlocksToDBFormat(blocks: JSONContent[]) {
 	const dbBlocks: DBBlock[] = [];
 
 	for (const block of blocks) {
-		const {
-			type,
-			content,
-			attrs: { id, position, ...additionalAttributes },
-		} = block;
+		const type = block.type as string | undefined;
+		const content = block.content ?? [];
+		const attrs = (block.attrs ?? {}) as Partial<KnownAttrs> &
+			Record<string, unknown>;
+
+		const { id, position, ...additionalAttributes } = attrs;
+
+		// Skip nodes that don't have required identifiers
+		if (!id || typeof position !== "number" || !type) continue;
 
 		const dbBlock: DBBlock = {
 			id,
 			position,
 			type,
-			content: content ?? [],
+			content,
 			additionalAttributes,
 		};
 
@@ -64,4 +62,8 @@ function removeUndefinedFields(
 	);
 }
 
-export { convertBlocksToTiptapJSON, convertBlocksToDBFormat, removeUndefinedFields };
+export {
+	convertBlocksToTiptapJSON,
+	convertBlocksToDBFormat,
+	removeUndefinedFields,
+};
