@@ -49,6 +49,54 @@ const updateBlock = mutation({
 
         await ctx.db.patch(blockId, fieldsToUpdate);
     }
+});
+
+const bulkUdpateBlocks = mutation({
+    args: {
+        blocks: v.array(v.object({
+            id: v.id("blocks"),
+            position: v.float64(),
+            type: v.string(),
+            content: v.array(v.record(v.string(), v.any())),
+            additionalAttributes: v.optional(v.record(v.string(), v.any()))
+        })),
+    },
+
+    handler: async (ctx, args) => {
+        const userIdentity = await ctx.auth.getUserIdentity();
+        if (!userIdentity) {
+            throw new Error("User not authenticated");
+        }
+
+        for (const block of args.blocks) {
+            const blockInstance = await ctx.db.get(block.id);
+            if (!blockInstance) {
+                throw new Error("Block not found");
+            }
+
+            const noteId = blockInstance.noteId;
+            const note = await ctx.db.get(noteId);
+            if (!note) {
+                throw new Error("Note not found");
+            }
+
+            const notebookId = note.notebookId;
+            const notebook = await ctx.db.get(notebookId);
+            if (!notebook) {
+                throw new Error("Notebook not found");
+            }
+
+            const notebookOwner = notebook.owner;
+            const requesterId = userIdentity.subject;
+            if (notebookOwner !== requesterId) {
+                throw new Error("You are not the owner of this notebook");
+            }
+
+            const { id: blockId, ...fields } = block;
+
+            await ctx.db.patch(blockId, fields);
+        }
+    }
 })
 
-export { updateBlock }
+export { updateBlock, bulkUdpateBlocks }
