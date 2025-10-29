@@ -10,4 +10,12 @@ function getEditorSelection(editor: Editor) {
     return node;
 }
 
-export { getEditorSelection };
+function isCursorAtStartOfNode(editor: Editor) {
+    const { state } = editor;
+    const { selection } = state;
+    const { $from } = selection;
+
+    return $from.parentOffset === 0;
+}
+
+export { getEditorSelection, isCursorAtStartOfNode };
