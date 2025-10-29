@@ -18,4 +18,4 @@ function isCursorAtStartOfNode(editor: Editor) {
     return $from.parentOffset === 0;
 }
 
-export { getEditorSelection };
+export { getEditorSelection, isCursorAtStartOfNode };
