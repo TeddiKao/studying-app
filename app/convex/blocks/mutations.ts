@@ -1,54 +1,142 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 import { removeUndefinedFields } from "./utils";
+import { Id } from "../_generated/dataModel";
+import blocks from "./schema";
 
 const updateBlock = mutation({
-    args: {
-        id: v.id("blocks"),
-        position: v.optional(v.float64()),
-        type: v.optional(v.string()),
-        content: v.optional(v.array(v.record(v.string(), v.any()))),
-        additionalAttributes: v.optional(v.record(v.string(), v.any())),
-    },
+	args: {
+		id: v.id("blocks"),
+		position: v.optional(v.float64()),
+		type: v.optional(v.string()),
+		content: v.optional(v.array(v.record(v.string(), v.any()))),
+		additionalAttributes: v.optional(v.record(v.string(), v.any())),
+	},
 
-    handler: async (ctx, args) => {
-        const { id: blockId, ...fields } = args;
-        const userIdentity = await ctx.auth.getUserIdentity();
+	handler: async (ctx, args) => {
+		const { id: blockId, ...fields } = args;
+		const userIdentity = await ctx.auth.getUserIdentity();
 
-        if (!userIdentity) {
-            throw new Error("User not authenticated");
+		if (!userIdentity) {
+			throw new Error("User not authenticated");
+		}
+
+		const fieldsToUpdate = removeUndefinedFields(fields);
+		const block = await ctx.db.get(blockId);
+
+		if (!block) {
+			throw new Error("Block not found");
+		}
+
+		const noteId = block.noteId;
+		const note = await ctx.db.get(noteId);
+
+		if (!note) {
+			throw new Error("Note not found");
+		}
+
+		const notebookId = note.notebookId;
+		const notebook = await ctx.db.get(notebookId);
+
+		if (!notebook) {
+			throw new Error("Notebook not found");
+		}
+
+		const notebookOwner = notebook.owner;
+		const requesterId = userIdentity.subject;
+
+		if (notebookOwner !== requesterId) {
+			throw new Error("You are not the owner of this notebook");
+		}
+
+		await ctx.db.patch(blockId, fieldsToUpdate);
+	},
+});
+
+const bulkUdpateBlocks = mutation({
+	args: {
+		blocks: v.array(
+			v.object({
+				id: v.id("blocks"),
+				position: v.float64(),
+				type: v.string(),
+				content: v.array(v.record(v.string(), v.any())),
+				additionalAttributes: v.optional(v.record(v.string(), v.any())),
+			})
+		),
+	},
+
+	handler: async (ctx, args) => {
+		const userIdentity = await ctx.auth.getUserIdentity();
+
+		if (!userIdentity) {
+			throw new Error("User not authenticated");
+		}
+
+		const blockIds = new Set<Id<"blocks">>();
+		const noteIds = new Set<Id<"notes">>();
+
+		const notesToBlocksMap = new Map<Id<"notes">, Id<"blocks">[]>();
+
+		for (const block of args.blocks) {
+			if (!blockIds.has(block.id)) {
+				blockIds.add(block.id);
+			}
+
+			const blockInstance = await ctx.db.get(block.id);
+			if (!blockInstance) {
+				throw new Error("Block not found");
+			}
+
+			if (!noteIds.has(blockInstance.noteId)) {
+				noteIds.add(blockInstance.noteId);
+				notesToBlocksMap.set(blockInstance.noteId, [block.id]);
+			} else {
+				const existingBlocks = notesToBlocksMap.get(
+					blockInstance.noteId
+				);
+				notesToBlocksMap.set(blockInstance.noteId, [
+					...(existingBlocks ?? []),
+					block.id,
+				]);
+			}
+		}
+
+        for (const [noteId, blockIds] of notesToBlocksMap.entries()) {
+            const note = await ctx.db.get(noteId);
+            if (!note) {
+                throw new Error("Note not found");
+            }
+
+            const notebookId = note.notebookId;
+            const notebook = await ctx.db.get(notebookId);
+
+            if (!notebook) {
+                throw new Error("Notebook not found");
+            }
+
+            const notebookOwner = notebook.owner;
+            const requesterId = userIdentity.subject;
+
+            if (notebookOwner !== requesterId) {
+                throw new Error("You are not the owner of this notebook");
+            }
+
+            for (const blockId of blockIds) {
+                const targetBlock = args.blocks.find((block) => block.id === blockId);
+                if (!targetBlock) {
+                    throw new Error("Block not found");
+                }
+
+                await ctx.db.patch(blockId, {
+                    position: targetBlock.position,
+                    type: targetBlock.type,
+                    content: targetBlock.content,
+                    additionalAttributes: targetBlock.additionalAttributes,
+                });
+            }
         }
+	},
+});
 
-        const fieldsToUpdate = removeUndefinedFields(fields);
-        const block = await ctx.db.get(blockId);
-
-        if (!block) {
-            throw new Error("Block not found");
-        }
-
-        const noteId = block.noteId;
-        const note = await ctx.db.get(noteId);
-
-        if (!note) {
-            throw new Error("Note not found");
-        }
-
-        const notebookId = note.notebookId;
-        const notebook = await ctx.db.get(notebookId);
-
-        if (!notebook) {
-            throw new Error("Notebook not found");
-        }
-
-        const notebookOwner = notebook.owner;
-        const requesterId = userIdentity.subject;
-
-        if (notebookOwner !== requesterId) {
-            throw new Error("You are not the owner of this notebook");
-        }
-
-        await ctx.db.patch(blockId, fieldsToUpdate);
-    }
-})
-
-export { updateBlock }
+export { updateBlock, bulkUdpateBlocks };

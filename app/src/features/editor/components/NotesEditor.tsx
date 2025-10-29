@@ -12,6 +12,7 @@ import { getEditorSelection } from "../utils/utils";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
+import { convertBlocksToDBFormat } from "@convex/blocks/utils";
 
 type NotesEditorProps = {
 	noteId: Id<"notes">;
@@ -69,6 +70,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 	});
 
 	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
+	const bulkUpdateBlocks = useMutation(api.blocks.mutations.bulkUdpateBlocks);
 
 	useEffect(() => {
 		if (!editor) return;
@@ -80,6 +82,23 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			content: blocks,
 		});
 	}, [blocks, editor]);
+
+	useEffect(() => {
+		function handleBeforeUnload() {
+			if (!editor) return;
+
+			bulkUpdateBlocks({
+				blocks: convertBlocksToDBFormat(editor.getJSON().content)
+			})
+		}
+
+		window.addEventListener("beforeunload", handleBeforeUnload);
+		console.log("Event listener added");
+
+		return () => {
+			window.removeEventListener("beforeunload", handleBeforeUnload);
+		};
+	}, [editor]);
 
 	return <EditorContent className="ml-16 mt-16" editor={editor} />;
 }
