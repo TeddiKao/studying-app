@@ -64,6 +64,7 @@ const bulkUdpateBlocks = mutation({
 
     handler: async (ctx, args) => {
         const userIdentity = await ctx.auth.getUserIdentity();
+
         if (!userIdentity) {
             throw new Error("User not authenticated");
         }
