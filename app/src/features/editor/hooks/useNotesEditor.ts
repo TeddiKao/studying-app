@@ -1,4 +1,5 @@
-import { updateBlock } from "@convex/blocks/mutations";
+"use client";
+
 import { useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
