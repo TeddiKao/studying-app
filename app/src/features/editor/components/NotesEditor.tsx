@@ -83,7 +83,11 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 	useEffect(() => {
 		function handleBeforeUnload() {
+			if (!editor) return;
 
+			navigator.sendBeacon("/api/saveBlocks", JSON.stringify({
+				blocks: editor.getJSON().content
+			}));
 		}
 
 		window.addEventListener("beforeunload", handleBeforeUnload);
