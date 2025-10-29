@@ -33,6 +33,9 @@ const Title = Node.create({
     addKeyboardShortcuts() {
         return {
             Enter: ({ editor }) => {
+                const selection = getEditorSelection(editor);
+                if (selection.type.name !== "title") return false;
+
                 if (isCursorAtStartOfNode(editor)) {
                     return true;
                 }
