@@ -20,15 +20,6 @@ type NotesEditorProps = {
 };
 
 function NotesEditor({ noteId }: NotesEditorProps) {
-	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
-	const {
-		selectedBlockId,
-		selectedBlockContent,
-		updateSelectedBlockId,
-		clearSelectedBlockId,
-		updateSelectedBlockContent,
-	} = useEditorStore();
-
 	const editor = useNotesEditor();
 
 	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
