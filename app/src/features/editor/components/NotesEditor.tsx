@@ -81,6 +81,18 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 		});
 	}, [blocks, editor]);
 
+	useEffect(() => {
+		function handleBeforeUnload() {
+
+		}
+
+		window.addEventListener("beforeunload", handleBeforeUnload);
+
+		return () => {
+			window.removeEventListener("beforeunload", handleBeforeUnload);
+		};
+	}, []);
+
 	return <EditorContent className="ml-16 mt-16" editor={editor} />;
 }
 
