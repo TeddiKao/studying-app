@@ -1,17 +1,10 @@
 "use client";
 
-import { EditorContent, useEditor } from "@tiptap/react";
-import { Document } from "@tiptap/extension-document";
-import { Text } from "@tiptap/extension-text";
-import { Title } from "../extensions/nodes/Title";
+import { EditorContent } from "@tiptap/react";
 import { useEffect } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
-import { getEditorSelection } from "../utils/utils";
-import { CustomParagraph } from "../extensions/nodes/Paragraph";
-import { Placeholder } from "@tiptap/extensions";
-import { useEditorStore } from "../stores/editorStore";
 import { convertBlocksToDBFormat } from "@convex/blocks/utils";
 import useNotesEditor from "../hooks/useNotesEditor";
 
