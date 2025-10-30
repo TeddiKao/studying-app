@@ -15,16 +15,34 @@ type KnownAttrs = {
 };
 
 type TiptapJSONBlock = {
-    type: string;
-    content: JSONContent[];
-    attrs: KnownAttrs & Record<string, unknown>;
-}
+	type: string;
+	content: JSONContent[];
+	attrs: KnownAttrs & Record<string, unknown>;
+};
 
 type NewlyCreatedTiptapJSONBlock = {
-    type: string;
-    content: JSONContent[];
-    attrs?: Record<string, unknown>;
-    tempId: string;
-}
+	type: string;
+	content: JSONContent[];
+	attrs?: Record<string, unknown>;
+	tempId: string;
+};
 
-export type { DBBlock, TiptapJSONBlock, KnownAttrs, NewlyCreatedTiptapJSONBlock };
+type NewlyCreatedTiptapJSONAnchorBlock = NewlyCreatedTiptapJSONBlock & {
+	position: {
+		relativeTo: Id<"blocks">;
+		placement: "before" | "after";
+	};
+
+	followingBlocks?: NewlyCreatedTiptapJSONFollowingBlock[];
+};
+
+type NewlyCreatedTiptapJSONFollowingBlock = NewlyCreatedTiptapJSONBlock;
+
+export type {
+	DBBlock,
+	TiptapJSONBlock,
+	KnownAttrs,
+	NewlyCreatedTiptapJSONAnchorBlock,
+	NewlyCreatedTiptapJSONFollowingBlock,
+	NewlyCreatedTiptapJSONBlock,
+};
