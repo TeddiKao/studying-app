@@ -84,4 +84,16 @@ function getNodePosition(editor: Editor, targetNode: Node) {
 	return foundPosition;
 }
 
+function getPreviousNode(editor: Editor, targetNode: Node) {
+	const pos = getNodePosition(editor, targetNode);
+	const resolvedPos = editor.state.doc.resolve(pos);
+
+	const index = resolvedPos.index(0);
+	if (index === 0) return null;
+
+	const previousNode = editor.state.doc.child(index - 1);
+
+	return previousNode;
+}
+
 export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes };
