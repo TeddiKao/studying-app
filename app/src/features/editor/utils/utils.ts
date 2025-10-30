@@ -96,4 +96,4 @@ function getPreviousNode(editor: Editor, targetNode: Node) {
 	return previousNode;
 }
 
-export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes };
+export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes, getPreviousNode, getNodePosition };
