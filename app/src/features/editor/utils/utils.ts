@@ -1,4 +1,5 @@
 import { Id } from "@convex/_generated/dataModel";
+import { Node } from "@tiptap/pm/model";
 import { Editor } from "@tiptap/react";
 
 function getEditorSelection(editor: Editor) {
@@ -19,7 +20,7 @@ function isCursorAtStartOfNode(editor: Editor) {
     return $from.parentOffset === 0;
 }
 
-function getNodeFromId(editor: Editor, id: Id<"blocks">) {
+function getNodeFromId(editor: Editor, id: Id<"blocks">): Node | null {
     let targetNode = null;
 
     editor.state.doc.descendants((node, pos) => {
