@@ -71,4 +71,17 @@ function getCreatedNodes(editor: Editor) {
 	return createdNodes;
 }
 
+function getNodePosition(editor: Editor, targetNode: Node) {
+	let foundPosition = 0;
+
+	editor.state.doc.descendants((node, pos) => {
+		if (node === targetNode) {
+			foundPosition = pos;
+			return false;
+		}
+	})
+
+	return foundPosition;
+}
+
 export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes };
