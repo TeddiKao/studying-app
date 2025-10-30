@@ -63,7 +63,7 @@ function getCreatedNodes(editor: Editor) {
 
 		createdNodes.push({
 			type: node.type.name,
-			content: node.content.toJSON(),
+			content: node.content.toJSON() ?? [],
 			tempId: tempId,
 		})
 	})
