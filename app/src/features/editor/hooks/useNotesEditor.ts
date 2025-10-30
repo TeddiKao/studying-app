@@ -82,7 +82,7 @@ function useNotesEditor() {
 
 					updateSelectedBlockContent(selectedBlockOriginalContent);
 				}
-			}
+			};
 
 			updateBlock({
 				id: selectedBlockId,
