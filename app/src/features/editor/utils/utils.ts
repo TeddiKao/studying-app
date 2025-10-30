@@ -1,6 +1,8 @@
 import { Id } from "@convex/_generated/dataModel";
 import { Node } from "@tiptap/pm/model";
 import { Editor } from "@tiptap/react";
+import { NewlyCreatedTiptapJSONBlock, TiptapJSONBlock } from "../types/blocks";
+import { isNullOrUndefined } from "@/shared/utils/types";
 
 function getEditorSelection(editor: Editor) {
 	const { state } = editor;
@@ -39,6 +41,32 @@ function getNodeFromId(
 	});
 
 	return { targetNode, targetPos };
+}
+
+function getCreatedNodes(editor: Editor) {
+	const { state } = editor;
+	const { doc } = state;
+
+	const createdNodes: NewlyCreatedTiptapJSONBlock[] = [];
+
+	doc.descendants((node, pos) => {
+		if (!node.type.isBlock) return;
+		if (isNullOrUndefined(node.attrs)) return;
+
+		const { id } = node.attrs;
+
+		if (!isNullOrUndefined(id)) {
+			return;
+		}
+
+		const tempId = crypto.randomUUID();
+
+		createdNodes.push({
+			type: node.type.name,
+			content: node.content.toJSON(),
+			tempId: tempId,
+		})
+	})
 }
 
 export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId };
