@@ -71,4 +71,4 @@ function getCreatedNodes(editor: Editor) {
 	return createdNodes;
 }
 
-export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId };
+export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes };
