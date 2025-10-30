@@ -3,7 +3,7 @@
 import { nodeInputRule, useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
-import { getEditorSelection, getNodeFromId } from "../utils/utils";
+import { getCreatedNodes, getEditorSelection, getNodeFromId } from "../utils/utils";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
@@ -94,6 +94,12 @@ function useNotesEditor() {
 			updateSelectedBlockType(selectedNode.type.name);
 			updateSelectedBlockOriginalContent(selectedNode.content.toJSON() ?? []);
 		},
+
+		onUpdate: ({ editor }) => {
+			const createdNodes = getCreatedNodes(editor);
+
+			console.log(createdNodes);
+		}
 	});
 }
 
