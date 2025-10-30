@@ -11,6 +11,7 @@ import { Document } from "@tiptap/extension-document";
 import { Text } from "@tiptap/extension-text";
 import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
+import { isNullOrUndefined } from "@/shared/utils/types";
 
 function useNotesEditor() {
 	const {
@@ -60,11 +61,15 @@ function useNotesEditor() {
 				return;
 			}
 
+			console.log(selectedBlockType);
+
 			if (selectedBlockType === Title.name) {
 				if (selectedBlockContent?.length === 0) {
 					const { targetNode, targetPos } = getNodeFromId(editor, selectedBlockId);
-					
-					if (!targetNode || !targetPos) return;
+					console.log(targetNode, targetPos);
+
+
+					if (isNullOrUndefined(targetNode) || isNullOrUndefined(targetPos)) return;
 					if (!selectedBlockOriginalContent) return;
 
 					const fragment = editor.state.schema.nodeFromJSON(selectedBlockOriginalContent);
