@@ -17,6 +17,7 @@ function useNotesEditor() {
 		selectedBlockId,
 		selectedBlockContent,
 		updateSelectedBlockId,
+		updateSelectedBlockOriginalContent,
 		clearSelectedBlockId,
 		updateSelectedBlockContent,
 	} = useEditorStore();
@@ -46,6 +47,7 @@ function useNotesEditor() {
 			if (!selectedBlockId) {
 				updateSelectedBlockId(selectedNode.attrs.id);
 				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
+				updateSelectedBlockOriginalContent(selectedNode.content.toJSON() ?? []);
 				return;
 			}
 
@@ -61,6 +63,7 @@ function useNotesEditor() {
 
 			updateSelectedBlockId(selectedNode.attrs.id);
 			updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
+			updateSelectedBlockOriginalContent(selectedNode.content.toJSON() ?? []);
 		},
 	});
 }
