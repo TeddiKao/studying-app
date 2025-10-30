@@ -61,8 +61,6 @@ function useNotesEditor() {
 				return;
 			}
 
-			console.log(selectedBlockType);
-
 			if (selectedBlockType === Title.name) {
 				if (selectedBlockContent?.length === 0) {
 					const { targetNode, targetPos } = getNodeFromId(editor, selectedBlockId);
@@ -81,6 +79,8 @@ function useNotesEditor() {
 
 						return true;
 					})
+
+					updateSelectedBlockContent(selectedBlockOriginalContent);
 				}
 			}
 
