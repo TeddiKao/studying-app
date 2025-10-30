@@ -21,11 +21,13 @@ const Title = Node.create({
 			id: {
 				default: null,
 				rendered: false,
+                keepOnSplit: false,
 			},
 
 			position: {
 				default: null,
 				rendered: false,
+                keepOnSplit: false,
 			},
 		};
 	},
