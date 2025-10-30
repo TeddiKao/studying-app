@@ -11,6 +11,10 @@ type EditorStore = {
     updateSelectedBlockContent: (content: JSONContent[]) => void;
     clearSelectedBlockContent: () => void;
 
+    selectedBlockType: string | null;
+    updateSelectedBlockType: (type: string) => void;
+    clearSelectedBlockType: () => void;
+
     selectedBlockOriginalContent: JSONContent[] | null;
     updateSelectedBlockOriginalContent: (content: JSONContent[]) => void;
     clearSelectedBlockOriginalContent: () => void;
@@ -24,6 +28,10 @@ const useEditorStore = create<EditorStore>((set) => ({
     selectedBlockContent: null,
     updateSelectedBlockContent: (content) => set({ selectedBlockContent: content }),
     clearSelectedBlockContent: () => set({ selectedBlockContent: null }),
+
+    selectedBlockType: null,
+    updateSelectedBlockType: (type) => set({ selectedBlockType: type }),
+    clearSelectedBlockType: () => set({ selectedBlockType: null }),
 
     selectedBlockOriginalContent: null,
     updateSelectedBlockOriginalContent: (content) => set({ selectedBlockOriginalContent: content }),
