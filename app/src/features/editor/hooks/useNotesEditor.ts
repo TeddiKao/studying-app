@@ -72,8 +72,13 @@ function useNotesEditor() {
 					if (isNullOrUndefined(targetNode) || isNullOrUndefined(targetPos)) return;
 					if (!selectedBlockOriginalContent) return;
 
-					const fragment = editor.state.schema.nodeFromJSON(selectedBlockOriginalContent);
-					const newNode = targetNode.type.create(targetNode.attrs, fragment);
+					console.log(selectedBlockOriginalContent);
+
+					const newNode = editor.state.schema.nodeFromJSON({
+						type: "title",
+						attrs: targetNode.attrs,
+						content: selectedBlockOriginalContent,
+					});
 
 					editor.commands.command(({ tr }) => {
 						tr.replaceWith(targetPos, targetPos + targetNode.nodeSize, newNode);
