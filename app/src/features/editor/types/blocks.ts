@@ -1,5 +1,6 @@
 import { Id } from "@convex/_generated/dataModel";
 import { JSONContent } from "@tiptap/react";
+import { UUID } from "crypto";
 
 type DBBlock = {
 	id: Id<"blocks">;
@@ -24,6 +25,7 @@ type NewlyCreatedTiptapJSONBlock = {
     type: string;
     content: JSONContent[];
     attrs?: Record<string, unknown>;
+    tempId: string;
 }
 
 export type { DBBlock, TiptapJSONBlock, KnownAttrs, NewlyCreatedTiptapJSONBlock };
