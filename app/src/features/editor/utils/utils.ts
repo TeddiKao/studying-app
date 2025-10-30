@@ -1,7 +1,7 @@
 import { Id } from "@convex/_generated/dataModel";
 import { Node } from "@tiptap/pm/model";
 import { Editor } from "@tiptap/react";
-import { NewlyCreatedTiptapJSONBlock, TiptapJSONBlock } from "../types/blocks";
+import { NewlyCreatedTiptapJSONAnchorBlock, NewlyCreatedTiptapJSONBlock, TiptapJSONBlock } from "../types/blocks";
 import { isNullOrUndefined } from "@/shared/utils/types";
 
 function getEditorSelection(editor: Editor) {
@@ -47,7 +47,7 @@ function getCreatedNodes(editor: Editor) {
 	const { state } = editor;
 	const { doc } = state;
 
-	const createdNodes: NewlyCreatedTiptapJSONBlock[] = [];
+	const createdNodes: NewlyCreatedTiptapJSONAnchorBlock[] = [];
 
 	doc.descendants((node, pos) => {
 		if (!node.type.isBlock) return;
@@ -60,11 +60,16 @@ function getCreatedNodes(editor: Editor) {
 		}
 
 		const tempId = crypto.randomUUID();
+		const previousNode = getPreviousNode(editor, node);
 
 		createdNodes.push({
 			type: node.type.name,
 			content: node.content.toJSON() ?? [],
 			tempId: tempId,
+			position: {
+				relativeTo: previousNode?.attrs.id ?? null,
+				placement: "after"
+			}
 		})
 	})
 
@@ -96,4 +101,11 @@ function getPreviousNode(editor: Editor, targetNode: Node) {
 	return previousNode;
 }
 
-export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes, getPreviousNode, getNodePosition };
+function isImmediatelyAfter(editor: Editor, nodeA: Node, nodeB: Node) {
+	const nodeAPos = getNodePosition(editor, nodeA);
+	const nodeBPos = getNodePosition(editor, nodeB);
+
+	return nodeAPos + nodeA.content.size === nodeBPos;
+}
+
+export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes, getPreviousNode, getNodePosition, isImmediatelyAfter };
