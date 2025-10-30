@@ -20,4 +20,4 @@ type TiptapJSONBlock = {
     attrs: KnownAttrs & Record<string, unknown>;
 }
 
-export type { DBBlock, TiptapJSONBlock };
+export type { DBBlock, TiptapJSONBlock, KnownAttrs };
