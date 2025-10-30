@@ -44,7 +44,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 		return () => {
 			window.removeEventListener("beforeunload", handleBeforeUnload);
 		};
-	}, [editor]);
+	}, [editor, bulkUpdateBlocks]);
 
 	return <EditorContent className="ml-16 mt-16" editor={editor} />;
 }
