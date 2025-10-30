@@ -67,6 +67,8 @@ function getCreatedNodes(editor: Editor) {
 			tempId: tempId,
 		})
 	})
+
+	return createdNodes;
 }
 
 export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId };
