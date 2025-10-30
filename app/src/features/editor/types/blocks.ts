@@ -20,4 +20,10 @@ type TiptapJSONBlock = {
     attrs: KnownAttrs & Record<string, unknown>;
 }
 
-export type { DBBlock, TiptapJSONBlock, KnownAttrs };
+type NewlyCreatedTiptapJSONBlock = {
+    type: string;
+    content: JSONContent[];
+    attrs?: Record<string, unknown>;
+}
+
+export type { DBBlock, TiptapJSONBlock, KnownAttrs, NewlyCreatedTiptapJSONBlock };
