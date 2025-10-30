@@ -1,6 +1,5 @@
 import { Id } from "@convex/_generated/dataModel";
 import { JSONContent } from "@tiptap/react";
-import { UUID } from "crypto";
 
 type DBBlock = {
 	id: Id<"blocks">;
