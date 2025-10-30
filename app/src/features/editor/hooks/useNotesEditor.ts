@@ -66,13 +66,9 @@ function useNotesEditor() {
 			if (selectedBlockType === Title.name) {
 				if (selectedBlockContent?.length === 0) {
 					const { targetNode, targetPos } = getNodeFromId(editor, selectedBlockId);
-					console.log(targetNode, targetPos);
-
 
 					if (isNullOrUndefined(targetNode) || isNullOrUndefined(targetPos)) return;
 					if (!selectedBlockOriginalContent) return;
-
-					console.log(selectedBlockOriginalContent);
 
 					const newNode = editor.state.schema.nodeFromJSON({
 						type: "title",
