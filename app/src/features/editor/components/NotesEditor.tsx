@@ -13,7 +13,7 @@ type NotesEditorProps = {
 };
 
 function NotesEditor({ noteId }: NotesEditorProps) {
-	const editor = useNotesEditor();
+	const editor = useNotesEditor(noteId);
 
 	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
 	const bulkUpdateBlocks = useMutation(api.blocks.mutations.bulkUpdateBlocks);
