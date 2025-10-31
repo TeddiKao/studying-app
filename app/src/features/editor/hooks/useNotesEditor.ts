@@ -3,7 +3,7 @@
 import { nodeInputRule, useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
-import { getCreatedNodes, getEditorSelection, getNodeFromId } from "../utils/utils";
+import { getCreatedNodes, getEditorSelection, getNodeFromId, getNodePosition } from "../utils/utils";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
@@ -108,7 +108,18 @@ function useNotesEditor(noteId: Id<"notes">) {
 			});
 
 			for (const [tempId, realId] of tempRealIdMapping) {
+				const targetNode = tempIdToNodeMapping.get(tempId);
+				if (!targetNode) continue;
 
+				const nodePos = getNodePosition(editor, targetNode);
+				if (isNullOrUndefined(nodePos)) continue;
+
+				const tr = editor.state.tr.setNodeMarkup(nodePos, undefined, {
+					...targetNode.attrs,
+					id: realId,
+				})
+
+				editor.view.dispatch(tr);
 			}
 		}
 	});
