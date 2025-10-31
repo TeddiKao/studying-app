@@ -31,6 +31,25 @@ const bulkCreateBlocks = mutation({
 		const userIdentity = await ctx.auth.getUserIdentity();
 		if (!userIdentity) {
 			throw new Error("User not authenticated");
+		};
+
+		const noteId = args.noteId;
+		const note = await ctx.db.get(noteId);
+		if (!note) {
+			throw new Error("Note not found");
+		}
+
+		const notebookId = note.notebookId;
+		const notebook = await ctx.db.get(notebookId);
+		if (!notebook) {
+			throw new Error("Notebook not found");
+		}
+
+		const notebookOwner = notebook.owner;
+		const requesterId = userIdentity.subject;
+
+		if (notebookOwner !== requesterId) {
+			throw new Error("You are not the owner of this notebook");
 		}
 	},
 });
