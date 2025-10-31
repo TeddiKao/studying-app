@@ -12,8 +12,9 @@ import { Text } from "@tiptap/extension-text";
 import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { isNullOrUndefined } from "@/shared/utils/types";
+import { Id } from "@convex/_generated/dataModel";
 
-function useNotesEditor() {
+function useNotesEditor(noteId: Id<"notes">) {
 	const {
 		selectedBlockId,
 		selectedBlockContent,
@@ -27,6 +28,7 @@ function useNotesEditor() {
 	} = useEditorStore();
 
 	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
+	const bulkCreateBlocks = useMutation(api.blocks.mutations.bulkCreateBlocks);
 
 	return useEditor({
 		extensions: [
@@ -98,7 +100,12 @@ function useNotesEditor() {
 		onUpdate: ({ editor }) => {
 			const createdNodes = getCreatedNodes(editor);
 
-			console.log(createdNodes);
+			if (createdNodes.length === 0) return;
+
+			const tempRealIdMapping = bulkCreateBlocks({
+				blocks: createdNodes,
+				noteId,
+			})
 		}
 	});
 }
