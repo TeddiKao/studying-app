@@ -141,6 +141,21 @@ const bulkCreateBlocks = mutation({
 				});
 
 				tempToRealIdMap.set(anchorBlock.tempId, newBlockId);
+
+				let lastFollowingBlockPosition = newBlockPosition;
+				for (const followingBlock of anchorBlock.followingBlocks ?? []) {
+					const followingBlockPosition = lastFollowingBlockPosition + 1;
+					const followingBlockId = await ctx.db.insert("blocks", {
+						position: followingBlockPosition,
+						type: followingBlock.type,
+						content: followingBlock.content,
+						additionalAttributes: followingBlock.additionalAttributes ?? {},
+						noteId,
+					});
+
+					tempToRealIdMap.set(followingBlock.tempId, followingBlockId);
+					lastFollowingBlockPosition = followingBlockPosition;
+				}
 			}
 		}
 	},
