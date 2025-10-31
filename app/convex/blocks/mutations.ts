@@ -2,7 +2,6 @@ import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 import { removeUndefinedFields } from "./utils";
 import { Id } from "../_generated/dataModel";
-import blocks from "./schema";
 
 const updateBlock = mutation({
 	args: {
