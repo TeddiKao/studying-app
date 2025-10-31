@@ -48,6 +48,7 @@ function getCreatedNodes(editor: Editor) {
 	const { doc } = state;
 
 	const createdNodes: NewlyCreatedTiptapJSONAnchorBlock[] = [];
+	const tempIdToNodeMapping = new Map<string, Node>();
 
 	doc.descendants((node, pos) => {
 		if (!node.type.isBlock) return;
@@ -63,8 +64,6 @@ function getCreatedNodes(editor: Editor) {
 		const previousNode = getPreviousNode(editor, node);
 
 		if (isNullOrUndefined(previousNode)) return;
-
-		const tempIdToNodeMapping = new Map<string, Node>();
 
 		if (previousNode?.attrs.id) {
 			createdNodes.push({
@@ -94,6 +93,7 @@ function getCreatedNodes(editor: Editor) {
 				}
 
 				const nodeReference = tempIdToNodeMapping.get(blockReference?.tempId);
+				
 				if (isNullOrUndefined(nodeReference)) return;
 
 				const immediatelyAfter = isImmediatelyAfter(editor, nodeReference, node);
@@ -104,6 +104,8 @@ function getCreatedNodes(editor: Editor) {
 						content: node.content.toJSON() ?? [],
 						tempId: tempId,
 					});
+
+					tempIdToNodeMapping.set(tempId, node);
 				}
 			}
 		}
