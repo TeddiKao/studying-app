@@ -24,6 +24,7 @@ const bulkCreateBlocks = mutation({
 				}))),
 			})
 		),
+		noteId: v.id("notes"),
 	},
 
 	handler: async (ctx, args) => {
