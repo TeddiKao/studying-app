@@ -34,12 +34,11 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			if (!editor) return;
 
 			bulkUpdateBlocks({
-				blocks: convertBlocksToDBFormat(editor.getJSON().content)
-			})
+				blocks: convertBlocksToDBFormat(editor.getJSON().content),
+			});
 		}
 
 		window.addEventListener("beforeunload", handleBeforeUnload);
-		console.log("Event listener added");
 
 		return () => {
 			window.removeEventListener("beforeunload", handleBeforeUnload);
