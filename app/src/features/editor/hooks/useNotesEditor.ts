@@ -97,15 +97,19 @@ function useNotesEditor(noteId: Id<"notes">) {
 			updateSelectedBlockOriginalContent(selectedNode.content.toJSON() ?? []);
 		},
 
-		onUpdate: ({ editor }) => {
-			const createdNodes = getCreatedNodes(editor);
+		onUpdate: async ({ editor }) => {
+			const { createdNodes, tempIdToNodeMapping } = getCreatedNodes(editor);
 
 			if (createdNodes.length === 0) return;
 
-			const tempRealIdMapping = bulkCreateBlocks({
+			const tempRealIdMapping = await bulkCreateBlocks({
 				blocks: createdNodes,
 				noteId,
-			})
+			});
+
+			for (const [tempId, realId] of tempRealIdMapping) {
+
+			}
 		}
 	});
 }
