@@ -62,15 +62,51 @@ function getCreatedNodes(editor: Editor) {
 		const tempId = crypto.randomUUID();
 		const previousNode = getPreviousNode(editor, node);
 
-		createdNodes.push({
-			type: node.type.name,
-			content: node.content.toJSON() ?? [],
-			tempId: tempId,
-			position: {
-				relativeTo: previousNode?.attrs.id ?? null,
-				placement: "after"
+		if (isNullOrUndefined(previousNode)) return;
+
+		const tempIdToNodeMapping = new Map<string, Node>();
+
+		if (previousNode?.attrs.id) {
+			createdNodes.push({
+				type: node.type.name,
+				content: node.content.toJSON() ?? [],
+				tempId: tempId,
+				position: {
+					relativeTo: previousNode.attrs.id,
+					placement: "after",
+				},
+				followingBlocks: [],
+			});
+
+			tempIdToNodeMapping.set(tempId, node);
+		} else {
+			for (const createdNode of createdNodes) {
+				const followingBlocks = createdNode?.followingBlocks;
+
+				let blockReference = null;
+				if (!isNullOrUndefined(followingBlocks)) {
+					const followingBlocksLength = followingBlocks.length;
+					const lastFollowingBlock = followingBlocks[followingBlocksLength - 1];
+
+					blockReference = lastFollowingBlock ?? createdNode;
+				} else {
+					blockReference = createdNode;
+				}
+
+				const nodeReference = tempIdToNodeMapping.get(blockReference?.tempId);
+				if (isNullOrUndefined(nodeReference)) return;
+
+				const immediatelyAfter = isImmediatelyAfter(editor, nodeReference, node);
+
+				if (immediatelyAfter) {
+					followingBlocks?.push({
+						type: node.type.name,
+						content: node.content.toJSON() ?? [],
+						tempId: tempId,
+					});
+				}
 			}
-		})
+		}
 	})
 
 	return createdNodes;
