@@ -102,10 +102,12 @@ function useNotesEditor(noteId: Id<"notes">) {
 
 			if (createdNodes.length === 0) return;
 
-			const tempRealIdMapping = await bulkCreateBlocks({
+			const tempRealIdMappingObj = await bulkCreateBlocks({
 				blocks: createdNodes,
 				noteId,
 			});
+
+			const tempRealIdMapping = new Map(Object.entries(tempRealIdMappingObj));
 
 			for (const [tempId, realId] of tempRealIdMapping) {
 				const targetNode = tempIdToNodeMapping.get(tempId);
