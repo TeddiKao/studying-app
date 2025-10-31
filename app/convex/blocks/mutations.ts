@@ -3,6 +3,24 @@ import { mutation } from "../_generated/server";
 import { removeUndefinedFields } from "./utils";
 import { Id } from "../_generated/dataModel";
 
+const bulkCreateBlocks = mutation({
+	args: {
+		blocks: v.array(
+			v.object({
+				type: v.string(),
+				content: v.array(v.record(v.string(), v.any())),
+				additionalAttributes: v.optional(v.record(v.string(), v.any())),
+				position: v.object({
+					relativeTo: v.id("blocks"),
+					placement: v.union(v.literal("before"), v.literal("after")),
+				}),
+			})
+		),
+	},
+
+	handler: async (ctx, args) => {},
+});
+
 const updateBlock = mutation({
 	args: {
 		id: v.id("blocks"),
@@ -101,40 +119,42 @@ const bulkUpdateBlocks = mutation({
 			}
 		}
 
-        for (const [noteId, blockIds] of notesToBlocksMap.entries()) {
-            const note = await ctx.db.get(noteId);
-            if (!note) {
-                throw new Error("Note not found");
-            }
+		for (const [noteId, blockIds] of notesToBlocksMap.entries()) {
+			const note = await ctx.db.get(noteId);
+			if (!note) {
+				throw new Error("Note not found");
+			}
 
-            const notebookId = note.notebookId;
-            const notebook = await ctx.db.get(notebookId);
+			const notebookId = note.notebookId;
+			const notebook = await ctx.db.get(notebookId);
 
-            if (!notebook) {
-                throw new Error("Notebook not found");
-            }
+			if (!notebook) {
+				throw new Error("Notebook not found");
+			}
 
-            const notebookOwner = notebook.owner;
-            const requesterId = userIdentity.subject;
+			const notebookOwner = notebook.owner;
+			const requesterId = userIdentity.subject;
 
-            if (notebookOwner !== requesterId) {
-                throw new Error("You are not the owner of this notebook");
-            }
+			if (notebookOwner !== requesterId) {
+				throw new Error("You are not the owner of this notebook");
+			}
 
-            for (const blockId of blockIds) {
-                const targetBlock = args.blocks.find((block) => block.id === blockId);
-                if (!targetBlock) {
-                    throw new Error("Block not found");
-                }
+			for (const blockId of blockIds) {
+				const targetBlock = args.blocks.find(
+					(block) => block.id === blockId
+				);
+				if (!targetBlock) {
+					throw new Error("Block not found");
+				}
 
-                await ctx.db.patch(blockId, {
-                    position: targetBlock.position,
-                    type: targetBlock.type,
-                    content: targetBlock.content,
-                    additionalAttributes: targetBlock.additionalAttributes,
-                });
-            }
-        }
+				await ctx.db.patch(blockId, {
+					position: targetBlock.position,
+					type: targetBlock.type,
+					content: targetBlock.content,
+					additionalAttributes: targetBlock.additionalAttributes,
+				});
+			}
+		}
 	},
 });
 
