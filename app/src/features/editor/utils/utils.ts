@@ -147,8 +147,6 @@ function isImmediatelyAfter(editor: Editor, nodeA: Node, nodeB: Node) {
 	const nodeAPos = getNodePosition(editor, nodeA);
 	const nodeBPos = getNodePosition(editor, nodeB);
 
-	console.log(nodeAPos, nodeA.nodeSize, nodeBPos);
-
 	return nodeAPos + nodeA.nodeSize === nodeBPos;
 }
 
