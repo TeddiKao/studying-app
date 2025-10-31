@@ -159,7 +159,7 @@ const bulkCreateBlocks = mutation({
 			}
 		}
 
-		return tempToRealIdMap;
+		return Object.fromEntries(tempToRealIdMap);
 	},
 });
 
