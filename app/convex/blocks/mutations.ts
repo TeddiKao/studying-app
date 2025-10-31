@@ -14,6 +14,12 @@ const bulkCreateBlocks = mutation({
 					relativeTo: v.id("blocks"),
 					placement: v.union(v.literal("before"), v.literal("after")),
 				}),
+
+				followingBlocks: v.optional(v.array(v.object({
+					type: v.string(),
+					content: v.array(v.record(v.string(), v.any())),
+					additionalAttributes: v.optional(v.record(v.string(), v.any())),
+				}))),
 			})
 		),
 	},
