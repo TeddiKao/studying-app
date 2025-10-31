@@ -117,7 +117,11 @@ function getCreatedNodes(editor: Editor) {
 function getNodePosition(editor: Editor, targetNode: Node) {
 	let foundPosition = 0;
 
+	console.log(targetNode);
+
 	editor.state.doc.descendants((node, pos) => {
+		if (!node.type.isBlock) return;
+
 		if (node === targetNode) {
 			foundPosition = pos;
 			return false;
@@ -143,7 +147,9 @@ function isImmediatelyAfter(editor: Editor, nodeA: Node, nodeB: Node) {
 	const nodeAPos = getNodePosition(editor, nodeA);
 	const nodeBPos = getNodePosition(editor, nodeB);
 
-	return nodeAPos + nodeA.content.size === nodeBPos;
+	console.log(nodeAPos, nodeA.nodeSize, nodeBPos);
+
+	return nodeAPos + nodeA.nodeSize === nodeBPos;
 }
 
 export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes, getPreviousNode, getNodePosition, isImmediatelyAfter };
