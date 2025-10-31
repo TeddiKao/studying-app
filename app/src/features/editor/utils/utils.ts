@@ -111,7 +111,10 @@ function getCreatedNodes(editor: Editor) {
 		}
 	})
 
-	return createdNodes;
+	return {
+		createdNodes,
+		tempIdToNodeMapping,
+	};
 }
 
 function getNodePosition(editor: Editor, targetNode: Node) {
