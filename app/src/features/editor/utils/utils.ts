@@ -1,7 +1,11 @@
 import { Id } from "@convex/_generated/dataModel";
 import { Node } from "@tiptap/pm/model";
 import { Editor } from "@tiptap/react";
-import { NewlyCreatedTiptapJSONAnchorBlock, NewlyCreatedTiptapJSONBlock, TiptapJSONBlock } from "../types/blocks";
+import {
+	NewlyCreatedTiptapJSONAnchorBlock,
+	NewlyCreatedTiptapJSONBlock,
+	TiptapJSONBlock,
+} from "../types/blocks";
 import { isNullOrUndefined } from "@/shared/utils/types";
 
 function getEditorSelection(editor: Editor) {
@@ -85,18 +89,25 @@ function getCreatedNodes(editor: Editor) {
 				let blockReference = null;
 				if (!isNullOrUndefined(followingBlocks)) {
 					const followingBlocksLength = followingBlocks.length;
-					const lastFollowingBlock = followingBlocks[followingBlocksLength - 1];
+					const lastFollowingBlock =
+						followingBlocks[followingBlocksLength - 1];
 
 					blockReference = lastFollowingBlock ?? createdNode;
 				} else {
 					blockReference = createdNode;
 				}
 
-				const nodeReference = tempIdToNodeMapping.get(blockReference?.tempId);
-				
+				const nodeReference = tempIdToNodeMapping.get(
+					blockReference?.tempId
+				);
+
 				if (isNullOrUndefined(nodeReference)) return;
 
-				const immediatelyAfter = isImmediatelyAfter(editor, nodeReference, node);
+				const immediatelyAfter = isImmediatelyAfter(
+					editor,
+					nodeReference,
+					node
+				);
 
 				if (immediatelyAfter) {
 					followingBlocks?.push({
@@ -109,7 +120,7 @@ function getCreatedNodes(editor: Editor) {
 				}
 			}
 		}
-	})
+	});
 
 	return {
 		createdNodes,
@@ -120,8 +131,6 @@ function getCreatedNodes(editor: Editor) {
 function getNodePosition(editor: Editor, targetNode: Node) {
 	let foundPosition = 0;
 
-	console.log(targetNode);
-
 	editor.state.doc.descendants((node, pos) => {
 		if (!node.type.isBlock) return;
 
@@ -129,7 +138,7 @@ function getNodePosition(editor: Editor, targetNode: Node) {
 			foundPosition = pos;
 			return false;
 		}
-	})
+	});
 
 	return foundPosition;
 }
@@ -153,4 +162,12 @@ function isImmediatelyAfter(editor: Editor, nodeA: Node, nodeB: Node) {
 	return nodeAPos + nodeA.nodeSize === nodeBPos;
 }
 
-export { getEditorSelection, isCursorAtStartOfNode, getNodeFromId, getCreatedNodes, getPreviousNode, getNodePosition, isImmediatelyAfter };
+export {
+	getEditorSelection,
+	isCursorAtStartOfNode,
+	getNodeFromId,
+	getCreatedNodes,
+	getPreviousNode,
+	getNodePosition,
+	isImmediatelyAfter,
+};
