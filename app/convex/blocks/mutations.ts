@@ -158,4 +158,4 @@ const bulkUpdateBlocks = mutation({
 	},
 });
 
-export { updateBlock, bulkUpdateBlocks };
+export { bulkCreateBlocks, updateBlock, bulkUpdateBlocks };
