@@ -1,9 +1,14 @@
 "use client";
 
-import { nodeInputRule, useEditor } from "@tiptap/react";
+import { useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
-import { getCreatedNodes, getEditorSelection, getNodeFromId, getNodePosition } from "../utils/utils";
+import {
+	getCreatedNodes,
+	getEditorSelection,
+	getNodeFromId,
+	getNodePosition,
+} from "../utils/utils";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
@@ -13,6 +18,7 @@ import { useMutation } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { isNullOrUndefined } from "@/shared/utils/types";
 import { Id } from "@convex/_generated/dataModel";
+import { useEffect } from "react";
 
 function useNotesEditor(noteId: Id<"notes">) {
 	const {
@@ -23,108 +29,157 @@ function useNotesEditor(noteId: Id<"notes">) {
 		updateSelectedBlockId,
 		updateSelectedBlockOriginalContent,
 		updateSelectedBlockType,
-		clearSelectedBlockId,
 		updateSelectedBlockContent,
+
+		clearSelectedBlockId,
+		clearSelectedBlockContent,
+		clearSelectedBlockType,
+		clearSelectedBlockOriginalContent,
 	} = useEditorStore();
 
 	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
 	const bulkCreateBlocks = useMutation(api.blocks.mutations.bulkCreateBlocks);
 
-	return useEditor({
-		extensions: [
-			Document,
-			Text,
-			CustomParagraph,
-			Title,
-			Placeholder.configure({
-				placeholder: ({ node }) => {
-					if (node.type.name === "title") return "Enter title";
+	useEffect(() => {
+		return () => {
+			clearSelectedBlockId();
+			clearSelectedBlockContent();
+			clearSelectedBlockType();
+			clearSelectedBlockOriginalContent();
+		};
+	}, [
+		clearSelectedBlockId,
+		clearSelectedBlockContent,
+		clearSelectedBlockType,
+		clearSelectedBlockOriginalContent,
+	]);
 
-					return "Enter content";
-				},
-			}),
-		],
-		immediatelyRender: false,
+	return useEditor(
+		{
+			extensions: [
+				Document,
+				Text,
+				CustomParagraph,
+				Title,
+				Placeholder.configure({
+					placeholder: ({ node }) => {
+						if (node.type.name === "title") return "Enter title";
 
-		onSelectionUpdate: ({ editor }) => {
-			const selectedNode = getEditorSelection(editor);
-			if (!selectedNode.attrs.id) return;
+						return "Enter content";
+					},
+				}),
+			],
+			immediatelyRender: false,
 
-			if (!selectedBlockId) {
+			onSelectionUpdate: ({ editor }) => {
+				const selectedNode = getEditorSelection(editor);
+				if (!selectedNode.attrs.id) return;
+
+				if (!selectedBlockId) {
+					updateSelectedBlockId(selectedNode.attrs.id);
+					updateSelectedBlockContent(
+						selectedNode.content.toJSON() ?? []
+					);
+					updateSelectedBlockOriginalContent(
+						selectedNode.content.toJSON() ?? []
+					);
+					updateSelectedBlockType(selectedNode.type.name);
+					return;
+				}
+
+				if (selectedBlockId === selectedNode.attrs.id) {
+					updateSelectedBlockContent(
+						selectedNode.content.toJSON() ?? []
+					);
+					return;
+				}
+
+				if (selectedBlockType === Title.name) {
+					if (selectedBlockContent?.length === 0) {
+						const { targetNode, targetPos } = getNodeFromId(
+							editor,
+							selectedBlockId
+						);
+
+						if (
+							isNullOrUndefined(targetNode) ||
+							isNullOrUndefined(targetPos)
+						)
+							return;
+						if (!selectedBlockOriginalContent) return;
+
+						const newNode = editor.state.schema.nodeFromJSON({
+							type: "title",
+							attrs: targetNode.attrs,
+							content: selectedBlockOriginalContent,
+						});
+
+						editor.commands.command(({ tr }) => {
+							tr.replaceWith(
+								targetPos,
+								targetPos + targetNode.nodeSize,
+								newNode
+							);
+
+							return true;
+						});
+
+						updateSelectedBlockContent(
+							selectedBlockOriginalContent
+						);
+					}
+				}
+
+				updateBlock({
+					id: selectedBlockId,
+					content: selectedBlockContent ?? [],
+				});
+
 				updateSelectedBlockId(selectedNode.attrs.id);
 				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
-				updateSelectedBlockOriginalContent(selectedNode.content.toJSON() ?? []);
 				updateSelectedBlockType(selectedNode.type.name);
-				return;
-			}
+				updateSelectedBlockOriginalContent(
+					selectedNode.content.toJSON() ?? []
+				);
+			},
 
-			if (selectedBlockId === selectedNode.attrs.id) {
-				updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
-				return;
-			}
+			onUpdate: async ({ editor }) => {
+				const { createdNodes, tempIdToNodeMapping } =
+					getCreatedNodes(editor);
 
-			if (selectedBlockType === Title.name) {
-				if (selectedBlockContent?.length === 0) {
-					const { targetNode, targetPos } = getNodeFromId(editor, selectedBlockId);
+				if (createdNodes.length === 0) return;
 
-					if (isNullOrUndefined(targetNode) || isNullOrUndefined(targetPos)) return;
-					if (!selectedBlockOriginalContent) return;
+				const tempRealIdMappingObj = await bulkCreateBlocks({
+					blocks: createdNodes,
+					noteId,
+				});
 
-					const newNode = editor.state.schema.nodeFromJSON({
-						type: "title",
-						attrs: targetNode.attrs,
-						content: selectedBlockOriginalContent,
-					});
+				const tempRealIdMapping = new Map(
+					Object.entries(tempRealIdMappingObj)
+				);
 
-					editor.commands.command(({ tr }) => {
-						tr.replaceWith(targetPos, targetPos + targetNode.nodeSize, newNode);
+				for (const [tempId, realId] of tempRealIdMapping) {
+					const targetNode = tempIdToNodeMapping.get(tempId);
+					if (!targetNode) continue;
 
-						return true;
-					})
+					const nodePos = getNodePosition(editor, targetNode);
+					if (isNullOrUndefined(nodePos)) continue;
 
-					updateSelectedBlockContent(selectedBlockOriginalContent);
+					const tr = editor.state.tr.setNodeMarkup(
+						nodePos,
+						undefined,
+						{
+							...targetNode.attrs,
+							id: realId,
+						}
+					);
+
+					editor.view.dispatch(tr);
 				}
-			};
-
-			updateBlock({
-				id: selectedBlockId,
-				content: selectedBlockContent ?? [],
-			});
-
-			updateSelectedBlockId(selectedNode.attrs.id);
-			updateSelectedBlockContent(selectedNode.content.toJSON() ?? []);
-			updateSelectedBlockType(selectedNode.type.name);
-			updateSelectedBlockOriginalContent(selectedNode.content.toJSON() ?? []);
+			},
 		},
-
-		onUpdate: async ({ editor }) => {
-			const { createdNodes, tempIdToNodeMapping } = getCreatedNodes(editor);
-
-			if (createdNodes.length === 0) return;
-
-			const tempRealIdMappingObj = await bulkCreateBlocks({
-				blocks: createdNodes,
-				noteId,
-			});
-
-			const tempRealIdMapping = new Map(Object.entries(tempRealIdMappingObj));
-
-			for (const [tempId, realId] of tempRealIdMapping) {
-				const targetNode = tempIdToNodeMapping.get(tempId);
-				if (!targetNode) continue;
-
-				const nodePos = getNodePosition(editor, targetNode);
-				if (isNullOrUndefined(nodePos)) continue;
-
-				const tr = editor.state.tr.setNodeMarkup(nodePos, undefined, {
-					...targetNode.attrs,
-					id: realId,
-				})
-
-				editor.view.dispatch(tr);
-			}
-		}
-	}, [noteId]);
+		[noteId]
+	);
 }
 
 export default useNotesEditor;
