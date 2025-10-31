@@ -16,12 +16,18 @@ const bulkCreateBlocks = mutation({
 					placement: v.union(v.literal("before"), v.literal("after")),
 				}),
 
-				followingBlocks: v.optional(v.array(v.object({
-					type: v.string(),
-					content: v.array(v.record(v.string(), v.any())),
-					additionalAttributes: v.optional(v.record(v.string(), v.any())),
-					tempId: v.string(),
-				}))),
+				followingBlocks: v.optional(
+					v.array(
+						v.object({
+							type: v.string(),
+							content: v.array(v.record(v.string(), v.any())),
+							additionalAttributes: v.optional(
+								v.record(v.string(), v.any())
+							),
+							tempId: v.string(),
+						})
+					)
+				),
 			})
 		),
 		noteId: v.id("notes"),
@@ -31,26 +37,81 @@ const bulkCreateBlocks = mutation({
 		const userIdentity = await ctx.auth.getUserIdentity();
 		if (!userIdentity) {
 			throw new Error("User not authenticated");
-		};
+		}
 
 		const noteId = args.noteId;
 		const note = await ctx.db.get(noteId);
 		if (!note) {
 			throw new Error("Note not found");
-		};
+		}
 
 		const notebookId = note.notebookId;
 		const notebook = await ctx.db.get(notebookId);
 		if (!notebook) {
 			throw new Error("Notebook not found");
-		};
+		}
 
 		const notebookOwner = notebook.owner;
 		const requesterId = userIdentity.subject;
 
 		if (notebookOwner !== requesterId) {
 			throw new Error("You are not the owner of this notebook");
-		};
+		}
+
+		const tempToRealIdMap = new Map<string, Id<"blocks">>();
+
+		for (const anchorBlock of args.blocks) {
+			const relativeBlockId = anchorBlock.position.relativeTo;
+			const relativeBlock = await ctx.db.get(relativeBlockId);
+
+			if (!relativeBlock) {
+				throw new Error("Block not found");
+			}
+
+			const blocksInNote = await ctx.db
+				.query("blocks")
+				.withIndex("by_note_id", (q) => q.eq("noteId", noteId))
+				.collect();
+
+			const sortedBlocks = blocksInNote.sort((a, b) => {
+				if (a.position < b.position) {
+					return -1;
+				}
+
+				if (a.position > b.position) {
+					return 1;
+				}
+
+				return 0;
+			});
+
+			const relativeBlockIndex = sortedBlocks.findIndex(
+				(block) => relativeBlockId === block._id
+			);
+
+			let neighbouringBlock = null;
+			if (anchorBlock.position.placement === "before") {
+				neighbouringBlock = sortedBlocks?.[relativeBlockIndex - 1];
+			} else {
+				neighbouringBlock = sortedBlocks?.[relativeBlockIndex + 1];
+			}
+
+			if (neighbouringBlock) {
+				const relativeBlockPosition = neighbouringBlock.position;
+				const neighbouringPosition = neighbouringBlock.position;
+
+				const newBlockPosition = (relativeBlockPosition + neighbouringPosition) / 2;
+				const newBlockId = await ctx.db.insert("blocks", {
+					position: newBlockPosition,
+					type: anchorBlock.type,
+					content: anchorBlock.content,
+					additionalAttributes: anchorBlock.additionalAttributes ?? {},
+					noteId,
+				});
+
+				tempToRealIdMap.set(anchorBlock.tempId, newBlockId);
+			}
+		}
 	},
 });
 
