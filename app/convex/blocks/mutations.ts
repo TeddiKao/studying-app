@@ -110,6 +110,22 @@ const bulkCreateBlocks = mutation({
 				});
 
 				tempToRealIdMap.set(anchorBlock.tempId, newBlockId);
+			} else {
+				if (anchorBlock.position.placement === "before") {
+					throw new Error("Block cannot be placed before title");
+				}
+
+				const lastBlockPosition = sortedBlocks[sortedBlocks.length - 1].position;
+				const newBlockPosition = lastBlockPosition + 1;
+				const newBlockId = await ctx.db.insert("blocks", {
+					position: newBlockPosition,
+					type: anchorBlock.type,
+					content: anchorBlock.content,
+					additionalAttributes: anchorBlock.additionalAttributes ?? {},
+					noteId,
+				});
+
+				tempToRealIdMap.set(anchorBlock.tempId, newBlockId);
 			}
 		}
 	},
