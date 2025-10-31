@@ -124,7 +124,7 @@ function useNotesEditor(noteId: Id<"notes">) {
 				editor.view.dispatch(tr);
 			}
 		}
-	});
+	}, [noteId]);
 }
 
 export default useNotesEditor;
