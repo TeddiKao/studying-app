@@ -29,7 +29,10 @@ function createTransactionBatchPlugin(
 			apply(transaction, value) {
 				const meta = transaction.getMeta(plugin);
 
-				if (meta?.transactionKey && meta.selfTriggeredTransaction === false) {
+				if (
+					meta?.transactionKey &&
+					meta.selfTriggeredTransaction === false
+				) {
 					return { lastHandledTransactionKey: meta.transactionKey };
 				} else {
 					return value;
@@ -73,7 +76,10 @@ function createTransactionBatchPlugin(
 
 			console.log("Append transaction triggered!");
 
-			const tr = newState.tr.setMeta(plugin, { transactionKey });
+			const tr = newState.tr.setMeta(plugin, {
+				...(newState.tr.getMeta(plugin) ?? {}),
+				transactionKey,
+			});
 			const docSnapshot = tr.doc;
 
 			const { createdNodes, tempIdToNodeMapping } =
@@ -106,9 +112,10 @@ function createTransactionBatchPlugin(
 					if (isNullOrUndefined(nodePos)) continue;
 
 					editor.commands.command(({ tr }) => {
-						tr.setMeta(
-							plugin, { selfTriggeredTransaction: true }
-						).setNodeMarkup(nodePos, targetNode.type, {
+						tr.setMeta(plugin, {
+							...(tr.getMeta(plugin) ?? {}),
+							selfTriggeredTransaction: true,
+						}).setNodeMarkup(nodePos, targetNode.type, {
 							...targetNode.attrs,
 							id: realId,
 							position,
