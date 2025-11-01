@@ -3,7 +3,7 @@ import { Plugin, PluginKey } from "@tiptap/pm/state";
 import {
 	getCreatedNodes,
 	getCreatedNodesFromDocState,
-    getNodePositionFromDocState,
+	getNodePositionFromDocState,
 } from "../../utils/utils";
 import { bulkCreateBlocks } from "@convex/blocks/mutations";
 import { Id } from "@convex/_generated/dataModel";
@@ -14,7 +14,11 @@ type TransactionBatchPluginState = {
 	lastHandledTransactionKey: string | null;
 };
 
-function createTransactionBatchPlugin(editor: Editor, bulkCreateBlocks: any, noteId: Id<"notes">) {
+function createTransactionBatchPlugin(
+	editor: Editor,
+	bulkCreateBlocks: any,
+	noteId: Id<"notes">
+) {
 	const plugin = new Plugin({
 		key: new PluginKey("transactionBatchPlugin"),
 
@@ -65,40 +69,48 @@ function createTransactionBatchPlugin(editor: Editor, bulkCreateBlocks: any, not
 			}
 
 			const tr = newState.tr.setMeta(plugin, { transactionKey });
-            const docSnapshot = tr.doc;
+			const docSnapshot = tr.doc;
 
 			const { createdNodes, tempIdToNodeMapping } =
 				getCreatedNodesFromDocState(docSnapshot);
 
-            if (createdNodes.length === 0) return null;
+			if (createdNodes.length === 0) return null;
 
-            setTimeout(async () => {
-                const bulkCreateBlocksResult = await bulkCreateBlocks({
-                    blocks: createdNodes,
-                    noteId,
-                });
+			setTimeout(async () => {
+				const bulkCreateBlocksResult = await bulkCreateBlocks({
+					blocks: createdNodes,
+					noteId,
+				});
 
-                const tempToRealIdMapping = new Map(
-                    Object.entries(bulkCreateBlocksResult)
-                );
+				const tempToRealIdMapping = new Map<
+					string,
+					{ realId: Id<"blocks">; position: number }
+				>(Object.entries(bulkCreateBlocksResult));
 
-                for (const [tempId, realId] of tempToRealIdMapping) {
-                    const targetNode = tempIdToNodeMapping.get(tempId);
-                    if (!targetNode) continue;
+				for (const [
+					tempId,
+					{ realId, position },
+				] of tempToRealIdMapping) {
+					const targetNode = tempIdToNodeMapping.get(tempId);
+					if (!targetNode) continue;
 
-                    const nodePos = getNodePositionFromDocState(docSnapshot, targetNode);
-                    if (isNullOrUndefined(nodePos)) continue;
+					const nodePos = getNodePositionFromDocState(
+						docSnapshot,
+						targetNode
+					);
+					if (isNullOrUndefined(nodePos)) continue;
 
-                    editor.commands.command(({ tr }) => {
-                        tr.setNodeMarkup(nodePos, targetNode.type, {
-                            ...targetNode.attrs,
-                            id: realId
-                        })
-                        
-                        return true;
-                    })
-                }
-            }, 0);
+					editor.commands.command(({ tr }) => {
+						tr.setNodeMarkup(nodePos, targetNode.type, {
+							...targetNode.attrs,
+							id: realId,
+							position,
+						});
+
+						return true;
+					});
+				}
+			}, 0);
 
 			return tr;
 		},
@@ -107,17 +119,25 @@ function createTransactionBatchPlugin(editor: Editor, bulkCreateBlocks: any, not
 	return plugin;
 }
 
-function createTransactionBatchPluginExtension(bulkCreateBlocks: any, noteId: Id<"notes">) {
+function createTransactionBatchPluginExtension(
+	bulkCreateBlocks: any,
+	noteId: Id<"notes">
+) {
 	return Extension.create({
 		name: "transactionBatchPlugin",
 		addProseMirrorPlugins() {
-			return [createTransactionBatchPlugin(this.editor, bulkCreateBlocks, noteId)];
+			return [
+				createTransactionBatchPlugin(
+					this.editor,
+					bulkCreateBlocks,
+					noteId
+				),
+			];
 		},
 	});
 }
 
 export { createTransactionBatchPluginExtension };
-    function getNodePosition(editor: Editor, targetNode: Node) {
-        throw new Error("Function not implemented.");
-    }
-
+function getNodePosition(editor: Editor, targetNode: Node) {
+	throw new Error("Function not implemented.");
+}
