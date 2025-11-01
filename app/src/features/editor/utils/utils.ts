@@ -166,6 +166,13 @@ function isImmediatelyAfter(editor: Editor, nodeA: Node, nodeB: Node) {
 	return nodeAPos + nodeA.nodeSize === nodeBPos;
 }
 
+function isImmediatelyAfterFromDocState(doc: Node, nodeA: Node, nodeB: Node) {
+	const nodeAPos = getNodePositionFromDocState(doc, nodeA);
+	const nodeBPos = getNodePositionFromDocState(doc, nodeB);
+
+	return nodeAPos + nodeA.nodeSize === nodeBPos;
+}
+
 export {
 	getEditorSelection,
 	isCursorAtStartOfNode,
@@ -174,4 +181,5 @@ export {
 	getPreviousNodeFromEditor,
 	getNodePositionFromEditor,
 	isImmediatelyAfter,
+	isImmediatelyAfterFromDocState,
 };
