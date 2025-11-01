@@ -145,40 +145,40 @@ function useNotesEditor(noteId: Id<"notes">) {
 				);
 			},
 
-			onUpdate: async ({ editor }) => {
-				const { createdNodes, tempIdToNodeMapping } =
-					getCreatedNodes(editor);
+			// onUpdate: async ({ editor }) => {
+			// 	const { createdNodes, tempIdToNodeMapping } =
+			// 		getCreatedNodes(editor);
 
-				if (createdNodes.length === 0) return;
+			// 	if (createdNodes.length === 0) return;
 
-				const tempRealIdMappingObj = await bulkCreateBlocks({
-					blocks: createdNodes,
-					noteId,
-				});
+			// 	const tempRealIdMappingObj = await bulkCreateBlocks({
+			// 		blocks: createdNodes,
+			// 		noteId,
+			// 	});
 
-				const tempRealIdMapping = new Map(
-					Object.entries(tempRealIdMappingObj)
-				);
+			// 	const tempRealIdMapping = new Map(
+			// 		Object.entries(tempRealIdMappingObj)
+			// 	);
 
-				for (const [tempId, realId] of tempRealIdMapping) {
-					const targetNode = tempIdToNodeMapping.get(tempId);
-					if (!targetNode) continue;
+			// 	for (const [tempId, realId] of tempRealIdMapping) {
+			// 		const targetNode = tempIdToNodeMapping.get(tempId);
+			// 		if (!targetNode) continue;
 
-					const nodePos = getNodePosition(editor, targetNode);
-					if (isNullOrUndefined(nodePos)) continue;
+			// 		const nodePos = getNodePosition(editor, targetNode);
+			// 		if (isNullOrUndefined(nodePos)) continue;
 
-					const tr = editor.state.tr.setNodeMarkup(
-						nodePos,
-						undefined,
-						{
-							...targetNode.attrs,
-							id: realId,
-						}
-					);
+			// 		const tr = editor.state.tr.setNodeMarkup(
+			// 			nodePos,
+			// 			undefined,
+			// 			{
+			// 				...targetNode.attrs,
+			// 				id: realId,
+			// 			}
+			// 		);
 
-					editor.view.dispatch(tr);
-				}
-			},
+			// 		editor.view.dispatch(tr);
+			// 	}
+			// },
 		},
 		[noteId]
 	);
