@@ -4,6 +4,10 @@ import { Plugin, PluginKey } from "@tiptap/pm/state";
 function createTransactionBatchPlugin() {
     return new Plugin({
         key: new PluginKey("transactionBatchPlugin"),
+
+        appendTransaction(transactions, oldState, newState) {
+            return null;
+        }
     })
 }
 
