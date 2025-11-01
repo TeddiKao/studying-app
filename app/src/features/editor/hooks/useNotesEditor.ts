@@ -3,10 +3,7 @@
 import { useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
-import {
-	getEditorSelection,
-	getNodeFromId,
-} from "../utils/utils";
+import { getEditorSelection, getNodeFromId } from "../utils/utils";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
@@ -142,41 +139,6 @@ function useNotesEditor(noteId: Id<"notes">) {
 					selectedNode.content.toJSON() ?? []
 				);
 			},
-
-			// onUpdate: async ({ editor }) => {
-			// 	const { createdNodes, tempIdToNodeMapping } =
-			// 		getCreatedNodes(editor);
-
-			// 	if (createdNodes.length === 0) return;
-
-			// 	const tempRealIdMappingObj = await bulkCreateBlocks({
-			// 		blocks: createdNodes,
-			// 		noteId,
-			// 	});
-
-			// 	const tempRealIdMapping = new Map(
-			// 		Object.entries(tempRealIdMappingObj)
-			// 	);
-
-			// 	for (const [tempId, realId] of tempRealIdMapping) {
-			// 		const targetNode = tempIdToNodeMapping.get(tempId);
-			// 		if (!targetNode) continue;
-
-			// 		const nodePos = getNodePosition(editor, targetNode);
-			// 		if (isNullOrUndefined(nodePos)) continue;
-
-			// 		const tr = editor.state.tr.setNodeMarkup(
-			// 			nodePos,
-			// 			undefined,
-			// 			{
-			// 				...targetNode.attrs,
-			// 				id: realId,
-			// 			}
-			// 		);
-
-			// 		editor.view.dispatch(tr);
-			// 	}
-			// },
 		},
 		[noteId]
 	);
