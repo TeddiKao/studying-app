@@ -6,7 +6,8 @@ function createTransactionBatchPlugin() {
         key: new PluginKey("transactionBatchPlugin"),
 
         appendTransaction(transactions, oldState, newState) {
-            return null;
+            const docChanges = transactions.filter(transaction => transaction.docChanged);
+            if (docChanges.length === 0) return null;
         }
     })
 }
