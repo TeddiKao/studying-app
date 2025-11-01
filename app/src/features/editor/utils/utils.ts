@@ -125,18 +125,7 @@ function getCreatedNodes(editor: Editor) {
 }
 
 function getNodePosition(editor: Editor, targetNode: Node) {
-	let foundPosition = 0;
-
-	editor.state.doc.descendants((node, pos) => {
-		if (!node.type.isBlock) return;
-
-		if (node === targetNode) {
-			foundPosition = pos;
-			return false;
-		}
-	});
-
-	return foundPosition;
+	return getNodePositionFromDocState(editor.state.doc, targetNode);
 }
 
 function getNodePositionFromDocState(doc: Node, targetNode: Node) {
