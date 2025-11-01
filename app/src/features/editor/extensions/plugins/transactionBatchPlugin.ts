@@ -6,13 +6,12 @@ type TransactionBatchPluginState = {
 }
 
 function createTransactionBatchPlugin() {
-    return new Plugin({
+    const plugin = new Plugin({
         key: new PluginKey("transactionBatchPlugin"),
 
         state: {
             init: (): TransactionBatchPluginState => ({ lastHandledTransactionKey: null }),
             apply(transaction, value) {
-                
             }
         },
 
@@ -20,7 +19,9 @@ function createTransactionBatchPlugin() {
             const docChanges = transactions.filter(transaction => transaction.docChanged);
             if (docChanges.length === 0) return null;
         }
-    })
+    });
+    
+    return plugin;
 }
 
 const TransactionBatchPlugin = Extension.create({
