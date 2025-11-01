@@ -28,7 +28,7 @@ function createTransactionBatchPlugin(
 			}),
 			apply(transaction, value) {
 				const meta = transaction.getMeta(plugin);
-				if (meta?.transactionKey) {
+				if (meta?.transactionKey && !meta.selfTriggeredTransaction) {
 					return { lastHandledTransactionKey: meta.transactionKey };
 				} else {
 					return value;
