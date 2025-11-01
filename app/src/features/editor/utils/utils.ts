@@ -1,11 +1,7 @@
 import { Id } from "@convex/_generated/dataModel";
 import { Node } from "@tiptap/pm/model";
 import { Editor } from "@tiptap/react";
-import {
-	NewlyCreatedTiptapJSONAnchorBlock,
-	NewlyCreatedTiptapJSONBlock,
-	TiptapJSONBlock,
-} from "../types/blocks";
+import { NewlyCreatedTiptapJSONAnchorBlock } from "../types/blocks";
 import { isNullOrUndefined } from "@/shared/utils/types";
 
 function getEditorSelection(editor: Editor) {
@@ -132,6 +128,21 @@ function getNodePosition(editor: Editor, targetNode: Node) {
 	let foundPosition = 0;
 
 	editor.state.doc.descendants((node, pos) => {
+		if (!node.type.isBlock) return;
+
+		if (node === targetNode) {
+			foundPosition = pos;
+			return false;
+		}
+	});
+
+	return foundPosition;
+}
+
+function getNodePositionFromDocState(doc: Node, targetNode: Node) {
+	let foundPosition = 0;
+
+	doc.descendants((node, pos) => {
 		if (!node.type.isBlock) return;
 
 		if (node === targetNode) {
