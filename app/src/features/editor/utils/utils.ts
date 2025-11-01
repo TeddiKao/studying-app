@@ -179,8 +179,11 @@ export {
 	isCursorAtStartOfNode,
 	getNodeFromId,
 	getCreatedNodes,
+	getCreatedNodesFromDocState,
 	getPreviousNodeFromEditor,
+	getPreviousNodeFromDocState,
 	getNodePositionFromEditor,
+	getNodePositionFromDocState,
 	isImmediatelyAfter,
 	isImmediatelyAfterFromDocState,
 };
