@@ -12,6 +12,12 @@ function createTransactionBatchPlugin() {
         state: {
             init: (): TransactionBatchPluginState => ({ lastHandledTransactionKey: null }),
             apply(transaction, value) {
+                const meta = transaction.getMeta(plugin);
+                if (meta?.transactionKey) {
+                    return { lastHandledTransactionKey: meta.transactionKey };
+                } else {
+                    return value;
+                }
             }
         },
 
@@ -20,7 +26,7 @@ function createTransactionBatchPlugin() {
             if (docChanges.length === 0) return null;
         }
     });
-    
+
     return plugin;
 }
 
