@@ -47,6 +47,7 @@ function createTransactionBatchPlugin(
 			const isPaste = docChanges.some((transaction) =>
 				transaction.getMeta("paste")
 			);
+
 			const isDrop = docChanges.some((transaction) =>
 				transaction.getMeta("drop")
 			);
@@ -64,6 +65,7 @@ function createTransactionBatchPlugin(
 
 			const lastHandledTransactionKey =
 				plugin.getState(newState)?.lastHandledTransactionKey;
+
 			if (lastHandledTransactionKey === transactionKey) {
 				return null;
 			}
@@ -101,7 +103,10 @@ function createTransactionBatchPlugin(
 					if (isNullOrUndefined(nodePos)) continue;
 
 					editor.commands.command(({ tr }) => {
-						tr.setNodeMarkup(nodePos, targetNode.type, {
+						tr.setMeta(
+							"selfTriggeredTransaction",
+							true
+						).setNodeMarkup(nodePos, targetNode.type, {
 							...targetNode.attrs,
 							id: realId,
 							position,
