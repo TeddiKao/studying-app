@@ -29,10 +29,12 @@ function createTransactionBatchPlugin(
 			apply(transaction, value) {
 				const meta = transaction.getMeta(plugin);
 
-				if (
-					meta?.transactionKey &&
-					meta.selfTriggeredTransaction === false
-				) {
+				if (meta?.selfTriggeredTransaction === true) {
+					return value;
+				}
+
+				if (meta?.transactionKey) {
+					console.log("Updating transaction key");
 					return { lastHandledTransactionKey: meta.transactionKey };
 				} else {
 					return value;
@@ -45,6 +47,14 @@ function createTransactionBatchPlugin(
 				(transaction) => transaction.docChanged
 			);
 			if (docChanges.length === 0) return null;
+
+			const isSelfTriggeredTransaction = docChanges.some(
+				(transaction) => transaction.getMeta(plugin)?.selfTriggeredTransaction
+			);
+
+			if (isSelfTriggeredTransaction) {
+				return null;
+			}
 
 			let transactionEvent: "paste" | "drop" | "typing" | null = null;
 
@@ -69,6 +79,8 @@ function createTransactionBatchPlugin(
 
 			const lastHandledTransactionKey =
 				plugin.getState(newState)?.lastHandledTransactionKey;
+
+			console.log(lastHandledTransactionKey, transactionKey);
 
 			if (lastHandledTransactionKey === transactionKey) {
 				return null;
@@ -152,6 +164,3 @@ function createTransactionBatchPluginExtension(
 }
 
 export { createTransactionBatchPluginExtension };
-function getNodePosition(editor: Editor, targetNode: Node) {
-	throw new Error("Function not implemented.");
-}
