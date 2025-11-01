@@ -17,7 +17,7 @@ import { api } from "@convex/_generated/api";
 import { isNullOrUndefined } from "@/shared/utils/types";
 import { Id } from "@convex/_generated/dataModel";
 import { useEffect } from "react";
-import { TransactionBatchPlugin } from "../extensions/plugins/transactionBatchPlugin";
+import { createTransactionBatchPluginExtension } from "../extensions/plugins/transactionBatchPlugin";
 
 function useNotesEditor(noteId: Id<"notes">) {
 	const {
@@ -67,7 +67,7 @@ function useNotesEditor(noteId: Id<"notes">) {
 						return "Enter content";
 					},
 				}),
-				TransactionBatchPlugin,
+				createTransactionBatchPluginExtension(),
 			],
 			immediatelyRender: false,
 
