@@ -61,7 +61,7 @@ function getCreatedNodes(editor: Editor) {
 		}
 
 		const tempId = crypto.randomUUID();
-		const previousNode = getPreviousNode(editor, node);
+		const previousNode = getPreviousNodeFromEditor(editor, node);
 
 		if (isNullOrUndefined(previousNode)) return;
 
@@ -143,7 +143,7 @@ function getNodePositionFromDocState(doc: Node, targetNode: Node) {
 	return foundPosition;
 }
 
-function getPreviousNode(editor: Editor, targetNode: Node) {
+function getPreviousNodeFromEditor(editor: Editor, targetNode: Node) {
 	return getPreviousNodeFromDocState(editor.state.doc, targetNode);
 }
 
@@ -171,7 +171,7 @@ export {
 	isCursorAtStartOfNode,
 	getNodeFromId,
 	getCreatedNodes,
-	getPreviousNode,
+	getPreviousNodeFromEditor,
 	getNodePositionFromEditor,
 	isImmediatelyAfter,
 };
