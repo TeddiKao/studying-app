@@ -13,3 +13,5 @@ const TransactionBatchPlugin = Extension.create({
         return [createTransactionBatchPlugin()]
     }
 })
+
+export { TransactionBatchPlugin }
