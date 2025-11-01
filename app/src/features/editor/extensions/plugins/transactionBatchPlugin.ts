@@ -70,8 +70,8 @@ function createTransactionBatchPlugin(editor: Editor, bulkCreateBlocks: any, not
 			const { createdNodes, tempIdToNodeMapping } =
 				getCreatedNodesFromDocState(docSnapshot);
 
-            setTimeout(() => {
-                const bulkCreateBlocksResult = bulkCreateBlocks({
+            setTimeout(async () => {
+                const bulkCreateBlocksResult = await bulkCreateBlocks({
                     blocks: createdNodes,
                     noteId,
                 });
