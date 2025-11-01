@@ -1,11 +1,12 @@
 import { Editor, Extension } from "@tiptap/react";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
+import { getCreatedNodes, getCreatedNodesFromDocState } from "../../utils/utils";
 
 type TransactionBatchPluginState = {
     lastHandledTransactionKey: string | null;
 }
 
-function createTransactionBatchPlugin(editor: Editor) {
+function createTransactionBatchPlugin() {
     const plugin = new Plugin({
         key: new PluginKey("transactionBatchPlugin"),
 
@@ -46,9 +47,11 @@ function createTransactionBatchPlugin(editor: Editor) {
                 return null;
             }
 
-            const tr = newState.tr.setMeta(plugin, { transactionKey })
+            const tr = newState.tr.setMeta(plugin, { transactionKey });
+            const { createdNodes, tempIdToNodeMapping } = getCreatedNodesFromDocState(tr.doc);
 
-            console.log("Append transaction running");
+            console.log(createdNodes);
+
             return tr;
         }
     });
@@ -59,7 +62,7 @@ function createTransactionBatchPlugin(editor: Editor) {
 const TransactionBatchPlugin = Extension.create({
     name: "transactionBatchPlugin",
     addProseMirrorPlugins() {
-        return [createTransactionBatchPlugin(this.editor)]
+        return [createTransactionBatchPlugin()]
     }
 })
 
