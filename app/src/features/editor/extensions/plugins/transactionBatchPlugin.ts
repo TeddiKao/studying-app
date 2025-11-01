@@ -5,12 +5,13 @@ import {
 	getCreatedNodesFromDocState,
 } from "../../utils/utils";
 import { bulkCreateBlocks } from "@convex/blocks/mutations";
+import { Id } from "@convex/_generated/dataModel";
 
 type TransactionBatchPluginState = {
 	lastHandledTransactionKey: string | null;
 };
 
-function createTransactionBatchPlugin(bulkCreateBlocks: any) {
+function createTransactionBatchPlugin(bulkCreateBlocks: any, noteId: Id<"notes">) {
 	const plugin = new Plugin({
 		key: new PluginKey("transactionBatchPlugin"),
 
@@ -71,11 +72,11 @@ function createTransactionBatchPlugin(bulkCreateBlocks: any) {
 	return plugin;
 }
 
-function createTransactionBatchPluginExtension(bulkCreateBlocks: any) {
+function createTransactionBatchPluginExtension(bulkCreateBlocks: any, noteId: Id<"notes">) {
 	return Extension.create({
 		name: "transactionBatchPlugin",
 		addProseMirrorPlugins() {
-			return [createTransactionBatchPlugin(bulkCreateBlocks)];
+			return [createTransactionBatchPlugin(bulkCreateBlocks, noteId)];
 		},
 	});
 }
