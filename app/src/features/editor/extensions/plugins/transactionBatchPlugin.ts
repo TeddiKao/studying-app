@@ -3,9 +3,12 @@ import { Plugin, PluginKey } from "@tiptap/pm/state";
 import {
 	getCreatedNodes,
 	getCreatedNodesFromDocState,
+    getNodePositionFromDocState,
 } from "../../utils/utils";
 import { bulkCreateBlocks } from "@convex/blocks/mutations";
 import { Id } from "@convex/_generated/dataModel";
+import { isNullOrUndefined } from "@/shared/utils/types";
+import { Node } from "@tiptap/pm/model";
 
 type TransactionBatchPluginState = {
 	lastHandledTransactionKey: string | null;
@@ -62,8 +65,38 @@ function createTransactionBatchPlugin(editor: Editor, bulkCreateBlocks: any, not
 			}
 
 			const tr = newState.tr.setMeta(plugin, { transactionKey });
+            const docSnapshot = tr.doc;
+
 			const { createdNodes, tempIdToNodeMapping } =
-				getCreatedNodesFromDocState(tr.doc);
+				getCreatedNodesFromDocState(docSnapshot);
+
+            setTimeout(() => {
+                const bulkCreateBlocksResult = bulkCreateBlocks({
+                    blocks: createdNodes,
+                    noteId,
+                });
+
+                const tempToRealIdMapping = new Map(
+                    Object.entries(bulkCreateBlocksResult)
+                );
+
+                for (const [tempId, realId] of tempToRealIdMapping) {
+                    const targetNode = tempIdToNodeMapping.get(tempId);
+                    if (!targetNode) continue;
+
+                    const nodePos = getNodePositionFromDocState(docSnapshot, targetNode);
+                    if (isNullOrUndefined(nodePos)) continue;
+
+                    editor.commands.command(({ tr }) => {
+                        tr.setNodeMarkup(nodePos, targetNode.type, {
+                            ...targetNode.attrs,
+                            id: realId
+                        })
+                        
+                        return true;
+                    })
+                }
+            }, 0);
 
 			return tr;
 		},
@@ -82,3 +115,7 @@ function createTransactionBatchPluginExtension(bulkCreateBlocks: any, noteId: Id
 }
 
 export { createTransactionBatchPluginExtension };
+    function getNodePosition(editor: Editor, targetNode: Node) {
+        throw new Error("Function not implemented.");
+    }
+
