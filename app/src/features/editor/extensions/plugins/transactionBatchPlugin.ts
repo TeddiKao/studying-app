@@ -11,7 +11,7 @@ type TransactionBatchPluginState = {
 	lastHandledTransactionKey: string | null;
 };
 
-function createTransactionBatchPlugin(bulkCreateBlocks: any, noteId: Id<"notes">) {
+function createTransactionBatchPlugin(editor: Editor, bulkCreateBlocks: any, noteId: Id<"notes">) {
 	const plugin = new Plugin({
 		key: new PluginKey("transactionBatchPlugin"),
 
@@ -76,7 +76,7 @@ function createTransactionBatchPluginExtension(bulkCreateBlocks: any, noteId: Id
 	return Extension.create({
 		name: "transactionBatchPlugin",
 		addProseMirrorPlugins() {
-			return [createTransactionBatchPlugin(bulkCreateBlocks, noteId)];
+			return [createTransactionBatchPlugin(this.editor, bulkCreateBlocks, noteId)];
 		},
 	});
 }
