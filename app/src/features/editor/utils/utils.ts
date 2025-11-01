@@ -44,9 +44,10 @@ function getNodeFromId(
 }
 
 function getCreatedNodes(editor: Editor) {
-	const { state } = editor;
-	const { doc } = state;
+	return getCreatedNodesFromDocState(editor.state.doc);
+}
 
+function getCreatedNodesFromDocState(doc: Node) {
 	const createdNodes: NewlyCreatedTiptapJSONAnchorBlock[] = [];
 	const tempIdToNodeMapping = new Map<string, Node>();
 
@@ -61,7 +62,7 @@ function getCreatedNodes(editor: Editor) {
 		}
 
 		const tempId = crypto.randomUUID();
-		const previousNode = getPreviousNodeFromEditor(editor, node);
+		const previousNode = getPreviousNodeFromDocState(doc, node);
 
 		if (isNullOrUndefined(previousNode)) return;
 
@@ -99,8 +100,8 @@ function getCreatedNodes(editor: Editor) {
 
 				if (isNullOrUndefined(nodeReference)) return;
 
-				const immediatelyAfter = isImmediatelyAfter(
-					editor,
+				const immediatelyAfter = isImmediatelyAfterFromDocState(
+					doc,
 					nodeReference,
 					node
 				);
