@@ -67,7 +67,7 @@ function useNotesEditor(noteId: Id<"notes">) {
 						return "Enter content";
 					},
 				}),
-				createTransactionBatchPluginExtension(),
+				createTransactionBatchPluginExtension(bulkCreateBlocks),
 			],
 			immediatelyRender: false,
 

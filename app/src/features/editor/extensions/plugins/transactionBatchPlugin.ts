@@ -75,7 +75,7 @@ function createTransactionBatchPluginExtension(bulkCreateBlocks: any) {
 	return Extension.create({
 		name: "transactionBatchPlugin",
 		addProseMirrorPlugins() {
-			return [createTransactionBatchPlugin()];
+			return [createTransactionBatchPlugin(bulkCreateBlocks)];
 		},
 	});
 }
