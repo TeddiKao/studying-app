@@ -1,9 +1,9 @@
 import { Extension } from "@tiptap/react";
-import { Plugin } from "@tiptap/pm/state";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
 
 function createTransactionBatchPlugin() {
     return new Plugin({
-
+        key: new PluginKey("transactionBatchPlugin"),
     })
 }
 
