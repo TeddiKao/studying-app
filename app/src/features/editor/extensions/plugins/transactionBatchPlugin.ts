@@ -34,7 +34,6 @@ function createTransactionBatchPlugin(
 				}
 
 				if (meta?.transactionKey) {
-					console.log("Updating transaction key");
 					return { lastHandledTransactionKey: meta.transactionKey };
 				} else {
 					return value;
@@ -85,8 +84,6 @@ function createTransactionBatchPlugin(
 			if (lastHandledTransactionKey === transactionKey) {
 				return null;
 			}
-
-			console.log("Append transaction triggered!");
 
 			const tr = newState.tr.setMeta(plugin, {
 				...(newState.tr.getMeta(plugin) ?? {}),
