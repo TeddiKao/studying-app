@@ -24,6 +24,32 @@ function createTransactionBatchPlugin() {
         appendTransaction(transactions, oldState, newState) {
             const docChanges = transactions.filter(transaction => transaction.docChanged);
             if (docChanges.length === 0) return null;
+
+            let transactionEvent: "paste" | "drop" | "typing" | null = null;
+
+            const isPaste = docChanges.some(transaction => transaction.getMeta("paste"));
+            const isDrop = docChanges.some(transaction => transaction.getMeta("drop"));
+
+            if (isPaste) {
+                transactionEvent = "paste";
+            } else if (isDrop) {
+                transactionEvent = "drop";
+            } else {
+                transactionEvent = "typing";
+            }
+
+            const transactionTimestamp = newState.tr.time;
+            const transactionKey = `${transactionEvent}-${transactionTimestamp}`;
+
+            const lastHandledTransactionKey = plugin.getState(newState)?.lastHandledTransactionKey;
+            if (lastHandledTransactionKey === transactionKey) {
+                return null;
+            }
+
+            const tr = newState.tr.setMeta(plugin, { transactionKey })
+
+            console.log("Append transaction running");
+            return tr;
         }
     });
 
