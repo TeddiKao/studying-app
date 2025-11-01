@@ -124,7 +124,7 @@ function getCreatedNodes(editor: Editor) {
 	};
 }
 
-function getNodePosition(editor: Editor, targetNode: Node) {
+function getNodePositionFromEditor(editor: Editor, targetNode: Node) {
 	return getNodePositionFromDocState(editor.state.doc, targetNode);
 }
 
@@ -144,7 +144,7 @@ function getNodePositionFromDocState(doc: Node, targetNode: Node) {
 }
 
 function getPreviousNode(editor: Editor, targetNode: Node) {
-	const pos = getNodePosition(editor, targetNode);
+	const pos = getNodePositionFromEditor(editor, targetNode);
 	const resolvedPos = editor.state.doc.resolve(pos);
 
 	const index = resolvedPos.index(0);
@@ -156,8 +156,8 @@ function getPreviousNode(editor: Editor, targetNode: Node) {
 }
 
 function isImmediatelyAfter(editor: Editor, nodeA: Node, nodeB: Node) {
-	const nodeAPos = getNodePosition(editor, nodeA);
-	const nodeBPos = getNodePosition(editor, nodeB);
+	const nodeAPos = getNodePositionFromEditor(editor, nodeA);
+	const nodeBPos = getNodePositionFromEditor(editor, nodeB);
 
 	return nodeAPos + nodeA.nodeSize === nodeBPos;
 }
@@ -168,6 +168,6 @@ export {
 	getNodeFromId,
 	getCreatedNodes,
 	getPreviousNode,
-	getNodePosition,
+	getNodePositionFromEditor,
 	isImmediatelyAfter,
 };
