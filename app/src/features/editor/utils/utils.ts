@@ -144,13 +144,17 @@ function getNodePositionFromDocState(doc: Node, targetNode: Node) {
 }
 
 function getPreviousNode(editor: Editor, targetNode: Node) {
-	const pos = getNodePositionFromEditor(editor, targetNode);
-	const resolvedPos = editor.state.doc.resolve(pos);
+	return getPreviousNodeFromDocState(editor.state.doc, targetNode);
+}
+
+function getPreviousNodeFromDocState(doc: Node, targetNode: Node) {
+	const pos = getNodePositionFromDocState(doc, targetNode);
+	const resolvedPos = doc.resolve(pos);
 
 	const index = resolvedPos.index(0);
 	if (index === 0) return null;
 
-	const previousNode = editor.state.doc.child(index - 1);
+	const previousNode = doc.child(index - 1);
 
 	return previousNode;
 }
