@@ -4,10 +4,8 @@ import { useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
 import {
-	getCreatedNodes,
 	getEditorSelection,
 	getNodeFromId,
-	getNodePosition,
 } from "../utils/utils";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
