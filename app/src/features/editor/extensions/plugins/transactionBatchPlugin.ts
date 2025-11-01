@@ -1,11 +1,11 @@
-import { Extension } from "@tiptap/react";
+import { Editor, Extension } from "@tiptap/react";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 
 type TransactionBatchPluginState = {
     lastHandledTransactionKey: string | null;
 }
 
-function createTransactionBatchPlugin() {
+function createTransactionBatchPlugin(editor: Editor) {
     const plugin = new Plugin({
         key: new PluginKey("transactionBatchPlugin"),
 
@@ -59,7 +59,7 @@ function createTransactionBatchPlugin() {
 const TransactionBatchPlugin = Extension.create({
     name: "transactionBatchPlugin",
     addProseMirrorPlugins() {
-        return [createTransactionBatchPlugin()]
+        return [createTransactionBatchPlugin(this.editor)]
     }
 })
 
