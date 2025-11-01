@@ -58,7 +58,13 @@ const bulkCreateBlocks = mutation({
 			throw new Error("You are not the owner of this notebook");
 		}
 
-		const tempToRealIdMap = new Map<string, Id<"blocks">>();
+		const tempIdToBlockInfoMap = new Map<
+			string,
+			{
+				realId: Id<"blocks">;
+				position: number;
+			}
+		>();
 
 		for (const anchorBlock of args.blocks) {
 			const relativeBlockId = anchorBlock.position.relativeTo;
@@ -100,29 +106,43 @@ const bulkCreateBlocks = mutation({
 				const relativeBlockPosition = neighbouringBlock.position;
 				const neighbouringPosition = neighbouringBlock.position;
 
-				const newBlockPosition = (relativeBlockPosition + neighbouringPosition) / 2;
+				const newBlockPosition =
+					(relativeBlockPosition + neighbouringPosition) / 2;
 				const newBlockId = await ctx.db.insert("blocks", {
 					position: newBlockPosition,
 					type: anchorBlock.type,
 					content: anchorBlock.content,
-					additionalAttributes: anchorBlock.additionalAttributes ?? {},
+					additionalAttributes:
+						anchorBlock.additionalAttributes ?? {},
 					noteId,
 				});
 
-				tempToRealIdMap.set(anchorBlock.tempId, newBlockId);
+				tempIdToBlockInfoMap.set(anchorBlock.tempId, {
+					realId: newBlockId,
+					position: newBlockPosition,
+				});
 
 				let lastFollowingBlockPosition = newBlockPosition;
-				for (const followingBlock of anchorBlock.followingBlocks ?? []) {
-					const followingBlockPosition = (lastFollowingBlockPosition + neighbouringPosition) / 2;
+				for (const followingBlock of anchorBlock.followingBlocks ??
+					[]) {
+					const followingBlockPosition =
+						(lastFollowingBlockPosition + neighbouringPosition) / 2;
 					const followingBlockId = await ctx.db.insert("blocks", {
 						position: followingBlockPosition,
 						type: followingBlock.type,
 						content: followingBlock.content,
-						additionalAttributes: followingBlock.additionalAttributes ?? {},
+						additionalAttributes:
+							followingBlock.additionalAttributes ?? {},
 						noteId,
 					});
 
-					tempToRealIdMap.set(followingBlock.tempId, followingBlockId);
+					tempIdToBlockInfoMap.set(
+						followingBlock.tempId,
+						{
+							realId: followingBlockId,
+							position: followingBlockPosition,
+						}
+					);
 					lastFollowingBlockPosition = followingBlockPosition;
 				}
 			} else {
@@ -130,36 +150,50 @@ const bulkCreateBlocks = mutation({
 					throw new Error("Block cannot be placed before title");
 				}
 
-				const lastBlockPosition = sortedBlocks[sortedBlocks.length - 1].position;
+				const lastBlockPosition =
+					sortedBlocks[sortedBlocks.length - 1].position;
 				const newBlockPosition = lastBlockPosition + 1;
 				const newBlockId = await ctx.db.insert("blocks", {
 					position: newBlockPosition,
 					type: anchorBlock.type,
 					content: anchorBlock.content,
-					additionalAttributes: anchorBlock.additionalAttributes ?? {},
+					additionalAttributes:
+						anchorBlock.additionalAttributes ?? {},
 					noteId,
 				});
 
-				tempToRealIdMap.set(anchorBlock.tempId, newBlockId);
+				tempIdToBlockInfoMap.set(anchorBlock.tempId, {
+					realId: newBlockId,
+					position: newBlockPosition,
+				});
 
 				let lastFollowingBlockPosition = newBlockPosition;
-				for (const followingBlock of anchorBlock.followingBlocks ?? []) {
-					const followingBlockPosition = lastFollowingBlockPosition + 1;
+				for (const followingBlock of anchorBlock.followingBlocks ??
+					[]) {
+					const followingBlockPosition =
+						lastFollowingBlockPosition + 1;
 					const followingBlockId = await ctx.db.insert("blocks", {
 						position: followingBlockPosition,
 						type: followingBlock.type,
 						content: followingBlock.content,
-						additionalAttributes: followingBlock.additionalAttributes ?? {},
+						additionalAttributes:
+							followingBlock.additionalAttributes ?? {},
 						noteId,
 					});
 
-					tempToRealIdMap.set(followingBlock.tempId, followingBlockId);
+					tempIdToBlockInfoMap.set(
+						followingBlock.tempId,
+						{
+							realId: followingBlockId,
+							position: followingBlockPosition,
+						}
+					);
 					lastFollowingBlockPosition = followingBlockPosition;
 				}
 			}
 		}
 
-		return Object.fromEntries(tempToRealIdMap);
+		return Object.fromEntries(tempIdToBlockInfoMap);
 	},
 });
 
