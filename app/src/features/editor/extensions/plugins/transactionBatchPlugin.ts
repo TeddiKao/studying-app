@@ -28,7 +28,8 @@ function createTransactionBatchPlugin(
 			}),
 			apply(transaction, value) {
 				const meta = transaction.getMeta(plugin);
-				if (meta?.transactionKey && !meta.selfTriggeredTransaction) {
+
+				if (meta?.transactionKey && meta.selfTriggeredTransaction === false) {
 					return { lastHandledTransactionKey: meta.transactionKey };
 				} else {
 					return value;
@@ -70,6 +71,8 @@ function createTransactionBatchPlugin(
 				return null;
 			}
 
+			console.log("Append transaction triggered!");
+
 			const tr = newState.tr.setMeta(plugin, { transactionKey });
 			const docSnapshot = tr.doc;
 
@@ -104,8 +107,7 @@ function createTransactionBatchPlugin(
 
 					editor.commands.command(({ tr }) => {
 						tr.setMeta(
-							"selfTriggeredTransaction",
-							true
+							plugin, { selfTriggeredTransaction: true }
 						).setNodeMarkup(nodePos, targetNode.type, {
 							...targetNode.attrs,
 							id: realId,
