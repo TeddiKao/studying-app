@@ -220,4 +220,6 @@ export {
 	getNodePositionFromDocState,
 	isImmediatelyAfter,
 	isImmediatelyAfterFromDocState,
+
+	getDeletedNodesFromTransaction
 };
