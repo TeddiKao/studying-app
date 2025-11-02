@@ -39,6 +39,8 @@ const CustomParagraph = Paragraph.extend({
 
                     return true;
                 }
+
+                return false;
             }
         }
     },
