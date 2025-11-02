@@ -1,4 +1,5 @@
 import { Paragraph } from "@tiptap/extension-paragraph";
+import { getEditorSelection, getNodePositionFromEditor, isCursorAtStartOfNode } from "../../utils/utils";
 
 const CustomParagraph = Paragraph.extend({
     addOptions() {
@@ -8,6 +9,37 @@ const CustomParagraph = Paragraph.extend({
             HTMLAttributes: {
                 class: "mb-4",
             },
+        }
+    },
+
+    addKeyboardShortcuts() {
+        return {
+            Enter: ({ editor }) => {
+                const selectedNode = getEditorSelection(editor);
+                if (selectedNode.type.name !== "paragraph") return false;
+
+                const { dispatch } = editor.view;
+                const { tr } = editor.state;
+
+                if (isCursorAtStartOfNode(editor)) {
+                    const nodePos = getNodePositionFromEditor(editor, selectedNode);
+                    const insertPos = editor.state.doc.resolve(nodePos).before(1);
+
+                    const newNode = editor.state.schema.nodeFromJSON({
+                        type: "paragraph",
+                        content: [],
+                        attrs: {
+                            id: null,
+                            position: null,
+                        }
+                    })
+
+                    tr.insert(insertPos, newNode);
+                    dispatch(tr.scrollIntoView());
+
+                    return true;
+                }
+            }
         }
     },
 
