@@ -105,9 +105,13 @@ const bulkCreateBlocks = mutation({
 			if (neighbouringBlock) {
 				const relativeBlockPosition = relativeBlock.position;
 				const neighbouringPosition = neighbouringBlock.position;
+				const boundaryPosition =
+					anchorBlock.position.placement === "before"
+						? relativeBlockPosition
+						: neighbouringPosition;
 
 				const newBlockPosition =
-					(relativeBlockPosition + neighbouringPosition) / 2;
+					(relativeBlockPosition + boundaryPosition) / 2;
 				const newBlockId = await ctx.db.insert("blocks", {
 					position: newBlockPosition,
 					type: anchorBlock.type,
