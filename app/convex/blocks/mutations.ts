@@ -379,4 +379,4 @@ const bulkDeleteBlocks = mutation({
 	}
 })
 
-export { bulkCreateBlocks, updateBlock, bulkUpdateBlocks };
+export { bulkCreateBlocks, updateBlock, bulkUpdateBlocks, bulkDeleteBlocks };
