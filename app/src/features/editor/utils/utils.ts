@@ -43,6 +43,27 @@ function getNodeFromId(
 	return { targetNode, targetPos };
 }
 
+function getNodeFromIdUsingDocState(
+	doc: Node,
+	id: Id<"blocks">
+): { targetNode: Node | null; targetPos: number | null } {
+	let targetNode = null;
+	let targetPos = null;
+
+	doc.descendants((node, pos) => {
+		if (!node.type.isBlock) return;
+
+		if (node.attrs.id === id) {
+			targetNode = node;
+			targetPos = pos;
+
+			return;
+		}
+	});
+
+	return { targetNode, targetPos };
+}
+
 function getCreatedNodes(editor: Editor) {
 	return getCreatedNodesFromDocState(editor.state.doc);
 }
@@ -178,6 +199,7 @@ export {
 	getEditorSelection,
 	isCursorAtStartOfNode,
 	getNodeFromId,
+	getNodeFromIdUsingDocState,
 	getCreatedNodes,
 	getCreatedNodesFromDocState,
 	getPreviousNodeFromEditor,
