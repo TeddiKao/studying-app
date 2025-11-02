@@ -1,5 +1,5 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { getEditorSelection, isCursorAtStartOfNode } from "../../utils/utils";
+import { getEditorSelection, isCursorAtEndOfNode, isCursorAtStartOfNode } from "../../utils/utils";
 
 const Title = Node.create({
 	name: "title",
@@ -42,7 +42,11 @@ const Title = Node.create({
                     return true;
                 }
 
-                return false;
+                if (isCursorAtEndOfNode(editor)) {
+                    return false;
+                }
+
+                return true;
             },
 
             Backspace: ({ editor }) => {
