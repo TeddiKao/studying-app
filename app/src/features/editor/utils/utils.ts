@@ -26,21 +26,7 @@ function getNodeFromId(
 	editor: Editor,
 	id: Id<"blocks">
 ): { targetNode: Node | null; targetPos: number | null } {
-	let targetNode = null;
-	let targetPos = null;
-
-	editor.state.doc.descendants((node, pos) => {
-		if (!node.type.isBlock) return;
-
-		if (node.attrs.id === id) {
-			targetNode = node;
-			targetPos = pos;
-
-			return;
-		}
-	});
-
-	return { targetNode, targetPos };
+	return getNodeFromIdUsingDocState(editor.state.doc, id);
 }
 
 function getNodeFromIdUsingDocState(
