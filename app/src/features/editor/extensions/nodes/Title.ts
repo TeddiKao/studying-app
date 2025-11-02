@@ -61,6 +61,8 @@ const Title = Node.create({
                     position: null,
                 })
 
+                dispatch(tr.scrollIntoView());
+
                 return true;
             },
 
