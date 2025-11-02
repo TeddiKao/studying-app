@@ -346,6 +346,36 @@ const bulkDeleteBlocks = mutation({
 		if (!userIdentity) {
 			throw new Error("User not authenticated");
 		}
+
+		for (const blockId of blockIds) {
+			const block = await ctx.db.get(blockId);
+			if (!block) {
+				throw new Error("Block not found");
+			}
+
+			const noteId = block.noteId;
+			const note = await ctx.db.get(noteId);
+
+			if (!note) {
+				throw new Error("Note not found");
+			}
+
+			const notebookId = note.notebookId;
+			const notebook = await ctx.db.get(notebookId);
+
+			if (!notebook) {
+				throw new Error("Notebook not found");
+			}
+
+			const notebookOwner = notebook.owner;
+			const requesterId = userIdentity.subject;
+
+			if (notebookOwner !== requesterId) {
+				throw new Error("You are not the owner of this notebook");
+			}
+
+			await ctx.db.delete(blockId);
+		}
 	}
 })
 
