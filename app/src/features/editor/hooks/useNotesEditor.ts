@@ -141,12 +141,12 @@ function useNotesEditor(noteId: Id<"notes">) {
 				);
 			},
 
-			onTransaction: ({ transaction }) => {
+			onTransaction: async ({ transaction }) => {
 				const deletedNodeIds = getDeletedNodesFromTransaction(transaction);
 				
 				if (deletedNodeIds.size === 0) return;
 
-				bulkDeleteBlocks({
+				await bulkDeleteBlocks({
 					blockIds: Array.from(deletedNodeIds)
 				});
 			}
