@@ -35,6 +35,7 @@ function useNotesEditor(noteId: Id<"notes">) {
 
 	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
 	const bulkCreateBlocks = useMutation(api.blocks.mutations.bulkCreateBlocks);
+	const bulkDeleteBlocks = useMutation(api.blocks.mutations.bulkDeleteBlocks);
 
 	useEffect(() => {
 		return () => {
@@ -142,7 +143,12 @@ function useNotesEditor(noteId: Id<"notes">) {
 
 			onTransaction: ({ transaction }) => {
 				const deletedNodeIds = getDeletedNodesFromTransaction(transaction);
-				console.log(deletedNodeIds);
+				
+				if (deletedNodeIds.size === 0) return;
+
+				bulkDeleteBlocks({
+					blockIds: Array.from(deletedNodeIds)
+				});
 			}
 		},
 		[noteId]
