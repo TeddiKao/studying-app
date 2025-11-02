@@ -347,34 +347,51 @@ const bulkDeleteBlocks = mutation({
 			throw new Error("User not authenticated");
 		}
 
+		const noteIds = new Set<Id<"notes">>();
+		const notesToBlocksMap = new Map<Id<"notes">, Id<"blocks">[]>();
+
 		for (const blockId of blockIds) {
-			const block = await ctx.db.get(blockId);
-			if (!block) {
+			const blockInstance = await ctx.db.get(blockId);
+			if (!blockInstance) {
 				throw new Error("Block not found");
 			}
 
-			const noteId = block.noteId;
-			const note = await ctx.db.get(noteId);
+			const noteId = blockInstance.noteId;
 
+			if (!noteIds.has(noteId)) {
+				noteIds.add(noteId);
+				notesToBlocksMap.set(noteId, [blockId]);
+			} else {
+				const existingBlocks = notesToBlocksMap.get(noteId);
+				notesToBlocksMap.set(noteId, [
+					...(existingBlocks ?? []),
+					blockId,
+				]);
+			}
+		}
+
+		for (const [noteId, blockIds] of notesToBlocksMap.entries()) {
+			const note = await ctx.db.get(noteId);
 			if (!note) {
 				throw new Error("Note not found");
 			}
 
 			const notebookId = note.notebookId;
-			const notebook = await ctx.db.get(notebookId);
-
-			if (!notebook) {
+			const notebookInstance = await ctx.db.get(notebookId);
+			if (!notebookInstance) {
 				throw new Error("Notebook not found");
 			}
 
-			const notebookOwner = notebook.owner;
+			const notebookOwner = notebookInstance.owner;
 			const requesterId = userIdentity.subject;
 
 			if (notebookOwner !== requesterId) {
 				throw new Error("You are not the owner of this notebook");
 			}
 
-			await ctx.db.delete(blockId);
+			for (const blockId of blockIds) {
+				await ctx.db.delete(blockId);
+			}
 		}
 	}
 })
