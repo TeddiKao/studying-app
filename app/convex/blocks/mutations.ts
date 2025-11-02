@@ -335,4 +335,18 @@ const bulkUpdateBlocks = mutation({
 	},
 });
 
+const bulkDeleteBlocks = mutation({
+	args: {
+		blockIds: v.array(v.id("blocks")),
+	},
+
+	handler: async (ctx, { blockIds }) => {
+		const userIdentity = await ctx.auth.getUserIdentity();
+
+		if (!userIdentity) {
+			throw new Error("User not authenticated");
+		}
+	}
+})
+
 export { bulkCreateBlocks, updateBlock, bulkUpdateBlocks };
