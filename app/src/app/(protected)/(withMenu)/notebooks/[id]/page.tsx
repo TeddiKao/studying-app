@@ -11,14 +11,14 @@ import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
 
 type NotesPageParams = {
-	notebookId: Id<"notebooks">;
+	id: Id<"notebooks">;
 };
 
 function NotesPage() {
-	const { notebookId } = useParams() as NotesPageParams;
+	const { id } = useParams() as NotesPageParams;
 
 	const notes = useQuery(api.notes.queries.fetchNotes, {
-		notebookId,
+		notebookId: id,
 	});
 
 	const { noteId } = useEditNoteFormStore();
@@ -36,7 +36,6 @@ function NotesPage() {
 							<NoteCard
 								key={note._id}
 								noteName={note.title}
-								notebookId={note.notebookId}
 								noteId={note._id}
 							/>
 						))}
@@ -46,8 +45,8 @@ function NotesPage() {
 				)}
 			</div>
 
-			<NoteForm mode="create" noteId={null} notebookId={notebookId} />
-			<NoteForm mode="edit" noteId={noteId} notebookId={notebookId} />
+			<NoteForm mode="create" noteId={null} notebookId={id} />
+			<NoteForm mode="edit" noteId={noteId} notebookId={id} />
 		</>
 	);
 }
