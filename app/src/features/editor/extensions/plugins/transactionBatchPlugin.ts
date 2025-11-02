@@ -79,8 +79,6 @@ function createTransactionBatchPlugin(
 			const lastHandledTransactionKey =
 				plugin.getState(newState)?.lastHandledTransactionKey;
 
-			console.log(lastHandledTransactionKey, transactionKey);
-
 			if (lastHandledTransactionKey === transactionKey) {
 				return null;
 			}
