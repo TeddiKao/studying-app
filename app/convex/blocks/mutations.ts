@@ -103,7 +103,7 @@ const bulkCreateBlocks = mutation({
 			}
 
 			if (neighbouringBlock) {
-				const relativeBlockPosition = neighbouringBlock.position;
+				const relativeBlockPosition = relativeBlock.position;
 				const neighbouringPosition = neighbouringBlock.position;
 
 				const newBlockPosition =
