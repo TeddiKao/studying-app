@@ -1,18 +1,6 @@
 import { Doc, Id } from "../_generated/dataModel";
 import type { JSONContent } from "@tiptap/core";
-
-type KnownAttrs = {
-	id: Id<"blocks">;
-	position: number;
-};
-
-type DBBlock = {
-	id: Id<"blocks">;
-	position: number;
-	type: string;
-	content: JSONContent[];
-	additionalAttributes: Record<string, unknown>;
-};
+import { KnownAttrs, DBBlock } from "../../src/features/editor/types/blocks";
 
 function convertBlocksToTiptapJSON(blocks: Doc<"blocks">[]) {
 	return blocks.map((block) => ({

@@ -12,7 +12,9 @@ const fetchBlocks = query({
             q.eq("noteId", noteId)
         )).collect();
 
-        const tiptapJSONBlocks = convertBlocksToTiptapJSON(blocks);
+        const sortedBlocks = blocks.sort((a, b) => a.position - b.position);
+
+        const tiptapJSONBlocks = convertBlocksToTiptapJSON(sortedBlocks);
 
         return tiptapJSONBlocks;
     }

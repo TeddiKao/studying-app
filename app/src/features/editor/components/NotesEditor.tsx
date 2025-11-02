@@ -13,7 +13,7 @@ type NotesEditorProps = {
 };
 
 function NotesEditor({ noteId }: NotesEditorProps) {
-	const editor = useNotesEditor();
+	const editor = useNotesEditor(noteId);
 
 	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
 	const bulkUpdateBlocks = useMutation(api.blocks.mutations.bulkUpdateBlocks);
@@ -34,12 +34,11 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			if (!editor) return;
 
 			bulkUpdateBlocks({
-				blocks: convertBlocksToDBFormat(editor.getJSON().content)
-			})
+				blocks: convertBlocksToDBFormat(editor.getJSON().content),
+			});
 		}
 
 		window.addEventListener("beforeunload", handleBeforeUnload);
-		console.log("Event listener added");
 
 		return () => {
 			window.removeEventListener("beforeunload", handleBeforeUnload);
