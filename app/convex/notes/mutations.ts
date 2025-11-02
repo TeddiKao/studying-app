@@ -59,6 +59,22 @@ const createNote = mutation({
 			noteCount: Math.max((notebook.noteCount ?? 0) + 1, 0),
 		});
 
+		await ctx.db.insert("blocks", {
+			noteId: newNoteId,
+			position: 0,
+			content: [{ type: "text", text: title }],
+			additionalAttributes: {},
+			type: "title"
+		})
+
+		await ctx.db.insert("blocks", {
+			noteId: newNoteId,
+			position: 1,
+			content: [],
+			additionalAttributes: {},
+			type: "paragraph"
+		})
+
 		return {
             success: true,
             data: {
