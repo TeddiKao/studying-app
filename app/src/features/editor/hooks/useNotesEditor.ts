@@ -3,7 +3,7 @@
 import { useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
-import { getEditorSelection, getNodeFromId } from "../utils/utils";
+import { getDeletedNodesFromTransaction, getEditorSelection, getNodeFromId } from "../utils/utils";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
@@ -139,6 +139,11 @@ function useNotesEditor(noteId: Id<"notes">) {
 					selectedNode.content.toJSON() ?? []
 				);
 			},
+
+			onTransaction: ({ transaction }) => {
+				const deletedNodeIds = getDeletedNodesFromTransaction(transaction);
+				console.log(deletedNodeIds);
+			}
 		},
 		[noteId]
 	);
