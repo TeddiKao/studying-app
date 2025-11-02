@@ -3,6 +3,7 @@ import { Node } from "@tiptap/pm/model";
 import { Editor } from "@tiptap/react";
 import { NewlyCreatedTiptapJSONAnchorBlock } from "../types/blocks";
 import { isNullOrUndefined } from "@/shared/utils/types";
+import { Transaction } from "@tiptap/pm/state";
 
 function getEditorSelection(editor: Editor) {
 	const { state } = editor;
@@ -179,6 +180,31 @@ function isImmediatelyAfterFromDocState(doc: Node, nodeA: Node, nodeB: Node) {
 	const nodeBPos = getNodePositionFromDocState(doc, nodeB);
 
 	return nodeAPos + nodeA.nodeSize === nodeBPos;
+}
+
+function getDeletedNodesFromTransaction(transaction: Transaction) {
+	const deletedNodeIds = new Set<Id<"blocks">>();
+
+	const docBefore = transaction.before;
+	const currentDoc = transaction.doc;
+	
+	docBefore.descendants((node, pos) => {
+		if (!node.type.isBlock) return;
+		if (isNullOrUndefined(node.attrs)) return;
+
+		const { id } = node.attrs;
+
+		if (isNullOrUndefined(id)) return;
+
+		const { targetNode: nodeInCurrentDoc } = getNodeFromIdUsingDocState(currentDoc, id);
+
+		if (isNullOrUndefined(nodeInCurrentDoc)) {
+			deletedNodeIds.add(id);
+			return;
+		}
+	});
+
+	return deletedNodeIds;
 }
 
 export {
