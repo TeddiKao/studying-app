@@ -1,5 +1,10 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { getEditorSelection, isCursorAtStartOfNode } from "../../utils/utils";
+import {
+	getCursorPosition,
+	getEditorSelection,
+	isCursorAtEndOfNode,
+	isCursorAtStartOfNode,
+} from "../../utils/utils";
 
 const Title = Node.create({
 	name: "title",
@@ -7,68 +12,92 @@ const Title = Node.create({
 	group: "block",
 	content: "inline*",
 	defining: true,
-    
-    addOptions() {
-        return {
-            HTMLAttributes: {
-                class: "title text-5xl font-bold mb-4"
-            },
-        }
-    },
+
+	addOptions() {
+		return {
+			HTMLAttributes: {
+				class: "title text-5xl font-bold mb-4",
+			},
+		};
+	},
 
 	addAttributes() {
 		return {
 			id: {
 				default: null,
 				rendered: false,
-                keepOnSplit: false,
+				keepOnSplit: false,
 			},
 
 			position: {
 				default: null,
 				rendered: false,
-                keepOnSplit: false,
+				keepOnSplit: false,
 			},
 		};
 	},
 
-    addKeyboardShortcuts() {
-        return {
-            Enter: ({ editor }) => {
-                const selection = getEditorSelection(editor);
-                if (selection.type.name !== "title") return false;
+	addKeyboardShortcuts() {
+		return {
+			Enter: ({ editor }) => {
+				const selection = getEditorSelection(editor);
+				if (selection.type.name !== "title") return false;
 
-                if (isCursorAtStartOfNode(editor)) {
-                    return true;
-                }
+				if (isCursorAtStartOfNode(editor)) {
+					return true;
+				}
 
-                return false;
-            },
+				if (isCursorAtEndOfNode(editor)) {
+					return false;
+				}
 
-            Backspace: ({ editor }) => {
-                const selection = getEditorSelection(editor);
-                if (selection.type.name !== "title") return false;
+				const { state, view } = editor;
+				const { dispatch } = view;
+				const { tr } = state;
 
-                if (selection.content.size === 0) {
-                    return true;
-                }
+				const cursorPos = getCursorPosition(editor);
+				const paragraphType = state.schema.nodes.paragraph;
 
-                return false;
-            }
-        }
-    },
+				tr.split(cursorPos);
 
-    renderHTML({ HTMLAttributes }) {
-        return ["h1", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-    },
+				tr.setNodeMarkup(cursorPos + 1, paragraphType, {
+					id: null,
+					position: null,
+				});
 
-    parseHTML() {
-        return [
-            {
-                tag: "h1",
-            }
-        ]
-    }
+				dispatch(tr.scrollIntoView());
+
+				return true;
+			},
+
+			Backspace: ({ editor }) => {
+				const selection = getEditorSelection(editor);
+				if (selection.type.name !== "title") return false;
+
+				if (selection.content.size === 0) {
+					return true;
+				}
+
+				return false;
+			},
+		};
+	},
+
+	renderHTML({ HTMLAttributes }) {
+		return [
+			"h1",
+			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+			0,
+		];
+	},
+
+	parseHTML() {
+		return [
+			{
+				tag: "h1",
+			},
+		];
+	},
 });
 
 export { Title };
