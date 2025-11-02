@@ -136,13 +136,10 @@ const bulkCreateBlocks = mutation({
 						noteId,
 					});
 
-					tempIdToBlockInfoMap.set(
-						followingBlock.tempId,
-						{
-							realId: followingBlockId,
-							position: followingBlockPosition,
-						}
-					);
+					tempIdToBlockInfoMap.set(followingBlock.tempId, {
+						realId: followingBlockId,
+						position: followingBlockPosition,
+					});
 					lastFollowingBlockPosition = followingBlockPosition;
 				}
 			} else {
@@ -181,13 +178,10 @@ const bulkCreateBlocks = mutation({
 						noteId,
 					});
 
-					tempIdToBlockInfoMap.set(
-						followingBlock.tempId,
-						{
-							realId: followingBlockId,
-							position: followingBlockPosition,
-						}
-					);
+					tempIdToBlockInfoMap.set(followingBlock.tempId, {
+						realId: followingBlockId,
+						position: followingBlockPosition,
+					});
 					lastFollowingBlockPosition = followingBlockPosition;
 				}
 			}
@@ -323,12 +317,15 @@ const bulkUpdateBlocks = mutation({
 					throw new Error("Block not found");
 				}
 
-				await ctx.db.patch(blockId, {
-					position: targetBlock.position,
-					type: targetBlock.type,
-					content: targetBlock.content,
-					additionalAttributes: targetBlock.additionalAttributes,
-				});
+				await ctx.db.patch(
+					blockId,
+					removeUndefinedFields({
+						position: targetBlock.position,
+						type: targetBlock.type,
+						content: targetBlock.content,
+						additionalAttributes: targetBlock.additionalAttributes,
+					})
+				);
 			}
 		}
 	},
