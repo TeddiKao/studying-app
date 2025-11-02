@@ -23,6 +23,14 @@ function isCursorAtStartOfNode(editor: Editor) {
 	return $from.parentOffset === 0;
 }
 
+function isCursorAtEndOfNode(editor: Editor) {
+	const { state } = editor;
+	const { selection } = state;
+	const { $from } = selection;
+
+	return $from.parentOffset === $from.parent.content.size;
+}
+
 function getNodeFromId(
 	editor: Editor,
 	id: Id<"blocks">
@@ -210,6 +218,7 @@ function getDeletedNodesFromTransaction(transaction: Transaction) {
 export {
 	getEditorSelection,
 	isCursorAtStartOfNode,
+	isCursorAtEndOfNode,
 	getNodeFromId,
 	getNodeFromIdUsingDocState,
 	getCreatedNodes,
