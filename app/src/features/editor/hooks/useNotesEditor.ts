@@ -3,7 +3,7 @@
 import { useEditor } from "@tiptap/react";
 import { CustomParagraph } from "../extensions/nodes/Paragraph";
 import { Title } from "../extensions/nodes/Title";
-import { getEditorSelection, getNodeFromId } from "../utils/utils";
+import { getDeletedNodesFromTransaction, getEditorSelection, getNodeFromId } from "../utils/utils";
 import { Placeholder } from "@tiptap/extensions";
 import { useEditorStore } from "../stores/editorStore";
 
@@ -35,6 +35,7 @@ function useNotesEditor(noteId: Id<"notes">) {
 
 	const updateBlock = useMutation(api.blocks.mutations.updateBlock);
 	const bulkCreateBlocks = useMutation(api.blocks.mutations.bulkCreateBlocks);
+	const bulkDeleteBlocks = useMutation(api.blocks.mutations.bulkDeleteBlocks);
 
 	useEffect(() => {
 		return () => {
@@ -139,6 +140,16 @@ function useNotesEditor(noteId: Id<"notes">) {
 					selectedNode.content.toJSON() ?? []
 				);
 			},
+
+			onTransaction: async ({ transaction }) => {
+				const deletedNodeIds = getDeletedNodesFromTransaction(transaction);
+				
+				if (deletedNodeIds.size === 0) return;
+
+				await bulkDeleteBlocks({
+					blockIds: Array.from(deletedNodeIds)
+				});
+			}
 		},
 		[noteId]
 	);

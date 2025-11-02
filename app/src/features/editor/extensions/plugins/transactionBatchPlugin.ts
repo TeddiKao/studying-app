@@ -1,14 +1,11 @@
 import { Editor, Extension } from "@tiptap/react";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import {
-	getCreatedNodes,
 	getCreatedNodesFromDocState,
 	getNodePositionFromDocState,
 } from "../../utils/utils";
-import { bulkCreateBlocks } from "@convex/blocks/mutations";
 import { Id } from "@convex/_generated/dataModel";
 import { isNullOrUndefined } from "@/shared/utils/types";
-import { Node } from "@tiptap/pm/model";
 
 type TransactionBatchPluginState = {
 	lastHandledTransactionKey: string | null;
@@ -48,7 +45,8 @@ function createTransactionBatchPlugin(
 			if (docChanges.length === 0) return null;
 
 			const isSelfTriggeredTransaction = docChanges.some(
-				(transaction) => transaction.getMeta(plugin)?.selfTriggeredTransaction
+				(transaction) =>
+					transaction.getMeta(plugin)?.selfTriggeredTransaction
 			);
 
 			if (isSelfTriggeredTransaction) {
@@ -78,8 +76,6 @@ function createTransactionBatchPlugin(
 
 			const lastHandledTransactionKey =
 				plugin.getState(newState)?.lastHandledTransactionKey;
-
-			console.log(lastHandledTransactionKey, transactionKey);
 
 			if (lastHandledTransactionKey === transactionKey) {
 				return null;
