@@ -1,5 +1,6 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { getEditorSelection, isCursorAtEndOfNode, isCursorAtStartOfNode } from "../../utils/utils";
+import { getCursorPosition, getEditorSelection, getNodePositionFromDocState, isCursorAtEndOfNode, isCursorAtStartOfNode } from "../../utils/utils";
+import { isNullOrUndefined } from "@/shared/utils/types";
 
 const Title = Node.create({
 	name: "title",
@@ -45,6 +46,20 @@ const Title = Node.create({
                 if (isCursorAtEndOfNode(editor)) {
                     return false;
                 }
+
+                const { state, view } = editor;
+                const { dispatch } = view;
+                const { tr } = state;
+                
+                const cursorPos = getCursorPosition(editor);
+                const paragraphType = state.schema.nodes.paragraph;
+
+                tr.split(cursorPos);
+
+                tr.setNodeMarkup(cursorPos + 1, paragraphType, {
+                    id: null,
+                    position: null,
+                })
 
                 return true;
             },
