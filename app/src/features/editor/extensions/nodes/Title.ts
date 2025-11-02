@@ -1,5 +1,10 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { getCursorPosition, getEditorSelection, isCursorAtEndOfNode, isCursorAtStartOfNode } from "../../utils/utils";
+import {
+	getCursorPosition,
+	getEditorSelection,
+	isCursorAtEndOfNode,
+	isCursorAtStartOfNode,
+} from "../../utils/utils";
 
 const Title = Node.create({
 	name: "title",
@@ -7,88 +12,92 @@ const Title = Node.create({
 	group: "block",
 	content: "inline*",
 	defining: true,
-    
-    addOptions() {
-        return {
-            HTMLAttributes: {
-                class: "title text-5xl font-bold mb-4"
-            },
-        }
-    },
+
+	addOptions() {
+		return {
+			HTMLAttributes: {
+				class: "title text-5xl font-bold mb-4",
+			},
+		};
+	},
 
 	addAttributes() {
 		return {
 			id: {
 				default: null,
 				rendered: false,
-                keepOnSplit: false,
+				keepOnSplit: false,
 			},
 
 			position: {
 				default: null,
 				rendered: false,
-                keepOnSplit: false,
+				keepOnSplit: false,
 			},
 		};
 	},
 
-    addKeyboardShortcuts() {
-        return {
-            Enter: ({ editor }) => {
-                const selection = getEditorSelection(editor);
-                if (selection.type.name !== "title") return false;
+	addKeyboardShortcuts() {
+		return {
+			Enter: ({ editor }) => {
+				const selection = getEditorSelection(editor);
+				if (selection.type.name !== "title") return false;
 
-                if (isCursorAtStartOfNode(editor)) {
-                    return true;
-                }
+				if (isCursorAtStartOfNode(editor)) {
+					return true;
+				}
 
-                if (isCursorAtEndOfNode(editor)) {
-                    return false;
-                }
+				if (isCursorAtEndOfNode(editor)) {
+					return false;
+				}
 
-                const { state, view } = editor;
-                const { dispatch } = view;
-                const { tr } = state;
-                
-                const cursorPos = getCursorPosition(editor);
-                const paragraphType = state.schema.nodes.paragraph;
+				const { state, view } = editor;
+				const { dispatch } = view;
+				const { tr } = state;
 
-                tr.split(cursorPos);
+				const cursorPos = getCursorPosition(editor);
+				const paragraphType = state.schema.nodes.paragraph;
 
-                tr.setNodeMarkup(cursorPos + 1, paragraphType, {
-                    id: null,
-                    position: null,
-                })
+				tr.split(cursorPos);
 
-                dispatch(tr.scrollIntoView());
+				tr.setNodeMarkup(cursorPos + 1, paragraphType, {
+					id: null,
+					position: null,
+				});
 
-                return true;
-            },
+				dispatch(tr.scrollIntoView());
 
-            Backspace: ({ editor }) => {
-                const selection = getEditorSelection(editor);
-                if (selection.type.name !== "title") return false;
+				return true;
+			},
 
-                if (selection.content.size === 0) {
-                    return true;
-                }
+			Backspace: ({ editor }) => {
+				const selection = getEditorSelection(editor);
+				if (selection.type.name !== "title") return false;
 
-                return false;
-            }
-        }
-    },
+				if (selection.content.size === 0) {
+					return true;
+				}
 
-    renderHTML({ HTMLAttributes }) {
-        return ["h1", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-    },
+				return false;
+			},
+		};
+	},
 
-    parseHTML() {
-        return [
-            {
-                tag: "h1",
-            }
-        ]
-    }
+	renderHTML({ HTMLAttributes }) {
+		return [
+			"h1",
+			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+			0,
+		];
+	},
+
+	parseHTML() {
+		return [
+			{
+				tag: "h1",
+			},
+		];
+	},
 });
 
 export { Title };
