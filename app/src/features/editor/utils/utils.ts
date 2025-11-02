@@ -31,6 +31,14 @@ function isCursorAtEndOfNode(editor: Editor) {
 	return $from.parentOffset === $from.parent.content.size;
 }
 
+function getCursorPosition(editor: Editor) {
+	const { state } = editor;
+	const { selection } = state;
+	const { $from } = selection;
+	
+	return $from.pos;
+}
+
 function getNodeFromId(
 	editor: Editor,
 	id: Id<"blocks">
@@ -219,6 +227,7 @@ export {
 	getEditorSelection,
 	isCursorAtStartOfNode,
 	isCursorAtEndOfNode,
+	getCursorPosition,
 	getNodeFromId,
 	getNodeFromIdUsingDocState,
 	getCreatedNodes,
@@ -229,6 +238,5 @@ export {
 	getNodePositionFromDocState,
 	isImmediatelyAfter,
 	isImmediatelyAfterFromDocState,
-
 	getDeletedNodesFromTransaction
 };
