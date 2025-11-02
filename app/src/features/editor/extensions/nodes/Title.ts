@@ -1,6 +1,5 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { getCursorPosition, getEditorSelection, getNodePositionFromDocState, isCursorAtEndOfNode, isCursorAtStartOfNode } from "../../utils/utils";
-import { isNullOrUndefined } from "@/shared/utils/types";
+import { getCursorPosition, getEditorSelection, isCursorAtEndOfNode, isCursorAtStartOfNode } from "../../utils/utils";
 
 const Title = Node.create({
 	name: "title",
