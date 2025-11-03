@@ -26,6 +26,7 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 			<div className="flex flex-row">
 				<div className="flex flex-row">
 					<button
+						onClick={() => editor.chain().focus().toggleBold().run()}
 						className="bg-white hover:bg-gray-300 p-1.5 rounded-md"
 						type="button"
 					>
@@ -33,6 +34,7 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 					</button>
 
 					<button
+						onClick={() => editor.chain().focus().toggleItalic().run()}
 						className="bg-white hover:bg-gray-300 p-1.5 rounded-md"
 						type="button"
 					>
@@ -40,6 +42,7 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 					</button>
 
 					<button
+						onClick={() => editor.chain().focus().toggleUnderline().run()}
 						className="bg-white hover:bg-gray-300 p-1.5 rounded-md"
 						type="button"
 					>
