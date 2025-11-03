@@ -53,13 +53,13 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			bulkUpdateBlocks({
 				blocks: convertBlocksToDBFormat(editor.getJSON().content),
 			});
-		};
+		}
 	}, [editor, bulkUpdateBlocks]);
 
 	return (
 		<>
 			<EditorBubbleMenu editor={editor} />
-			<EditorContent editor={editor} />
+			<EditorContent className="ml-16 mt-16" editor={editor} />
 		</>
 	);
 }
