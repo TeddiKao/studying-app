@@ -35,9 +35,19 @@ function BubbleMenuMarkButton({ editor, mark }: BubbleMenuMarkButtonProps) {
 		["bold", <Bold className="stroke-gray-950 h-4 w-4" />],
 		["italic", <Italic className="stroke-gray-950 h-4 w-4" />],
 		["underline", <Underline className="stroke-gray-950 h-4 w-4" />],
-	])
+	]);
 
-	return (
+	const isActive = editor.isActive(mark);
+
+	return isActive ? (
+		<button
+			onClick={handleMarkButtonClick}
+			className="bg-gray-600 hover:bg-gray-300 p-1.5 rounded-md"
+			type="button"
+		>
+			{iconMap.get(mark)}
+		</button>
+	) : (
 		<button
 			onClick={handleMarkButtonClick}
 			className="bg-white hover:bg-gray-300 p-1.5 rounded-md"
