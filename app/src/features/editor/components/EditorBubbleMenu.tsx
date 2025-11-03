@@ -70,7 +70,9 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 
 						<PopoverContent align="start" alignOffset={-8} side="bottom" className="w-[140px] p-1 border-none">
 							<MenuItem onClick={() => {}}>Paragraph</MenuItem>
-							<MenuItem onClick={() => {}}>Heading 2</MenuItem>
+							<MenuItem onClick={() => {}}>Heading 1</MenuItem>
+                            <MenuItem onClick={() => {}}>Heading 2</MenuItem>
+                            <MenuItem onClick={() => {}}>Heading 3</MenuItem>
 						</PopoverContent>
 					</Popover>
 				</div>
