@@ -1,7 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import MenuItem from "@/shared/components/MenuItem";
 import { Editor } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Bold, Italic, Underline } from "lucide-react";
@@ -42,9 +55,24 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 					</button>
 				</div>
 
-                <div className="p-1.5">
-                    <Separator className="bg-gray-400" orientation="vertical" />
-                </div>
+				<div className="p-1.5">
+					<Separator className="bg-gray-400" orientation="vertical" />
+				</div>
+
+				<div>
+					<Popover>
+						<PopoverTrigger asChild>
+							<button className="text-left rounded px-2 py-1 text-sm">
+								Paragraph
+							</button>
+						</PopoverTrigger>
+
+						<PopoverContent align="start" alignOffset={-8} side="bottom" className="w-[140px] p-1 border-none">
+							<MenuItem onClick={() => {}}>Paragraph</MenuItem>
+							<MenuItem onClick={() => {}}>Heading 2</MenuItem>
+						</PopoverContent>
+					</Popover>
+				</div>
 			</div>
 		</BubbleMenu>
 	);
