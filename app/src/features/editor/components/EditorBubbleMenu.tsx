@@ -58,35 +58,9 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 		>
 			<div className="flex flex-row">
 				<div className="flex flex-row">
-					<button
-						onClick={() =>
-							editor.chain().focus().toggleBold().run()
-						}
-						className="bg-white hover:bg-gray-300 p-1.5 rounded-md"
-						type="button"
-					>
-						<Bold className="stroke-gray-950 h-4 w-4" />
-					</button>
-
-					<button
-						onClick={() =>
-							editor.chain().focus().toggleItalic().run()
-						}
-						className="bg-white hover:bg-gray-300 p-1.5 rounded-md"
-						type="button"
-					>
-						<Italic className="stroke-gray-950 h-4 w-4" />
-					</button>
-
-					<button
-						onClick={() =>
-							editor.chain().focus().toggleUnderline().run()
-						}
-						className="bg-white hover:bg-gray-300 p-1.5 rounded-md"
-						type="button"
-					>
-						<Underline className="stroke-gray-950 h-4 w-4" />
-					</button>
+					<BubbleMenuMarkButton editor={editor} mark="bold" />
+					<BubbleMenuMarkButton editor={editor} mark="italic" />
+					<BubbleMenuMarkButton editor={editor} mark="underline" />
 				</div>
 
 				<div className="p-1.5">
