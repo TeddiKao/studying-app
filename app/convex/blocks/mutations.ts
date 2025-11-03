@@ -216,7 +216,7 @@ const updateBlock = mutation({
 		const block = await ctx.db.get(blockId);
 
 		if (!block) {
-			throw new Error("Block not found");
+			return;
 		}
 
 		const noteId = block.noteId;
