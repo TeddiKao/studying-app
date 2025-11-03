@@ -7,6 +7,7 @@ import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { convertBlocksToDBFormat } from "@convex/blocks/utils";
 import useNotesEditor from "../hooks/useNotesEditor";
+import EditorBubbleMenu from "./EditorBubbleMenu";
 
 type NotesEditorProps = {
 	noteId: Id<"notes">;
@@ -52,10 +53,15 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 			bulkUpdateBlocks({
 				blocks: convertBlocksToDBFormat(editor.getJSON().content),
 			});
-		}
+		};
 	}, [editor, bulkUpdateBlocks]);
 
-	return <EditorContent className="ml-16 mt-16" editor={editor} />;
+	return (
+		<>
+			<EditorBubbleMenu editor={editor} />
+			<EditorContent editor={editor} />
+		</>
+	);
 }
 
 export default NotesEditor;
