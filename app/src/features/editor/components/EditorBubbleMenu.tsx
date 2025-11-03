@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
 	Popover,
 	PopoverContent,
@@ -21,6 +23,8 @@ type BubbleMenuMarkButtonProps = {
 };
 
 function BubbleMenuMarkButton({ editor, mark }: BubbleMenuMarkButtonProps) {
+	const [isMarkActive, setIsMarkActive] = useState(false);
+
 	function handleMarkButtonClick() {
 		if (mark === "bold") {
 			editor.chain().focus().toggleBold().run();
@@ -37,12 +41,23 @@ function BubbleMenuMarkButton({ editor, mark }: BubbleMenuMarkButtonProps) {
 		["underline", <Underline className="stroke-gray-950 h-4 w-4" />],
 	]);
 
-	const isActive = editor.isActive(mark);
+	useEffect(() => {
+		function updateActive() {
+			setIsMarkActive(editor.isActive(mark));
+		}
 
-	return isActive ? (
+		editor.on("transaction", updateActive);
+
+		return () => {
+			editor.off("transaction", updateActive);
+		};
+	}, [editor]);
+
+
+	return isMarkActive ? (
 		<button
 			onClick={handleMarkButtonClick}
-			className="bg-gray-600 hover:bg-gray-300 p-1.5 rounded-md"
+			className="bg-gray-300 hover:bg-gray-300 p-1.5 rounded-md"
 			type="button"
 		>
 			{iconMap.get(mark)}
