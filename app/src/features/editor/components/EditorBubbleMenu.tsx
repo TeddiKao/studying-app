@@ -6,10 +6,12 @@ import { BubbleMenu } from "@tiptap/react/menus";
 import { Bold, Italic, Underline } from "lucide-react";
 
 type EditorBubbleMenuProps = {
-    editor: Editor;
+    editor: Editor | null;
 };
 
 function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
+    if (!editor) return null;
+
 	return (
 		<BubbleMenu editor={editor}>
 			<div className="flex flex-row gap-2">
