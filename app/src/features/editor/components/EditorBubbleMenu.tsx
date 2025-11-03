@@ -13,7 +13,7 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
     if (!editor) return null;
 
 	return (
-		<BubbleMenu editor={editor}>
+		<BubbleMenu className="bg-white" editor={editor}>
 			<div className="flex flex-row gap-2">
 				<Button className="bg-white" type="button">
                     <Bold className="stroke-gray-950" />
