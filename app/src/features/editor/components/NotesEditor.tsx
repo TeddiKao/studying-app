@@ -45,6 +45,16 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 		};
 	}, [editor, bulkUpdateBlocks]);
 
+	useEffect(() => {
+		return () => {
+			if (!editor) return;
+
+			bulkUpdateBlocks({
+				blocks: convertBlocksToDBFormat(editor.getJSON().content),
+			});
+		}
+	}, [editor, bulkUpdateBlocks]);
+
 	return <EditorContent className="ml-16 mt-16" editor={editor} />;
 }
 
