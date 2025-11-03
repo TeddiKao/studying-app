@@ -223,6 +223,18 @@ function getDeletedNodesFromTransaction(transaction: Transaction) {
 	return deletedNodeIds;
 }
 
+function getActiveMark(editor: Editor): "bold" | "italic" | "underline" | null {
+	if (editor.isActive("bold")) {
+		return "bold";
+	} else if (editor.isActive("italic")) {
+		return "italic";
+	} else if (editor.isActive("underline")) {
+		return "underline";
+	}
+
+	return null;
+}
+
 export {
 	getEditorSelection,
 	isCursorAtStartOfNode,
@@ -238,5 +250,6 @@ export {
 	getNodePositionFromDocState,
 	isImmediatelyAfter,
 	isImmediatelyAfterFromDocState,
-	getDeletedNodesFromTransaction
+	getDeletedNodesFromTransaction,
+	getActiveMark
 };
