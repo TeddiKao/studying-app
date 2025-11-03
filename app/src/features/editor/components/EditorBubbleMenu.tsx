@@ -1,12 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Editor } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Bold, Italic, Underline } from "lucide-react";
 
-function EditorBubbleMenu() {
+type EditorBubbleMenuProps = {
+    editor: Editor;
+};
+
+function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 	return (
-		<BubbleMenu>
+		<BubbleMenu editor={editor}>
 			<div className="flex flex-row gap-2">
 				<Button type="button">
                     <Bold />
