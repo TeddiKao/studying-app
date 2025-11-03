@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import MenuItem from "@/shared/components/MenuItem";
 import { Editor } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
-import { Bold, Italic, Underline } from "lucide-react";
+import { Bold, ChevronDown, Italic, Underline } from "lucide-react";
 
 type EditorBubbleMenuProps = {
 	editor: Editor | null;
@@ -62,8 +62,9 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 				<div>
 					<Popover>
 						<PopoverTrigger asChild>
-							<button className="text-left rounded px-2 py-1 text-sm">
-								Paragraph
+							<button className="flex flex-row gap-2 items-center text-left rounded px-2 py-1 text-sm">
+								<span>Paragraph</span>
+                                <ChevronDown className="w-5 h-5 stroke-gray-950" />
 							</button>
 						</PopoverTrigger>
 
