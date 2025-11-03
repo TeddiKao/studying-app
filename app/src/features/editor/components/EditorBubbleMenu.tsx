@@ -15,15 +15,15 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 	return (
 		<BubbleMenu editor={editor}>
 			<div className="flex flex-row gap-2">
-				<Button type="button">
+				<Button className="bg-white" type="button">
                     <Bold />
                 </Button>
 
-                <Button type="button">
+                <Button className="bg-white" type="button">
                     <Italic />
                 </Button>
 
-                <Button type="button">
+                <Button className="bg-white" type="button">
                     <Underline />
                 </Button>
 			</div>
