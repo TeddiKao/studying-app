@@ -42,8 +42,8 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 					</button>
 				</div>
 
-                <div className="p-1">
-                    <Separator className="bg-gray-950" orientation="vertical" />
+                <div className="p-1.5">
+                    <Separator className="bg-gray-400" orientation="vertical" />
                 </div>
 			</div>
 		</BubbleMenu>
