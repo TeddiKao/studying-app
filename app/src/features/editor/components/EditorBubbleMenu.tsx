@@ -14,7 +14,7 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 
 	return (
 		<BubbleMenu className="bg-white shadow-md rounded-md" editor={editor}>
-			<div className="flex flex-row gap-2">
+			<div className="flex flex-row">
 				<Button className="bg-white hover:bg-gray-300" type="button">
                     <Bold className="stroke-gray-950" />
                 </Button>
