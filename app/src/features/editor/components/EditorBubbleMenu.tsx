@@ -15,16 +15,16 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 	return (
 		<BubbleMenu className="bg-white shadow-md rounded-md p-1" editor={editor}>
 			<div className="flex flex-row">
-				<button className="bg-white hover:bg-gray-300 p-2" type="button">
-                    <Bold className="stroke-gray-950" />
+				<button className="bg-white hover:bg-gray-300 p-2 rounded-md" type="button">
+                    <Bold className="stroke-gray-950 h-4 w-4" />
                 </button>
 
-                <button className="bg-white hover:bg-gray-300 p-2" type="button">
-                    <Italic className="stroke-gray-950" />
+                <button className="bg-white hover:bg-gray-300 p-2 rounded-md" type="button">
+                    <Italic className="stroke-gray-950 h-4 w-4" />
                 </button>
 
-                <button className="bg-white hover:bg-gray-300 p-2" type="button">
-                    <Underline className="stroke-gray-950" />
+                <button className="bg-white hover:bg-gray-300 p-2 rounded-md" type="button">
+                    <Underline className="stroke-gray-950 h-4 w-4" />
                 </button>
 			</div>
 		</BubbleMenu>
