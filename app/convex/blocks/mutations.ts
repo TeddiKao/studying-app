@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 import { removeUndefinedFields } from "./utils";
 import { Id } from "../_generated/dataModel";
+import { ErrorResponse, SuccessResponse } from "@/shared/types/api";
 
 const bulkCreateBlocks = mutation({
 	args: {
@@ -204,43 +205,72 @@ const updateBlock = mutation({
 		additionalAttributes: v.optional(v.record(v.string(), v.any())),
 	},
 
-	handler: async (ctx, args) => {
+	handler: async (ctx, args): Promise<SuccessResponse | ErrorResponse> => {
 		const { id: blockId, ...fields } = args;
 		const userIdentity = await ctx.auth.getUserIdentity();
 
 		if (!userIdentity) {
-			throw new Error("User not authenticated");
+			return {
+				success: false,
+				errors: {
+					general: ["User not authenticated"],
+				},
+			};
 		}
 
 		const fieldsToUpdate = removeUndefinedFields(fields);
 		const block = await ctx.db.get(blockId);
 
 		if (!block) {
-			return;
+			return {
+				success: false,
+				errors: {
+					general: ["Block not found"],
+				},
+			};
 		}
 
 		const noteId = block.noteId;
 		const note = await ctx.db.get(noteId);
 
 		if (!note) {
-			throw new Error("Note not found");
+			return {
+				success: false,
+				errors: {
+					general: ["Note not found"],
+				},
+			};
 		}
 
 		const notebookId = note.notebookId;
 		const notebook = await ctx.db.get(notebookId);
 
 		if (!notebook) {
-			throw new Error("Notebook not found");
+			return {
+				success: false,
+				errors: {
+					general: ["Notebook not found"],
+				},
+			};
 		}
 
 		const notebookOwner = notebook.owner;
 		const requesterId = userIdentity.subject;
 
 		if (notebookOwner !== requesterId) {
-			throw new Error("You are not the owner of this notebook");
+			return {
+				success: false,
+				errors: {
+					general: ["You are not the owner of this notebook"],
+				},
+			};
 		}
 
 		await ctx.db.patch(blockId, fieldsToUpdate);
+
+		return {
+			success: true,
+		};
 	},
 });
 
@@ -393,7 +423,7 @@ const bulkDeleteBlocks = mutation({
 				await ctx.db.delete(blockId);
 			}
 		}
-	}
-})
+	},
+});
 
 export { bulkCreateBlocks, updateBlock, bulkUpdateBlocks, bulkDeleteBlocks };
