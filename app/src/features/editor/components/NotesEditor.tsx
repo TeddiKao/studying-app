@@ -51,7 +51,7 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 			bulkUpdateBlocks({
 				blocks: convertBlocksToDBFormat(editor.getJSON().content),
-			})
+			});
 		}
 	}, [editor, bulkUpdateBlocks]);
 
