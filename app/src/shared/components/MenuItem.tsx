@@ -6,6 +6,7 @@ type MenuItemProps = {
 function MenuItem({ onClick, children }: MenuItemProps) {
 	return (
 		<button
+			type="button"
 			onClick={onClick}
 			className="text-left w-full rounded-sm px-2 py-1.5 text-sm outline-none 
                  hover:bg-accent hover:text-accent-foreground
