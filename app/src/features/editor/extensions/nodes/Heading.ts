@@ -6,9 +6,6 @@ const CustomHeading = Heading.extend({
 		return {
 			...this.parent?.(),
 			levels: [1, 2, 3],
-			HTMLAttributes: {
-				class: "mb-4",
-			},
 		};
 	},
 
