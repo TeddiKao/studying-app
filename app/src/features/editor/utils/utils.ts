@@ -223,15 +223,15 @@ function getDeletedNodesFromTransaction(transaction: Transaction) {
 	return deletedNodeIds;
 }
 
-function getActiveHeadingStyle(editor: Editor): "heading1" | "heading2" | "heading3" | "paragraph" {
+function getActiveHeadingStyle(editor: Editor): "Heading 1" | "Heading 2" | "Heading 3" | "Paragraph" {
 	if (editor.isActive("heading", { level: 1 })) {
-		return "heading1";
+		return "Heading 1";
 	} else if (editor.isActive("heading", { level: 2 })) {
-		return "heading2";
+		return "Heading 2";
 	} else if (editor.isActive("heading", { level: 3 })) {
-		return "heading3";
+		return "Heading 3";
 	} else {
-		return "paragraph";
+		return "Paragraph";
 	}
 }
 
