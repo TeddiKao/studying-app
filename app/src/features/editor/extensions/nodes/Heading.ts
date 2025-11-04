@@ -73,7 +73,7 @@ const CustomHeading = Heading.extend({
             `h${level}`,
             {
                 ...HTMLAttributes,
-                class: classes.get(level),
+                class: `${HTMLAttributes.class ?? ""} ${classes.get(level)}`.trim(),
             },
             0
         ]
