@@ -36,8 +36,6 @@ const CustomHeading = Heading.extend({
 			[3, "text-2xl font-bold mb-4"],
 		]);
 
-        console.log(classes.get(level));
-
         return [
             `h${level}`,
             {
