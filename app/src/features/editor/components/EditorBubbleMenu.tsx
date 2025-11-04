@@ -12,6 +12,7 @@ import MenuItem from "@/shared/components/MenuItem";
 import { Editor } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Bold, ChevronDown, Italic, Underline } from "lucide-react";
+import { getActiveHeadingStyle } from "../utils/utils";
 
 type EditorBubbleMenuProps = {
 	editor: Editor | null;
@@ -52,7 +53,6 @@ function BubbleMenuMarkButton({ editor, mark }: BubbleMenuMarkButtonProps) {
 			editor.off("transaction", updateActive);
 		};
 	}, [editor]);
-
 
 	return isMarkActive ? (
 		<button
@@ -96,7 +96,7 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 					<Popover>
 						<PopoverTrigger asChild>
 							<button className="flex flex-row gap-2 items-center text-left rounded px-2 py-1 text-sm">
-								<span>Paragraph</span>
+								<span>{getActiveHeadingStyle(editor)}</span>
 								<ChevronDown className="w-5 h-5 stroke-gray-950" />
 							</button>
 						</PopoverTrigger>
@@ -107,10 +107,48 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 							side="bottom"
 							className="w-[140px] p-1 border-none"
 						>
-							<MenuItem onClick={() => {}}>Heading 1</MenuItem>
-							<MenuItem onClick={() => {}}>Heading 2</MenuItem>
-							<MenuItem onClick={() => {}}>Heading 3</MenuItem>
-							<MenuItem onClick={() => {}}>Paragraph</MenuItem>
+							<MenuItem
+								onClick={() =>
+									editor
+										.chain()
+										.focus()
+										.setHeading({ level: 1 })
+										.run()
+								}
+							>
+								Heading 1
+							</MenuItem>
+
+							<MenuItem
+								onClick={() =>
+									editor
+										.chain()
+										.focus()
+										.setHeading({ level: 2 })
+										.run()
+								}
+							>
+								Heading 2
+							</MenuItem>
+
+							<MenuItem
+								onClick={() =>
+									editor
+										.chain()
+										.focus()
+										.setHeading({ level: 3 })
+										.run()
+								}
+							>
+								Heading 3
+							</MenuItem>
+							<MenuItem
+								onClick={() =>
+									editor.chain().focus().setParagraph().run()
+								}
+							>
+								Paragraph
+							</MenuItem>
 						</PopoverContent>
 					</Popover>
 				</div>

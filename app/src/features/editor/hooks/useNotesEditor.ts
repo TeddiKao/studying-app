@@ -19,6 +19,7 @@ import { createTransactionBatchPluginExtension } from "../extensions/plugins/tra
 import { Bold } from "@tiptap/extension-bold";
 import { Italic } from "@tiptap/extension-italic";
 import { Underline } from "@tiptap/extension-underline";
+import { CustomHeading } from "../extensions/nodes/Heading";
 
 function useNotesEditor(noteId: Id<"notes">) {
 	const {
@@ -74,6 +75,8 @@ function useNotesEditor(noteId: Id<"notes">) {
 				Bold,
 				Italic,
 				Underline,
+
+				CustomHeading,
 			],
 			immediatelyRender: false,
 
