@@ -223,6 +223,18 @@ function getDeletedNodesFromTransaction(transaction: Transaction) {
 	return deletedNodeIds;
 }
 
+function getActiveHeadingStyle(editor: Editor): "heading1" | "heading2" | "heading3" | "paragraph" {
+	if (editor.isActive("heading", { level: 1 })) {
+		return "heading1";
+	} else if (editor.isActive("heading", { level: 2 })) {
+		return "heading2";
+	} else if (editor.isActive("heading", { level: 3 })) {
+		return "heading3";
+	} else {
+		return "paragraph";
+	}
+}
+
 export {
 	getEditorSelection,
 	isCursorAtStartOfNode,
@@ -239,4 +251,5 @@ export {
 	isImmediatelyAfter,
 	isImmediatelyAfterFromDocState,
 	getDeletedNodesFromTransaction,
+	getActiveHeadingStyle,
 };
