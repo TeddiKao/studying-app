@@ -59,8 +59,9 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 	}, [editor, bulkUpdateBlocks]);
 
 	useEffect(() => {
+		if (!editor) return;
+
 		const saveInterval = setInterval(async () => {
-			if (!editor) return;
 			if (isSaving) return;
 
 			setIsSaving(true);
