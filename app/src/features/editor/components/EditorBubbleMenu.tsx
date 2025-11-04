@@ -52,7 +52,7 @@ function BubbleMenuMarkButton({ editor, mark }: BubbleMenuMarkButtonProps) {
 		return () => {
 			editor.off("transaction", updateActive);
 		};
-	}, [editor]);
+	}, [editor, mark]);
 
 	return isMarkActive ? (
 		<button
