@@ -53,7 +53,6 @@ function BubbleMenuMarkButton({ editor, mark }: BubbleMenuMarkButtonProps) {
 		};
 	}, [editor]);
 
-
 	return isMarkActive ? (
 		<button
 			onClick={handleMarkButtonClick}
@@ -107,10 +106,48 @@ function EditorBubbleMenu({ editor }: EditorBubbleMenuProps) {
 							side="bottom"
 							className="w-[140px] p-1 border-none"
 						>
-							<MenuItem onClick={() => {}}>Heading 1</MenuItem>
-							<MenuItem onClick={() => {}}>Heading 2</MenuItem>
-							<MenuItem onClick={() => {}}>Heading 3</MenuItem>
-							<MenuItem onClick={() => {}}>Paragraph</MenuItem>
+							<MenuItem
+								onClick={() =>
+									editor
+										.chain()
+										.focus()
+										.setHeading({ level: 1 })
+										.run()
+								}
+							>
+								Heading 1
+							</MenuItem>
+
+							<MenuItem
+								onClick={() =>
+									editor
+										.chain()
+										.focus()
+										.setHeading({ level: 2 })
+										.run()
+								}
+							>
+								Heading 2
+							</MenuItem>
+
+							<MenuItem
+								onClick={() =>
+									editor
+										.chain()
+										.focus()
+										.setHeading({ level: 3 })
+										.run()
+								}
+							>
+								Heading 3
+							</MenuItem>
+							<MenuItem
+								onClick={() =>
+									editor.chain().focus().setParagraph().run()
+								}
+							>
+								Paragraph
+							</MenuItem>
 						</PopoverContent>
 					</Popover>
 				</div>
