@@ -56,6 +56,20 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 		}
 	}, [editor, bulkUpdateBlocks]);
 
+	useEffect(() => {
+		const saveInterval = setInterval(() => {
+			if (!editor) return;
+
+			bulkUpdateBlocks({
+				blocks: convertBlocksToDBFormat(editor.getJSON().content),
+			});
+		}, 5 * 1000);
+
+		return () => {
+			clearInterval(saveInterval);
+		};
+	}, [editor, bulkUpdateBlocks]);
+
 	return (
 		<>
 			<EditorBubbleMenu editor={editor} />
