@@ -27,6 +27,26 @@ const CustomHeading = Heading.extend({
 			},
 		};
 	},
+
+	renderHTML({ node, HTMLAttributes }) {
+        const level = node.attrs.level;
+		const classes = new Map<number, string>([
+			[1, "text-4xl font-bold mb-4"],
+			[2, "text-3xl font-bold mb-4"],
+			[3, "text-2xl font-bold mb-4"],
+		]);
+
+        console.log(classes.get(level));
+
+        return [
+            `h${level}`,
+            {
+                ...HTMLAttributes,
+                class: classes.get(level),
+            },
+            0
+        ]
+	},
 });
 
 export { CustomHeading };
