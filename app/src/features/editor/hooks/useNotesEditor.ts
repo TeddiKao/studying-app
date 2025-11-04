@@ -16,6 +16,10 @@ import { Id } from "@convex/_generated/dataModel";
 import { useEffect } from "react";
 import { createTransactionBatchPluginExtension } from "../extensions/plugins/transactionBatchPlugin";
 
+import { Bold } from "@tiptap/extension-bold";
+import { Italic } from "@tiptap/extension-italic";
+import { Underline } from "@tiptap/extension-underline";
+
 function useNotesEditor(noteId: Id<"notes">) {
 	const {
 		selectedBlockId,
@@ -66,6 +70,10 @@ function useNotesEditor(noteId: Id<"notes">) {
 					},
 				}),
 				createTransactionBatchPluginExtension(bulkCreateBlocks, noteId),
+
+				Bold,
+				Italic,
+				Underline,
 			],
 			immediatelyRender: false,
 
