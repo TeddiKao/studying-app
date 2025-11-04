@@ -1,7 +1,7 @@
 "use client";
 
 import { EditorContent } from "@tiptap/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
@@ -18,6 +18,8 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 
 	const blocks = useQuery(api.blocks.queries.fetchBlocks, { noteId });
 	const bulkUpdateBlocks = useMutation(api.blocks.mutations.bulkUpdateBlocks);
+
+	const [isSaving, setIsSaving] = useState(false);
 
 	useEffect(() => {
 		if (!editor) return;
@@ -57,12 +59,21 @@ function NotesEditor({ noteId }: NotesEditorProps) {
 	}, [editor, bulkUpdateBlocks]);
 
 	useEffect(() => {
-		const saveInterval = setInterval(() => {
+		const saveInterval = setInterval(async () => {
 			if (!editor) return;
+			if (isSaving) return;
 
-			bulkUpdateBlocks({
-				blocks: convertBlocksToDBFormat(editor.getJSON().content),
-			});
+			setIsSaving(true);
+
+			try {
+				await bulkUpdateBlocks({
+					blocks: convertBlocksToDBFormat(editor.getJSON().content),
+				});
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setIsSaving(false);
+			}
 		}, 5 * 1000);
 
 		return () => {
