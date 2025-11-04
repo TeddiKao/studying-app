@@ -1,4 +1,5 @@
 import { Heading } from "@tiptap/extension-heading";
+import { getCursorPosition, getEditorSelection, isCursorAtEndOfNode, isCursorAtStartOfNode } from "../../utils/utils";
 
 const CustomHeading = Heading.extend({
 	addOptions() {
@@ -27,6 +28,41 @@ const CustomHeading = Heading.extend({
 			},
 		};
 	},
+
+    addKeyboardShortcuts() {
+        return {
+            Enter: ({ editor }) => {
+                const selection = getEditorSelection(editor);
+                if (selection.type.name !== this.name) return false;
+
+                if (isCursorAtStartOfNode(editor)) {
+                    return false;
+                }
+
+                if (isCursorAtEndOfNode(editor)) {
+                    return false;
+                }
+
+                const { state, view } = editor;
+                const { dispatch } = view;
+                const { tr } = state;
+
+                const cursorPos = getCursorPosition(editor);
+                const paragraphType = state.schema.nodes.paragraph;
+
+                tr.split(cursorPos);
+
+                tr.setNodeMarkup(cursorPos + 1, paragraphType, {
+                    id: null,
+                    position: null,
+                });
+
+                dispatch(tr.scrollIntoView());
+
+                return true;
+            }
+        }
+    },
 
 	renderHTML({ node, HTMLAttributes }) {
         const level = node.attrs.level;
