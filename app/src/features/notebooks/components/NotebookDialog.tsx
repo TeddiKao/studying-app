@@ -99,28 +99,28 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 		startSubmitting();
 
 		try {
+			let res;
+
 			if (mode === "create") {
-				const res = await createNotebook({
+				res = await createNotebook({
 					name: trimmedName,
 					description: trimmedDescription,
 				});
-
-				if (!res?.success) {
-					return;
-				}
 			} else if (mode === "edit") {
 				if (!notebookId) return;
 
-				const res = await editNotebook({
+				res = await editNotebook({
 					notebookId: notebookId,
 					name: trimmedName,
 					description: trimmedDescription,
 				});
+			}
 
-				if (!res?.success) {
-					updateNameErrors(res?.errors.name ?? []);
-					updateDescriptionErrors(res?.errors.description ?? []);
-				}
+			if (!res?.success) {
+				updateNameErrors(res?.errors.name ?? []);
+				updateDescriptionErrors(res?.errors.description ?? []);
+
+				return;
 			}
 
 			performFormCleanup();
