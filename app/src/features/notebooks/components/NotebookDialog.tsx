@@ -69,6 +69,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 		description: descriptionErrors,
 		updateNameErrors,
 		updateDescriptionErrors,
+		clearAllErrors
 	} = errorStore;
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
@@ -139,6 +140,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 					openForm();
 				} else {
 					performFormCleanup();
+					clearAllErrors();
 				}
 			}}
 		>
