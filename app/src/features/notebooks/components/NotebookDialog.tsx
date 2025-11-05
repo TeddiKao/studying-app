@@ -8,14 +8,20 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useCreateNotebookFormStore } from "../stores/createNotebookForm";
+import {
+	useCreateNotebookFormErrorStore,
+	useCreateNotebookFormStore,
+} from "../stores/createNotebookForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQuery } from "convex/react";
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "@/components/ui/spinner";
-import { useEditNotebookFormStore } from "../stores/editNotebookForm";
+import {
+	useEditNotebookFormErrorStore,
+	useEditNotebookFormStore,
+} from "../stores/editNotebookForm";
 import { useEffect } from "react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
@@ -37,7 +43,14 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const createNotebookForm = useCreateNotebookFormStore();
 	const editNotebookForm = useEditNotebookFormStore();
 
+	const createNotebookFormErrorStore = useCreateNotebookFormErrorStore();
+	const editNotebookFormErrorStore = useEditNotebookFormErrorStore();
+
 	const formStore = mode === "create" ? createNotebookForm : editNotebookForm;
+	const errorStore =
+		mode === "create"
+			? createNotebookFormErrorStore
+			: editNotebookFormErrorStore;
 
 	const isOpen = formStore.isOpen;
 	const isSubmitting = formStore.isSubmitting;
@@ -46,15 +59,17 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 
 	const updateName = formStore.updateName;
 	const updateDescription = formStore.updateDescription;
-	const clearName = formStore.clearName;
-	const clearDescription = formStore.clearDescription;
 	const openForm = formStore.openForm;
-	const closeForm = formStore.closeForm;
 	const startSubmitting = formStore.startSubmitting;
 	const stopSubmitting = formStore.stopSubmitting;
 	const performFormCleanup = formStore.performFormCleanup;
 
-	const clearNotebookId = editNotebookForm.clearNotebookId;
+	const {
+		name: nameErrors,
+		description: descriptionErrors,
+		updateNameErrors,
+		updateDescriptionErrors,
+	} = errorStore;
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const editNotebook = useMutation(api.notebooks.mutations.editNotebook);
@@ -93,7 +108,6 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 				if (!res?.success) {
 					return;
 				}
-
 			} else if (mode === "edit") {
 				if (!notebookId) return;
 
@@ -104,7 +118,8 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 				});
 
 				if (!res?.success) {
-					return;
+					updateNameErrors(res?.errors.name ?? []);
+					updateDescriptionErrors(res?.errors.description ?? [])
 				}
 			}
 
