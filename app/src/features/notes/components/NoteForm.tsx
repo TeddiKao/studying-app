@@ -103,7 +103,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		if (!trimmedTitle) return;
 
 		try {
-			let res;
+			let res: Awaited<ReturnType<typeof createNote>> | undefined;
 
 			if (mode === "create") {
 				res = await createNote({

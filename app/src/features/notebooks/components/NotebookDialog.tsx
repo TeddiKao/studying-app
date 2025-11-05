@@ -100,7 +100,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 		startSubmitting();
 
 		try {
-			let res;
+			let res: Awaited<ReturnType<typeof createNotebook>> | undefined;
 
 			if (mode === "create") {
 				res = await createNotebook({
