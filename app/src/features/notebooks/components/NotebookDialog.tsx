@@ -166,7 +166,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 						/>
 
 						{nameErrors.length > 0 && (
-							<div className="flex flex-col gap-1">
+							<div id="notebook-name-errors" className="flex flex-col gap-1">
 								{nameErrors.map((error, index) => (
 									<p
 										key={index}
@@ -192,7 +192,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 						/>
 
 						{descriptionErrors.length > 0 && (
-							<div className="flex flex-col gap-1">
+							<div id="notebook-description-errors" className="flex flex-col gap-1">
 								{descriptionErrors.map((error, index) => (
 									<p
 										key={index}
