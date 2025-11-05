@@ -28,6 +28,19 @@ type EditNoteFormState = {
     clearNoteId: () => void;
 };
 
+type EditNoteFormErrorStore = {
+	title: string[];
+	description: string[];
+
+	updateTitleErrors: (errors: string[]) => void;
+	updateDescriptionErrors: (errors: string[]) => void;
+
+	clearTitleErrors: () => void;
+	clearDescriptionErrors: () => void;
+
+	clearAllErrors: () => void;
+};
+
 const useEditNoteFormStore = create<EditNoteFormState>((set) => ({
     isOpen: false,
 	isSubmitting: false,
@@ -56,4 +69,17 @@ const useEditNoteFormStore = create<EditNoteFormState>((set) => ({
     clearNoteId: () => set({ noteId: null }),
 }))
 
-export { useEditNoteFormStore }
+const useEditNoteFormErrorStore = create<EditNoteFormErrorStore>((set) => ({
+	title: [],
+	description: [],
+
+	updateTitleErrors: (errors: string[]) => set({ title: errors }),
+	updateDescriptionErrors: (errors: string[]) => set({ description: errors }),
+
+	clearTitleErrors: () => set({ title: [] }),
+	clearDescriptionErrors: () => set({ description: [] }),
+
+	clearAllErrors: () => set({ title: [], description: [] }),
+}));
+
+export { useEditNoteFormStore, useEditNoteFormErrorStore };
