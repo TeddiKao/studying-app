@@ -70,6 +70,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		description: descriptionErrors,
 		updateTitleErrors,
 		updateDescriptionErrors,
+		clearAllErrors
 	} = noteFormErrorStore;
 
 	const createNote = useMutation(api.notes.mutations.createNote);
@@ -143,6 +144,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 					openForm();
 				} else {
 					performFormCleanup();
+					clearAllErrors();
 				}
 			}}
 		>
