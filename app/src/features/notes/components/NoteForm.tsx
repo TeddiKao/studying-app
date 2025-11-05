@@ -165,6 +165,12 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							placeholder="Note title"
 							onChange={(e) => updateTitle(e.target.value)}
 						/>
+
+						<div className="flex flex-col gap-1">
+							{titleErrors.map((error) => (
+								<p className="text-red-700 text-sm">{error}</p>
+							))}
+						</div>
 					</div>
 
 					<div className="flex flex-col gap-1">
@@ -177,6 +183,12 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							rows={4}
 							className="resize-none"
 						/>
+
+						<div className="flex flex-col gap-1">
+							{descriptionErrors.map((error) => (
+								<p className="text-red-700 text-sm">{error}</p>
+							))}
+						</div>
 					</div>
 
 					<DialogFooter className="w-full">
