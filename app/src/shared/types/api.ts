@@ -1,6 +1,6 @@
 type ErrorResponse = {
     success: false;
-    errors: Record<string, string[] | string>;
+    errors: Record<string, string[]>;
 }
 
 type SuccessResponse = {
