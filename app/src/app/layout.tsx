@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>
+		<html className="h-full" lang="en">
+			<body className={`${inter.className} h-full overflow-hidden`}>
 				<ClerkProvider>
 					<ConvexClientProvider>
                         {children}
