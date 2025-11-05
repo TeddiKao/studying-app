@@ -169,8 +169,8 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 						/>
 
 						<div className="flex flex-col gap-1">
-							{titleErrors.map((error) => (
-								<p className="text-red-700 text-sm">{error}</p>
+							{titleErrors.map((error, index) => (
+								<p key={index} className="text-red-700 text-sm">{error}</p>
 							))}
 						</div>
 					</div>
@@ -187,8 +187,8 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 						/>
 
 						<div className="flex flex-col gap-1">
-							{descriptionErrors.map((error) => (
-								<p className="text-red-700 text-sm">{error}</p>
+							{descriptionErrors.map((error, index) => (
+								<p key={index} className="text-red-700 text-sm">{error}</p>
 							))}
 						</div>
 					</div>
