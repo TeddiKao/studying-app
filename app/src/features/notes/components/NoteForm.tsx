@@ -8,7 +8,10 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useCreateNoteFormStore } from "../stores/createNoteForm";
+import {
+	useCreateNoteFormErrorStore,
+	useCreateNoteFormStore,
+} from "../stores/createNoteForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
@@ -17,7 +20,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
-import { useEditNoteFormStore } from "../stores/editNoteForm";
+import {
+	useEditNoteFormErrorStore,
+	useEditNoteFormStore,
+} from "../stores/editNoteForm";
 import { useEffect } from "react";
 
 type NoteFormProps = {
@@ -37,8 +43,14 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	const createNoteFormStore = useCreateNoteFormStore();
 	const editNoteFormStore = useEditNoteFormStore();
 
+	const createNoteFormErrorStore = useCreateNoteFormErrorStore();
+	const editNoteFormErrorStore = useEditNoteFormErrorStore();
+
 	const noteFormStore =
 		mode === "create" ? createNoteFormStore : editNoteFormStore;
+
+	const noteFormErrorStore =
+		mode === "create" ? createNoteFormErrorStore : editNoteFormErrorStore;
 
 	const {
 		isOpen,
@@ -52,6 +64,13 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		updateTitle,
 		updateDescription,
 	} = noteFormStore;
+
+	const {
+		title: titleErrors,
+		description: descriptionErrors,
+		updateTitleErrors,
+		updateDescriptionErrors,
+	} = noteFormErrorStore;
 
 	const createNote = useMutation(api.notes.mutations.createNote);
 	const editNote = useMutation(api.notes.mutations.editNote);
@@ -83,28 +102,29 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		if (!trimmedTitle) return;
 
 		try {
+			let res;
+
 			if (mode === "create") {
-				const res = await createNote({
+				res = await createNote({
 					title: trimmedTitle,
 					description: trimmedDescription,
 					notebookId,
 				});
-
-				if (!res?.success) {
-					return;
-				}
 			} else {
 				if (!noteId) return;
 
-				const res = await editNote({
+				res = await editNote({
 					noteId,
 					title: trimmedTitle,
 					description: trimmedDescription,
 				});
+			}
 
-				if (!res?.success) {
-					return;
-				}
+			if (!res?.success) {
+				updateTitleErrors(res?.errors.title ?? []);
+				updateDescriptionErrors(res?.errors.description ?? []);
+
+				return;
 			}
 
 			performFormCleanup();
