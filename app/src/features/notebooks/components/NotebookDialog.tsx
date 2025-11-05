@@ -162,6 +162,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							value={name}
 							placeholder="Notebook name"
 							onChange={(e) => updateName(e.target.value)}
+							aria-invalid={nameErrors.length > 0}
 						/>
 
 						{nameErrors.length > 0 && (
@@ -187,6 +188,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							onChange={(e) => updateDescription(e.target.value)}
 							className="resize-none"
 							rows={4}
+							aria-invalid={descriptionErrors.length > 0}
 						/>
 
 						{descriptionErrors.length > 0 && (

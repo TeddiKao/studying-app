@@ -166,6 +166,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							value={title}
 							placeholder="Note title"
 							onChange={(e) => updateTitle(e.target.value)}
+							aria-invalid={titleErrors.length > 0}
 						/>
 
 						{titleErrors.length > 0 && (
@@ -191,6 +192,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							onChange={(e) => updateDescription(e.target.value)}
 							rows={4}
 							className="resize-none"
+							aria-invalid={descriptionErrors.length > 0}
 						/>
 
 						{descriptionErrors.length > 0 && (
