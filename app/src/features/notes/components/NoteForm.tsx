@@ -8,7 +8,10 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useCreateNoteFormStore } from "../stores/createNoteForm";
+import {
+	useCreateNoteFormErrorStore,
+	useCreateNoteFormStore,
+} from "../stores/createNoteForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
@@ -17,7 +20,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
-import { useEditNoteFormStore } from "../stores/editNoteForm";
+import {
+	useEditNoteFormErrorStore,
+	useEditNoteFormStore,
+} from "../stores/editNoteForm";
 import { useEffect } from "react";
 
 type NoteFormProps = {
@@ -37,8 +43,14 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 	const createNoteFormStore = useCreateNoteFormStore();
 	const editNoteFormStore = useEditNoteFormStore();
 
+	const createNoteFormErrorStore = useCreateNoteFormErrorStore();
+	const editNoteFormErrorStore = useEditNoteFormErrorStore();
+
 	const noteFormStore =
 		mode === "create" ? createNoteFormStore : editNoteFormStore;
+
+	const noteFormErrorStore =
+		mode === "create" ? createNoteFormErrorStore : editNoteFormErrorStore;
 
 	const {
 		isOpen,
@@ -52,6 +64,14 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		updateTitle,
 		updateDescription,
 	} = noteFormStore;
+
+	const {
+		title: titleErrors,
+		description: descriptionErrors,
+		updateTitleErrors,
+		updateDescriptionErrors,
+		clearAllErrors,
+	} = noteFormErrorStore;
 
 	const createNote = useMutation(api.notes.mutations.createNote);
 	const editNote = useMutation(api.notes.mutations.editNote);
@@ -83,28 +103,29 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		if (!trimmedTitle) return;
 
 		try {
+			let res: Awaited<ReturnType<typeof createNote>> | undefined;
+
 			if (mode === "create") {
-				const res = await createNote({
+				res = await createNote({
 					title: trimmedTitle,
 					description: trimmedDescription,
 					notebookId,
 				});
-
-				if (!res?.success) {
-					return;
-				}
 			} else {
 				if (!noteId) return;
 
-				const res = await editNote({
+				res = await editNote({
 					noteId,
 					title: trimmedTitle,
 					description: trimmedDescription,
 				});
+			}
 
-				if (!res?.success) {
-					return;
-				}
+			if (!res?.success) {
+				updateTitleErrors(res?.errors.title ?? []);
+				updateDescriptionErrors(res?.errors.description ?? []);
+
+				return;
 			}
 
 			performFormCleanup();
@@ -123,6 +144,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 					openForm();
 				} else {
 					performFormCleanup();
+					clearAllErrors();
 				}
 			}}
 		>
@@ -144,7 +166,22 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							value={title}
 							placeholder="Note title"
 							onChange={(e) => updateTitle(e.target.value)}
+							aria-invalid={titleErrors.length > 0}
+							aria-describedby="note-title-errors"
 						/>
+
+						{titleErrors.length > 0 && (
+							<div id="note-title-errors" className="flex flex-col gap-1">
+								{titleErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<div className="flex flex-col gap-1">
@@ -156,7 +193,22 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							onChange={(e) => updateDescription(e.target.value)}
 							rows={4}
 							className="resize-none"
+							aria-invalid={descriptionErrors.length > 0}
+							aria-describedby="note-description-errors"
 						/>
+
+						{descriptionErrors.length > 0 && (
+							<div id="note-description-errors" className="flex flex-col gap-1">
+								{descriptionErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<DialogFooter className="w-full">

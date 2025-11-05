@@ -22,6 +22,19 @@ type CreateNoteFormState = {
 	performFormCleanup: () => void;
 };
 
+type CreateNoteFormErrorStore = {
+	title: string[];
+	description: string[];
+
+	updateTitleErrors: (errors: string[]) => void;
+	updateDescriptionErrors: (errors: string[]) => void;
+
+	clearTitleErrors: () => void;
+	clearDescriptionErrors: () => void;
+
+	clearAllErrors: () => void;
+};
+
 const useCreateNoteFormStore = create<CreateNoteFormState>((set) => ({
 	isOpen: false,
 	isSubmitting: false,
@@ -45,4 +58,17 @@ const useCreateNoteFormStore = create<CreateNoteFormState>((set) => ({
 		set({ isOpen: false, isSubmitting: false, title: "", description: "" }),
 }));
 
-export { useCreateNoteFormStore };
+const useCreateNoteFormErrorStore = create<CreateNoteFormErrorStore>((set) => ({
+	title: [],
+	description: [],
+
+	updateTitleErrors: (errors: string[]) => set({ title: errors }),
+	updateDescriptionErrors: (errors: string[]) => set({ description: errors }),
+
+	clearTitleErrors: () => set({ title: [] }),
+	clearDescriptionErrors: () => set({ description: [] }),
+
+	clearAllErrors: () => set({ title: [], description: [] }),
+}));
+
+export { useCreateNoteFormStore, useCreateNoteFormErrorStore };

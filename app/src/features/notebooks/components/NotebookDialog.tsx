@@ -8,14 +8,20 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useCreateNotebookFormStore } from "../stores/createNotebookForm";
+import {
+	useCreateNotebookFormErrorStore,
+	useCreateNotebookFormStore,
+} from "../stores/createNotebookForm";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQuery } from "convex/react";
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "@/components/ui/spinner";
-import { useEditNotebookFormStore } from "../stores/editNotebookForm";
+import {
+	useEditNotebookFormErrorStore,
+	useEditNotebookFormStore,
+} from "../stores/editNotebookForm";
 import { useEffect } from "react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
@@ -37,7 +43,14 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	const createNotebookForm = useCreateNotebookFormStore();
 	const editNotebookForm = useEditNotebookFormStore();
 
+	const createNotebookFormErrorStore = useCreateNotebookFormErrorStore();
+	const editNotebookFormErrorStore = useEditNotebookFormErrorStore();
+
 	const formStore = mode === "create" ? createNotebookForm : editNotebookForm;
+	const errorStore =
+		mode === "create"
+			? createNotebookFormErrorStore
+			: editNotebookFormErrorStore;
 
 	const isOpen = formStore.isOpen;
 	const isSubmitting = formStore.isSubmitting;
@@ -46,15 +59,18 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 
 	const updateName = formStore.updateName;
 	const updateDescription = formStore.updateDescription;
-	const clearName = formStore.clearName;
-	const clearDescription = formStore.clearDescription;
 	const openForm = formStore.openForm;
-	const closeForm = formStore.closeForm;
 	const startSubmitting = formStore.startSubmitting;
 	const stopSubmitting = formStore.stopSubmitting;
 	const performFormCleanup = formStore.performFormCleanup;
 
-	const clearNotebookId = editNotebookForm.clearNotebookId;
+	const {
+		name: nameErrors,
+		description: descriptionErrors,
+		updateNameErrors,
+		updateDescriptionErrors,
+		clearAllErrors,
+	} = errorStore;
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
 	const editNotebook = useMutation(api.notebooks.mutations.editNotebook);
@@ -84,28 +100,28 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 		startSubmitting();
 
 		try {
+			let res: Awaited<ReturnType<typeof createNotebook>> | undefined;
+
 			if (mode === "create") {
-				const res = await createNotebook({
+				res = await createNotebook({
 					name: trimmedName,
 					description: trimmedDescription,
 				});
-
-				if (!res?.success) {
-					return;
-				}
-
 			} else if (mode === "edit") {
 				if (!notebookId) return;
 
-				const res = await editNotebook({
+				res = await editNotebook({
 					notebookId: notebookId,
 					name: trimmedName,
 					description: trimmedDescription,
 				});
+			}
 
-				if (!res?.success) {
-					return;
-				}
+			if (!res?.success) {
+				updateNameErrors(res?.errors.name ?? []);
+				updateDescriptionErrors(res?.errors.description ?? []);
+
+				return;
 			}
 
 			performFormCleanup();
@@ -124,6 +140,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 					openForm();
 				} else {
 					performFormCleanup();
+					clearAllErrors();
 				}
 			}}
 		>
@@ -145,7 +162,22 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							value={name}
 							placeholder="Notebook name"
 							onChange={(e) => updateName(e.target.value)}
+							aria-invalid={nameErrors.length > 0}
+							aria-describedby="notebook-name-errors"
 						/>
+
+						{nameErrors.length > 0 && (
+							<div id="notebook-name-errors" className="flex flex-col gap-1">
+								{nameErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<div className="flex flex-col gap-1">
@@ -157,7 +189,22 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							onChange={(e) => updateDescription(e.target.value)}
 							className="resize-none"
 							rows={4}
+							aria-invalid={descriptionErrors.length > 0}
+							aria-describedby="notebook-description-errors"
 						/>
+
+						{descriptionErrors.length > 0 && (
+							<div id="notebook-description-errors" className="flex flex-col gap-1">
+								{descriptionErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<DialogFooter className="w-full">
