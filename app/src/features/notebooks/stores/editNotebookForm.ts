@@ -26,6 +26,22 @@ type EditNotebookFormState = {
 	performFormCleanup: () => void;
 };
 
+type EditNotebookFormErrorStore = {
+	general: string[];
+	name: string[];
+	description: string[];
+
+	updateGeneralErrors: (errors: string[]) => void;
+	updateNameErrors: (errors: string[]) => void;
+	updateDescriptionErrors: (errors: string[]) => void;
+
+	clearGeneralErrors: () => void;
+	clearNameErrors: () => void;
+	clearDescriptionErrors: () => void;
+
+	clearAllErrors: () => void;
+};
+
 const useEditNotebookFormStore = create<EditNotebookFormState>((set) => ({
 	isOpen: false,
 	isSubmitting: false,
@@ -53,4 +69,20 @@ const useEditNotebookFormStore = create<EditNotebookFormState>((set) => ({
 		set({ name: "", description: "", notebookId: null, isOpen: false }),
 }));
 
-export { useEditNotebookFormStore };
+const useEditNotebookFormErrorStore = create<EditNotebookFormErrorStore>((set) => ({
+	general: [],
+	name: [],
+	description: [],
+
+	updateGeneralErrors: (errors: string[]) => set({ general: errors }),
+	updateNameErrors: (errors: string[]) => set({ name: errors }),
+	updateDescriptionErrors: (errors: string[]) => set({ description: errors }),
+
+	clearGeneralErrors: () => set({ general: [] }),
+	clearNameErrors: () => set({ name: [] }),
+	clearDescriptionErrors: () => set({ description: [] }),
+
+	clearAllErrors: () => set({ general: [], name: [], description: [] }),
+}));
+
+export { useEditNotebookFormStore, useEditNotebookFormErrorStore };
