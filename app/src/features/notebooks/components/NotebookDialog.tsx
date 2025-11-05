@@ -119,7 +119,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 
 				if (!res?.success) {
 					updateNameErrors(res?.errors.name ?? []);
-					updateDescriptionErrors(res?.errors.description ?? [])
+					updateDescriptionErrors(res?.errors.description ?? []);
 				}
 			}
 
@@ -161,6 +161,12 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							placeholder="Notebook name"
 							onChange={(e) => updateName(e.target.value)}
 						/>
+
+						<div className="flex flex-col gap-1">
+							{nameErrors.map((error) => (
+								<p className="text-red-700">{error}</p>
+							))}
+						</div>
 					</div>
 
 					<div className="flex flex-col gap-1">
@@ -173,6 +179,12 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							className="resize-none"
 							rows={4}
 						/>
+
+						<div className="flex flex-col gap-1">
+							{descriptionErrors.map((error) => (
+								<p className="text-red-700">{error}</p>
+							))}
+						</div>
 					</div>
 
 					<DialogFooter className="w-full">
