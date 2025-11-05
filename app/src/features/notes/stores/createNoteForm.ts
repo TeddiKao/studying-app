@@ -71,4 +71,4 @@ const useCreateNoteFormErrorStore = create<CreateNoteFormErrorStore>((set) => ({
 	clearAllErrors: () => set({ title: [], description: [] }),
 }));
 
-export { useCreateNoteFormStore };
+export { useCreateNoteFormStore, useCreateNoteFormErrorStore };
