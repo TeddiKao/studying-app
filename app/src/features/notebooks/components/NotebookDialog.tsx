@@ -164,7 +164,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 
 						<div className="flex flex-col gap-1">
 							{nameErrors.map((error) => (
-								<p className="text-red-700">{error}</p>
+								<p className="text-red-700 text-sm">{error}</p>
 							))}
 						</div>
 					</div>
@@ -182,7 +182,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 
 						<div className="flex flex-col gap-1">
 							{descriptionErrors.map((error) => (
-								<p className="text-red-700">{error}</p>
+								<p className="text-red-700 text-sm">{error}</p>
 							))}
 						</div>
 					</div>
