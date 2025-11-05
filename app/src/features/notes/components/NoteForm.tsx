@@ -70,7 +70,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 		description: descriptionErrors,
 		updateTitleErrors,
 		updateDescriptionErrors,
-		clearAllErrors
+		clearAllErrors,
 	} = noteFormErrorStore;
 
 	const createNote = useMutation(api.notes.mutations.createNote);
@@ -168,11 +168,18 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							onChange={(e) => updateTitle(e.target.value)}
 						/>
 
-						<div className="flex flex-col gap-1">
-							{titleErrors.map((error, index) => (
-								<p key={index} className="text-red-700 text-sm">{error}</p>
-							))}
-						</div>
+						{titleErrors.length > 0 && (
+							<div className="flex flex-col gap-1">
+								{titleErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<div className="flex flex-col gap-1">
@@ -186,11 +193,18 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 							className="resize-none"
 						/>
 
-						<div className="flex flex-col gap-1">
-							{descriptionErrors.map((error, index) => (
-								<p key={index} className="text-red-700 text-sm">{error}</p>
-							))}
-						</div>
+						{descriptionErrors.length > 0 && (
+							<div className="flex flex-col gap-1">
+								{descriptionErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<DialogFooter className="w-full">

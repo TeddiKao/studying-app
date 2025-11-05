@@ -69,7 +69,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 		description: descriptionErrors,
 		updateNameErrors,
 		updateDescriptionErrors,
-		clearAllErrors
+		clearAllErrors,
 	} = errorStore;
 
 	const createNotebook = useMutation(api.notebooks.mutations.createNotebook);
@@ -164,11 +164,18 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							onChange={(e) => updateName(e.target.value)}
 						/>
 
-						<div className="flex flex-col gap-1">
-							{nameErrors.map((error, index) => (
-								<p key={index} className="text-red-700 text-sm">{error}</p>
-							))}
-						</div>
+						{nameErrors.length > 0 && (
+							<div className="flex flex-col gap-1">
+								{nameErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<div className="flex flex-col gap-1">
@@ -182,11 +189,18 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 							rows={4}
 						/>
 
-						<div className="flex flex-col gap-1">
-							{descriptionErrors.map((error, index) => (
-								<p key={index} className="text-red-700 text-sm">{error}</p>
-							))}
-						</div>
+						{descriptionErrors.length > 0 && (
+							<div className="flex flex-col gap-1">
+								{descriptionErrors.map((error, index) => (
+									<p
+										key={index}
+										className="text-red-700 text-sm"
+									>
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</div>
 
 					<DialogFooter className="w-full">
