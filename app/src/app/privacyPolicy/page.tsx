@@ -6,7 +6,7 @@ function PrivacyPolicyPage() {
 				<strong>Last updated:</strong> November 6, 2025
 			</p>
 
-			<h2>1. Introduction</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">1. Introduction</h2>
 			<p>
 				StudyCentre ("we", "our", or "the Service") respects your
 				privacy and is committed to protecting it. This Privacy Policy
@@ -14,7 +14,7 @@ function PrivacyPolicyPage() {
 				the Service.
 			</p>
 
-			<h2>2. Information We Collect</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">2. Information We Collect</h2>
 			<ul>
 				<li>
 					<strong>Account Information:</strong> Email address, name,
@@ -32,7 +32,7 @@ function PrivacyPolicyPage() {
 				</li>
 			</ul>
 
-			<h2>3. How We Use Your Information</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">3. How We Use Your Information</h2>
 			<ul>
 				<li>To provide and maintain the Service.</li>
 				<li>To improve and personalize your experience.</li>
@@ -42,7 +42,7 @@ function PrivacyPolicyPage() {
 				</li>
 			</ul>
 
-			<h2>4. Sharing Your Information</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">4. Sharing Your Information</h2>
 			<p>
 				We do not sell or rent your personal data. We may share
 				information with third-party services only to operate the
@@ -50,7 +50,7 @@ function PrivacyPolicyPage() {
 				extent necessary.
 			</p>
 
-			<h2>5. Data Retention</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">5. Data Retention</h2>
 			<p>
 				We retain your personal data and user content for as long as
 				your account exists or as needed to provide the Service. You may
@@ -58,28 +58,28 @@ function PrivacyPolicyPage() {
 				time.
 			</p>
 
-			<h2>6. Your Rights</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">6. Your Rights</h2>
 			<p>
 				Depending on your location, you may have rights to access,
 				correct, or delete your personal information. Contact us to
 				exercise these rights.
 			</p>
 
-			<h2>7. Security</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">7. Security</h2>
 			<p>
 				We implement reasonable measures to protect your data from
 				unauthorized access or disclosure. However, no system is
 				completely secure, and we cannot guarantee absolute security.
 			</p>
 
-			<h2>8. Changes to This Privacy Policy</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">8. Changes to This Privacy Policy</h2>
 			<p>
 				We may update this Privacy Policy from time to time. Changes
 				will be posted on this page. Continued use of the Service after
 				changes constitutes acceptance of the updated policy.
 			</p>
 
-			<h2>9. Contact Us</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">9. Contact Us</h2>
 			<p>
 				If you have questions about this Privacy Policy, you can contact
 				us at: <br />
