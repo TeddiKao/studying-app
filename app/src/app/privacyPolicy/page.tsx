@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | StudyCentre",
+  description: "Privacy Policy for StudyCentre - Learn how we collect, use, and protect your personal information.",
+};
+
 function PrivacyPolicyPage() {
 	return (
 		<div className="mx-auto p-6 overflow-y-auto h-screen">
