@@ -1,6 +1,6 @@
 function TermsPage() {
 	return (
-		<div className="prose mx-auto p-6">
+		<div className="mx-auto p-6 overflow-y-auto h-screen">
 			<h1>Terms of Service</h1>
 			<p>
 				<strong>Last updated:</strong> November 6, 2025
