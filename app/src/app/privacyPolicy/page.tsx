@@ -1,6 +1,6 @@
 function PrivacyPolicyPage() {
 	return (
-		<div className="prose mx-auto p-6 overflow-y-auto h-screen">
+		<div className="mx-auto p-6 overflow-y-auto h-screen">
 			<h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
 			<p>
 				<strong>Last updated:</strong> November 6, 2025
