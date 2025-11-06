@@ -8,7 +8,11 @@ function SignInPage() {
 				<span>
 					<span>By signing up or logging in, you agree to our </span>
 					<a href="/terms" className="text-gray-500 font-bold">
-						Terms of Service.
+						Terms of Service
+					</a>
+					<span> and </span>
+					<a href="/privacyPolicy" className="text-gray-500 font-bold">
+						Privacy Policy
 					</a>
 				</span>
 			</div>
