@@ -1,7 +1,7 @@
 function PrivacyPolicyPage() {
 	return (
 		<div className="prose mx-auto p-6">
-			<h1>Privacy Policy</h1>
+			<h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
 			<p>
 				<strong>Last updated:</strong> November 6, 2025
 			</p>
