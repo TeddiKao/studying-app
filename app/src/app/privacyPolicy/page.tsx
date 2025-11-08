@@ -18,9 +18,10 @@ function PrivacyPolicyPage() {
 				1. Introduction
 			</h2>
 			<p>
-				Teddit ("we", "our", or "the Service") respects your privacy and
-				is committed to protecting it. This Privacy Policy explains how
-				we collect, use, and share information when you use the Service.
+				Teddit ({'"'}we{'"'}, {'"'}our{'"'}, or {'"'}the Service{'"'})
+				respects your privacy and is committed to protecting it. This
+				Privacy Policy explains how we collect, use, and share
+				information when you use the Service.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">
