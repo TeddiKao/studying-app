@@ -37,9 +37,9 @@ function BubbleMenuMarkButton({ editor, mark }: BubbleMenuMarkButtonProps) {
 	}
 
 	const iconMap = new Map<string, React.ReactNode>([
-		["bold", <Bold className="stroke-gray-950 h-4 w-4" />],
-		["italic", <Italic className="stroke-gray-950 h-4 w-4" />],
-		["underline", <Underline className="stroke-gray-950 h-4 w-4" />],
+		["bold", <Bold key={"bold"} className="stroke-gray-950 h-4 w-4" />],
+		["italic", <Italic key={"italic"} className="stroke-gray-950 h-4 w-4" />],
+		["underline", <Underline key={"underline"} className="stroke-gray-950 h-4 w-4" />],
 	]);
 
 	useEffect(() => {
