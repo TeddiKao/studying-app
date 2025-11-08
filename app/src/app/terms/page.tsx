@@ -6,21 +6,25 @@ function TermsPage() {
 				<strong>Last updated:</strong> November 6, 2025
 			</p>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">1. Introduction</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				1. Introduction
+			</h2>
 			<p>
-				These Terms of Service ("Terms") govern your use of StudyCentre
-				(the "Service"). By accessing or using the Service, you agree to
-				be bound by these Terms. If you do not agree, do not use the
+				These Terms of Service ("Terms") govern your use of Teddit (the
+				"Service"). By accessing or using the Service, you agree to be
+				bound by these Terms. If you do not agree, do not use the
 				Service.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">2. Eligibility</h2>
 			<p>
-				You must be at least 13 years old to use StudyCentre. By using
-				the Service, you represent that you meet this age requirement.
+				You must be at least 13 years old to use Teddit. By using the
+				Service, you represent that you meet this age requirement.
 			</p>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">3. User Accounts</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				3. User Accounts
+			</h2>
 			<ul>
 				<li>
 					You may need to create an account to access certain
@@ -40,16 +44,18 @@ function TermsPage() {
 				</li>
 			</ul>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">4. User Content</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				4. User Content
+			</h2>
 			<ul>
 				<li>
-					You retain ownership of the content you create within
-					StudyCentre (e.g., notes, highlights, flashcards).
+					You retain ownership of the content you create within Teddit
+					(e.g., notes, highlights, flashcards).
 				</li>
 				<li>
-					By using the Service, you grant StudyCentre a license to
-					store, display, and process your content as necessary to
-					provide the Service.
+					By using the Service, you grant Teddit a license to store,
+					display, and process your content as necessary to provide
+					the Service.
 				</li>
 				<li>
 					You are responsible for your content and agree not to upload
@@ -57,7 +63,9 @@ function TermsPage() {
 				</li>
 			</ul>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">5. Acceptable Use</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				5. Acceptable Use
+			</h2>
 			<ul>
 				<li>Use the Service only for lawful purposes.</li>
 				<li>Do not attempt to hack, scrape, or disrupt the Service.</li>
@@ -68,11 +76,13 @@ function TermsPage() {
 				</li>
 			</ul>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">6. Intellectual Property</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				6. Intellectual Property
+			</h2>
 			<p>
-				StudyCentre and its content are owned by us or our licensors.
-				You may not copy, reproduce, distribute, or create derivative
-				works from the Service without permission.
+				Teddit and its content are owned by us or our licensors. You may
+				not copy, reproduce, distribute, or create derivative works from
+				the Service without permission.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">7. Privacy</h2>
@@ -92,42 +102,52 @@ function TermsPage() {
 				accuracy of the Service.
 			</p>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">9. Limitation of Liability</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				9. Limitation of Liability
+			</h2>
 			<p>
-				To the maximum extent permitted by law, StudyCentre is not
-				liable for any indirect, incidental, or consequential damages
-				arising from your use of the Service.
+				To the maximum extent permitted by law, Teddit is not liable for
+				any indirect, incidental, or consequential damages arising from
+				your use of the Service.
 			</p>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">10. Changes to Terms</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				10. Changes to Terms
+			</h2>
 			<p>
 				We may update these Terms at any time. Changes will be posted on
 				this page. Continued use of the Service after changes
 				constitutes acceptance of the new Terms.
 			</p>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">11. Termination</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				11. Termination
+			</h2>
 			<p>
 				We may suspend or terminate your account or access to the
 				Service at our discretion. Termination does not remove
 				obligations that accrued before termination.
 			</p>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">12. Governing Law</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				12. Governing Law
+			</h2>
 			<p>
 				These Terms are governed by the laws of the jurisdiction in
 				which the Service operates.
 			</p>
 
-			<h2 className="text-2xl font-semibold mt-6 mb-3">13. Contact Information</h2>
+			<h2 className="text-2xl font-semibold mt-6 mb-3">
+				13. Contact Information
+			</h2>
 			<p>
 				If you have questions or concerns, you can contact us at: <br />
 				<strong>Email:</strong>{" "}
 				<a
-					href="mailto:support@studycentre.com"
+					href="mailto:support@teddit.com"
 					className="text-blue-600 underline"
 				>
-					support@studycentre.com
+					support@teddit.com
 				</a>
 			</p>
 		</div>
