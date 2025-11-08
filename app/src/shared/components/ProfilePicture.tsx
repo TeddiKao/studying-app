@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
 
 type ProfilePictureProps = {
 	className?: string;
@@ -12,7 +13,7 @@ function ProfilePicture({ className = "" }: ProfilePictureProps) {
 	if (!user) return null;
 
 	return (
-		<img
+		<Image
 			src={user.imageUrl}
 			alt={`${user.fullName}'s profile picture`}
             className={className}
