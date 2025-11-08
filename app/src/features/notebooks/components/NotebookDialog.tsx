@@ -85,7 +85,7 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 			updateName(notebookInfo?.name ?? "");
 			updateDescription(notebookInfo?.description ?? "");
 		}
-	}, [updateName, updateDescription, notebookInfo]);
+	}, [updateName, updateDescription, notebookInfo, mode]);
 
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();

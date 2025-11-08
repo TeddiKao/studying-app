@@ -90,7 +90,7 @@ function NoteForm({ mode, noteId, notebookId }: NoteFormProps) {
 			updateTitle(noteInfo?.title ?? "");
 			updateDescription(noteInfo?.description ?? "");
 		}
-	}, [noteInfo, updateTitle, updateDescription]);
+	}, [noteInfo, updateTitle, updateDescription, mode]);
 
 	async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
