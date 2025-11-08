@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Privacy Policy | StudyCentre",
+	title: "Privacy Policy | Teddit",
 	description:
-		"Privacy Policy for StudyCentre - Learn how we collect, use, and protect your personal information.",
+		"Privacy Policy for Teddit - Learn how we collect, use, and protect your personal information.",
 };
 
 function PrivacyPolicyPage() {
@@ -18,10 +18,9 @@ function PrivacyPolicyPage() {
 				1. Introduction
 			</h2>
 			<p>
-				StudyCentre ("we", "our", or "the Service") respects your
-				privacy and is committed to protecting it. This Privacy Policy
-				explains how we collect, use, and share information when you use
-				the Service.
+				Teddit ("we", "our", or "the Service") respects your privacy and
+				is committed to protecting it. This Privacy Policy explains how
+				we collect, use, and share information when you use the Service.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">
@@ -105,10 +104,10 @@ function PrivacyPolicyPage() {
 				us at: <br />
 				<strong>Email:</strong>{" "}
 				<a
-					href="mailto:support@studycentre.com"
+					href="mailto:support@teddit.com"
 					className="text-blue-600 underline"
 				>
-					support@studycentre.com
+					support@teddit.com
 				</a>
 			</p>
 		</div>
