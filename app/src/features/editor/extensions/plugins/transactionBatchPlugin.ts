@@ -6,6 +6,11 @@ import {
 } from "../../utils/utils";
 import { Id } from "@convex/_generated/dataModel";
 import { isNullOrUndefined } from "@/shared/utils/types";
+import { api } from "@convex/_generated/api";
+
+type BulkCreateBlocksMutation = (
+	args: typeof api.blocks.mutations.bulkCreateBlocks._args
+) => typeof api.blocks.mutations.bulkCreateBlocks._returnType;
 
 type TransactionBatchPluginState = {
 	lastHandledTransactionKey: string | null;
@@ -13,7 +18,7 @@ type TransactionBatchPluginState = {
 
 function createTransactionBatchPlugin(
 	editor: Editor,
-	bulkCreateBlocks: any,
+	bulkCreateBlocks: BulkCreateBlocksMutation,
 	noteId: Id<"notes">
 ) {
 	const plugin = new Plugin({
@@ -139,7 +144,7 @@ function createTransactionBatchPlugin(
 }
 
 function createTransactionBatchPluginExtension(
-	bulkCreateBlocks: any,
+	bulkCreateBlocks: BulkCreateBlocksMutation,
 	noteId: Id<"notes">
 ) {
 	return Extension.create({
