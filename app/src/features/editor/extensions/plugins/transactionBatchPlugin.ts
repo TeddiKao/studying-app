@@ -10,7 +10,7 @@ import { api } from "@convex/_generated/api";
 
 type BulkCreateBlocksMutation = (
 	args: typeof api.blocks.mutations.bulkCreateBlocks._args
-) => typeof api.blocks.mutations.bulkCreateBlocks._returnType;
+) => Promise<typeof api.blocks.mutations.bulkCreateBlocks._returnType>;
 
 type TransactionBatchPluginState = {
 	lastHandledTransactionKey: string | null;
