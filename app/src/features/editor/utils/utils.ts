@@ -75,7 +75,7 @@ function getCreatedNodesFromDocState(doc: Node) {
 	const createdNodes: NewlyCreatedTiptapJSONAnchorBlock[] = [];
 	const tempIdToNodeMapping = new Map<string, Node>();
 
-	doc.descendants((node, pos) => {
+	doc.descendants((node) => {
 		if (!node.type.isBlock) return;
 		if (isNullOrUndefined(node.attrs)) return;
 
@@ -204,7 +204,7 @@ function getDeletedNodesFromTransaction(transaction: Transaction) {
 	const docBefore = transaction.before;
 	const currentDoc = transaction.doc;
 	
-	docBefore.descendants((node, pos) => {
+	docBefore.descendants((node) => {
 		if (!node.type.isBlock) return;
 		if (isNullOrUndefined(node.attrs)) return;
 
