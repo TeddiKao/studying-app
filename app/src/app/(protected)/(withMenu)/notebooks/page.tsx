@@ -1,6 +1,6 @@
 "use client";
 
-import NotebookDialog from "@/features/notebooks/components/NotebookDialog";
+import NotebookForm from "@/features/notebooks/components/NotebookForm";
 import NotebookPageHeader from "@/features/notebooks/components/NotebookPageHeader/NotebookPageHeader";
 
 import NotebookCard from "@/features/notebooks/components/NotebookCard";
@@ -42,8 +42,8 @@ function NotebooksPage() {
 				)}
 			</div>
 
-			<NotebookDialog mode="create" notebookId={null} />
-			<NotebookDialog
+			<NotebookForm mode="create" notebookId={null} />
+			<NotebookForm
 				mode="edit"
 				notebookId={notebookId}
 			/>
