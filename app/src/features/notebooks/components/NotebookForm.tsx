@@ -26,12 +26,12 @@ import { useEffect } from "react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 
-type NotebookDialogProps = {
+type NotebookFormProps = {
 	mode: "create" | "edit";
 	notebookId: Id<"notebooks"> | null;
 };
 
-function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
+function NotebookForm({ mode, notebookId }: NotebookFormProps) {
 	const formTitle = mode === "create" ? "Create notebook" : "Edit notebook";
 	const formDescription =
 		mode === "create" ? "Create a new notebook" : "Edit this notebook";
@@ -235,4 +235,4 @@ function NotebookDialog({ mode, notebookId }: NotebookDialogProps) {
 	);
 }
 
-export default NotebookDialog;
+export default NotebookForm;
