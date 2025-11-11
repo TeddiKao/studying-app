@@ -108,7 +108,7 @@ function PrivacyPolicyPage() {
 					href="mailto:support@teddit.com"
 					className="text-blue-600 underline"
 				>
-					support@teddit.com
+					support@teddit.app
 				</a>
 			</p>
 		</div>
