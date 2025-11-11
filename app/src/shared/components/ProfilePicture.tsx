@@ -17,6 +17,8 @@ function ProfilePicture({ className = "" }: ProfilePictureProps) {
 			src={user.imageUrl}
 			alt={`${user.fullName}'s profile picture`}
             className={className}
+			width={0}
+			height={0}
 		/>
 	);
 }
