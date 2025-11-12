@@ -6,7 +6,7 @@ export default function Home() {
 		<div className="flex flex-col p-4 w-full">
 			<nav className="flex flex-row gap-6 items-center justify-center w-full">
 				<Link href={"/"}>Home</Link>
-				<Link href={GITHUB_REPO_URL}>GitHub</Link>
+				<Link target="_blank" href={GITHUB_REPO_URL}>GitHub</Link>
 			</nav>
 		</div>
 	);
