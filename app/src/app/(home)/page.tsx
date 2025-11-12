@@ -10,7 +10,7 @@ export default function Home() {
 				
 				<div className="flex flex-row gap-6 items-center">
 					<Link href={"/"}>Home</Link>
-					<Link target="_blank" href={GITHUB_REPO_URL}>
+					<Link rel="noopener noreferrer" target="_blank" href={GITHUB_REPO_URL}>
 						GitHub
 					</Link>
 				</div>
