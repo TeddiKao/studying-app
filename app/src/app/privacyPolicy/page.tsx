@@ -105,10 +105,10 @@ function PrivacyPolicyPage() {
 				us at: <br />
 				<strong>Email:</strong>{" "}
 				<a
-					href="mailto:support@teddit.app"
+					href="mailto:support@studysquared.app"
 					className="text-blue-600 underline"
 				>
-					support@teddit.app
+					support@studysquared.app
 				</a>
 			</p>
 		</div>
