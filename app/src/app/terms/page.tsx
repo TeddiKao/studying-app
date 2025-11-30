@@ -10,9 +10,10 @@ function TermsPage() {
 				1. Introduction
 			</h2>
 			<p>
-				These Terms of Service ({'"'}Terms{'"'}) govern your use of Teddit (the
-				{'"'}Service{'"'}). By accessing or using the Service, you agree to be
-				bound by these Terms. If you do not agree, do not use the
+				These Terms of Service ({'"'}Terms{'"'}) govern your use of
+				Teddit (the
+				{'"'}Service{'"'}). By accessing or using the Service, you agree
+				to be bound by these Terms. If you do not agree, do not use the
 				Service.
 			</p>
 
@@ -59,7 +60,8 @@ function TermsPage() {
 				</li>
 				<li>
 					You are responsible for your content and agree not to upload
-					anything illegal, harmful, or infringing on others{"'"} rights.
+					anything illegal, harmful, or infringing on others{"'"}{" "}
+					rights.
 				</li>
 			</ul>
 
@@ -97,9 +99,9 @@ function TermsPage() {
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">8. Disclaimers</h2>
 			<p>
-				The Service is provided {'"'}as is{'"'} and {'"'}as available.{'"'} We do not
-				guarantee uninterrupted access, error-free operation, or the
-				accuracy of the Service.
+				The Service is provided {'"'}as is{'"'} and {'"'}as available.
+				{'"'} We do not guarantee uninterrupted access, error-free
+				operation, or the accuracy of the Service.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">
@@ -144,10 +146,10 @@ function TermsPage() {
 				If you have questions or concerns, you can contact us at: <br />
 				<strong>Email:</strong>{" "}
 				<a
-					href="mailto:support@teddit.app"
+					href="mailto:support@studysquared.app"
 					className="text-blue-600 underline"
 				>
-					support@teddit.app
+					support@studysquared.app
 				</a>
 			</p>
 		</div>
