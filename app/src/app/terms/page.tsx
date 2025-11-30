@@ -11,7 +11,7 @@ function TermsPage() {
 			</h2>
 			<p>
 				These Terms of Service ({'"'}Terms{'"'}) govern your use of
-				Teddit (the
+				StudySquared (the
 				{'"'}Service{'"'}). By accessing or using the Service, you agree
 				to be bound by these Terms. If you do not agree, do not use the
 				Service.
@@ -19,8 +19,8 @@ function TermsPage() {
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">2. Eligibility</h2>
 			<p>
-				You must be at least 13 years old to use Teddit. By using the
-				Service, you represent that you meet this age requirement.
+				You must be at least 13 years old to use StudySquared. By using
+				the Service, you represent that you meet this age requirement.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">
@@ -50,13 +50,13 @@ function TermsPage() {
 			</h2>
 			<ul>
 				<li>
-					You retain ownership of the content you create within Teddit
-					(e.g., notes, highlights, flashcards).
+					You retain ownership of the content you create within
+					StudySquared (e.g., notes, highlights, flashcards).
 				</li>
 				<li>
-					By using the Service, you grant Teddit a license to store,
-					display, and process your content as necessary to provide
-					the Service.
+					By using the Service, you grant StudySquared a license to
+					store, display, and process your content as necessary to
+					provide the Service.
 				</li>
 				<li>
 					You are responsible for your content and agree not to upload
@@ -82,9 +82,9 @@ function TermsPage() {
 				6. Intellectual Property
 			</h2>
 			<p>
-				Teddit and its content are owned by us or our licensors. You may
-				not copy, reproduce, distribute, or create derivative works from
-				the Service without permission.
+				StudySquared and its content are owned by us or our licensors.
+				You may not copy, reproduce, distribute, or create derivative
+				works from the Service without permission.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">7. Privacy</h2>
@@ -108,9 +108,9 @@ function TermsPage() {
 				9. Limitation of Liability
 			</h2>
 			<p>
-				To the maximum extent permitted by law, Teddit is not liable for
-				any indirect, incidental, or consequential damages arising from
-				your use of the Service.
+				To the maximum extent permitted by law, StudySquared is not
+				liable for any indirect, incidental, or consequential damages
+				arising from your use of the Service.
 			</p>
 
 			<h2 className="text-2xl font-semibold mt-6 mb-3">
