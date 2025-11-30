@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Privacy Policy | Teddit",
+	title: "Privacy Policy | StudySquared",
 	description:
-		"Privacy Policy for Teddit - Learn how we collect, use, and protect your personal information.",
+		"Privacy Policy for StudySquared - Learn how we collect, use, and protect your personal information.",
 };
 
 function PrivacyPolicyPage() {
@@ -18,9 +18,9 @@ function PrivacyPolicyPage() {
 				1. Introduction
 			</h2>
 			<p>
-				Teddit ({'"'}we{'"'}, {'"'}our{'"'}, or {'"'}the Service{'"'})
-				respects your privacy and is committed to protecting it. This
-				Privacy Policy explains how we collect, use, and share
+				StudySquared ({'"'}we{'"'}, {'"'}our{'"'}, or {'"'}the Service
+				{'"'}) respects your privacy and is committed to protecting it.
+				This Privacy Policy explains how we collect, use, and share
 				information when you use the Service.
 			</p>
 
