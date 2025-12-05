@@ -16,4 +16,4 @@ An open-source study tool for students to take notes and more
 - For a detailed guide on how to contribute, please refer to [this guide](CONTRIBUTING.md)
 
 ## License
-StudySquared is licensed under the [MIT License](LICENSE.md)
+StudySquared is licensed under the [MIT License](LICENSE)
