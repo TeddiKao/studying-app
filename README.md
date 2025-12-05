@@ -11,7 +11,7 @@ An open-source study tool for students to take notes and more
 - **Notes feed** *(coming soon)*: Publish your notes to share them with others
 
 ## Contributing
-- Suggest new features, bug fixes or improvements by creating an issue [here](https://github.com/TeddiKao/StudySquared/issues/new)
+- Suggest new features, bug fixes or improvements by [creating an issue](https://github.com/TeddiKao/StudySquared/issues/new)
 - Implement new features or bug fixes by checking the [open issues](https://github.com/TeddiKao/StudySquared/issues) and [creating a pull request](https://github.com/TeddiKao/StudySquared/compare)
 - For a detailed guide on how to contribute, please refer to [this guide](CONTRIBUTING.md)
 
