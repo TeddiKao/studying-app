@@ -44,4 +44,10 @@ The body of the issue should contain
 ## Project setup
 
 ### Requirements
-- Node.js version 20+ (LTS version)
+- Node.js v22+ (recommended)
+  The project has been tested on Node.js v22.14.0 and has not been tested on earlier versions
+- [Git](https://git-scm.com/)
+- npm 10+ (recommended)
+  The project has been tested with npm v10.9.2 and has not been tested with earlier versions
+- A [Clerk](https://clerk.com/) account
+- A [Convex](https://convex.dev/) account
