@@ -4,7 +4,7 @@ We appreciate your interest in contributing to StudySquared. In this guide, we w
 ## Submitting an issue
 Before submitting an issue, ensure that no similar issue has already been submitted. You can do so by checking the [issues tab](https://github.com/TeddiKao/StudySquared/issues) on GitHub. An issue or discussion might already exist and there could be a possible workaround.
 
-If you have ensured that no similar issue exists, you can [submit an new issue](https://github.com/TeddiKao/StudySquared/issues/new)
+If you have ensured that no similar issue exists, you can [submit a new issue](https://github.com/TeddiKao/StudySquared/issues/new)
 
 Make sure to follow the guidelines below 
 
