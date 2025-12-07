@@ -40,3 +40,8 @@ The body of the issue should contain
 #### For documentation
 - A description of the documentation
 - A link to the documentation (optional)
+
+## Project setup
+
+### Requirements
+- Node.js version 20+ (LTS version)
