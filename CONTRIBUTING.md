@@ -95,8 +95,8 @@ That's all you need to do to get started with contributing to StudySquared. Happ
 3. Follow Step 3 of [this guide](https://docs.convex.dev/auth/clerk#nextjs) to create a JWT template. Make sure you save the **Issuer URL** somewhere. 
 4. Run `npx convex dev` in the terminal. You will be prompted to log in to your Convex account and create your project. It will also update the `CONVEX_DEPLOYMENT` and `NEXT_PUBLIC_CONVEX_URL` values in the `.env.local` file
 5. In the `.env.local` file, replace the `CLERK_JWT_ISSUER_DOMAIN` value with the **Issuer URL** you saved earlier
-7. In the [Convex dashboard](https://dashboard.convex.dev/), navigate to the project which was created in Step 5.
-8. In the left sidebar, click on the "Settings" tab and in the "Environment Variables" tab, add a new environment variable with the name `CLERK_JWT_ISSUER_DOMAIN` and the value as the **Issuer URL** you saved earlier
-9. Finally, run `npx convex dev` to switch your deployment to the new configuration
+6. In the [Convex dashboard](https://dashboard.convex.dev/), navigate to the project which was created in Step 4.
+7. In the left sidebar, click on the "Settings" tab and in the "Environment Variables" tab, add a new environment variable with the name `CLERK_JWT_ISSUER_DOMAIN` and the value as the **Issuer URL** you saved earlier
+8. Finally, run `npx convex dev` to switch your deployment to the new configuration
 
 After following these steps, you are ready to make your first contribution to StudySquared!
