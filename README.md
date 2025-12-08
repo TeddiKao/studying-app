@@ -1,6 +1,7 @@
 # StudySquared
 
 An open-source study tool for students to take notes and more
+Visit the website [here](https://studysquared.app)
 
 ## Features
 - **Notes and notebooks**: Organize your study material with an intuitive structure
