@@ -49,6 +49,8 @@ function NoteImportDialog() {
 							<FileIcon className="size-12 stroke-gray-500" />
 							<p className="text-sm text-gray-500">Upload an image of your handwritten note</p>
 						</div>
+
+						<Input type="file" className="hidden" />
 					</TabsContent>
 				</Tabs>
 				
