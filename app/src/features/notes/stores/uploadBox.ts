@@ -13,3 +13,5 @@ const useFileUploadBoxStore = create<FileUploadBoxStore>((set) => ({
 	setPreviewImageUrl: (url: string) => set({ previewImageUrl: url }),
 	clearPreviewImageUrl: () => set({ previewImageUrl: null }),
 }));
+
+export { useFileUploadBoxStore };
