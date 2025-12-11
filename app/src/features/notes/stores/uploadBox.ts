@@ -4,7 +4,7 @@ type FileUploadBoxStore = {
 	previewFileType: string | null;
 	previewFileUrl: string | null;
 
-	updatePreviewFileType: (url: string) => void;
+	updatePreviewFileType: (fileType: string) => void;
 	clearPreviewFileType: () => void;
 
 	updatePreviewFileUrl: (url: string) => void;
