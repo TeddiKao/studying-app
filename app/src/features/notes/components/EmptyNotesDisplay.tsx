@@ -34,6 +34,9 @@ function EmptyNotesDisplay() {
 					>
 						Create note
 					</Button>
+					<Button variant="outline" type="button" className="hover:cursor-pointer">
+						Upload image
+					</Button>
 				</div>
 			</EmptyContent>
 		</Empty>
