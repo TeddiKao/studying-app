@@ -21,7 +21,11 @@ const useFileUploadBoxStore = create<FileUploadBoxStore>((set, get) => ({
 	previewFileUrl: null,
 	updatePreviewFileUrl: (url: string) => set({ previewFileUrl: url }),
 	clearAndRevokePreviewFileUrl: () => {
-		URL.revokeObjectURL(get().previewFileUrl ?? "");
+		const previewFileUrl = get().previewFileUrl;
+		if (previewFileUrl) {
+			URL.revokeObjectURL(previewFileUrl);
+		}
+
 		set({ previewFileUrl: null });
 	},
 }));
