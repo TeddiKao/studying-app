@@ -36,6 +36,7 @@ function NoteImportDialog() {
 		if (!file) return;
 
 		const fileUrl = URL.createObjectURL(file);
+
 		updatePreviewFileType(file.type);
 		updatePreviewFileUrl(fileUrl);
 	}
@@ -73,7 +74,7 @@ function NoteImportDialog() {
 
 					<TabsContent value="uploadFile">
 						{previewFileUrl ? (
-							previewFileType === "image" ? (
+							previewFileType === "image/png" ? (
 								<img src={previewFileUrl} alt="Image preview" />
 							) : (
 								// TODO: Add file metadata info for other file types
