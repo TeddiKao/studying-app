@@ -90,7 +90,7 @@ function NoteImportDialog() {
 								<div className="flex flex-col gap-2">
 									<img
 										src={previewFileUrl}
-										alt="Image preview"
+										alt="Preview of uploaded handwritten note"
 									/>
 									<Button
 										onClick={clearFileInput}
