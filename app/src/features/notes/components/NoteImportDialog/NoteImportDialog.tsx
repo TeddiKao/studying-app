@@ -64,7 +64,7 @@ function NoteImportDialog() {
 					<DialogDescription>
 						Import a handwritten note. More options like uploading
 						files and importing from third-party apps will be coming
-						soon. soon.
+						soon. 
 					</DialogDescription>
 				</DialogHeader>
 
