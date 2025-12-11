@@ -8,18 +8,22 @@ type FileUploadBoxStore = {
 	clearPreviewFileType: () => void;
 
 	updatePreviewFileUrl: (url: string) => void;
-	clearPreviewFileUrl: () => void;
+	clearAndRevokePreviewFileUrl: () => void;
 };
 
-const useFileUploadBoxStore = create<FileUploadBoxStore>((set) => ({
+const useFileUploadBoxStore = create<FileUploadBoxStore>((set, get) => ({
 	previewFileType: null,
 
-	updatePreviewFileType: (fileType: string) => set({ previewFileType: fileType }),
+	updatePreviewFileType: (fileType: string) =>
+		set({ previewFileType: fileType }),
 	clearPreviewFileType: () => set({ previewFileType: null }),
 
 	previewFileUrl: null,
 	updatePreviewFileUrl: (url: string) => set({ previewFileUrl: url }),
-	clearPreviewFileUrl: () => set({ previewFileUrl: null }),
+	clearAndRevokePreviewFileUrl: () => {
+		URL.revokeObjectURL(get().previewFileUrl ?? "");
+		set({ previewFileUrl: null });
+	},
 }));
 
 export { useFileUploadBoxStore };
