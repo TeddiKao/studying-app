@@ -1,17 +1,25 @@
 import { create } from "zustand";
 
 type FileUploadBoxStore = {
-	previewImageUrl: string | null;
+	previewFileType: string | null;
+	previewFileUrl: string | null;
 
-	updatePreviewImageUrl: (url: string) => void;
-	clearPreviewImageUrl: () => void;
+	updatePreviewFileType: (url: string) => void;
+	clearPreviewFileType: () => void;
+
+	updatePreviewFileUrl: (url: string) => void;
+	clearPreviewFileUrl: () => void;
 };
 
 const useFileUploadBoxStore = create<FileUploadBoxStore>((set) => ({
-	previewImageUrl: null,
+	previewFileType: null,
 
-	updatePreviewImageUrl: (url: string) => set({ previewImageUrl: url }),
-	clearPreviewImageUrl: () => set({ previewImageUrl: null }),
+	updatePreviewFileType: (fileType: string) => set({ previewFileType: fileType }),
+	clearPreviewFileType: () => set({ previewFileType: null }),
+
+	previewFileUrl: null,
+	updatePreviewFileUrl: (url: string) => set({ previewFileUrl: url }),
+	clearPreviewFileUrl: () => set({ previewFileUrl: null }),
 }));
 
 export { useFileUploadBoxStore };
