@@ -1,4 +1,6 @@
 import { DialogHeader } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
 	DialogContent,
 	DialogDescription,
@@ -16,6 +18,16 @@ function NoteImportDialog() {
 					soon.
 				</DialogDescription>
 			</DialogHeader>
+
+			<Tabs>
+				<TabsList>
+					<TabsTrigger value="uploadFile">Upload file</TabsTrigger>
+				</TabsList>
+
+				<TabsContent value="handwriting">
+					<Input type="file" />
+				</TabsContent>
+			</Tabs>
 		</DialogContent>
 	);
 }
