@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNoteImportDialogStore } from "../../stores/noteImportDialog";
 import { FileIcon } from "lucide-react";
 import { useFileUploadBoxStore } from "../../stores/uploadBox";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
 function NoteImportDialog() {
@@ -27,6 +27,12 @@ function NoteImportDialog() {
 	} = useFileUploadBoxStore();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		return () => {
+			clearAndRevokePreviewFileUrl();
+		};
+	}, [clearAndRevokePreviewFileUrl, previewFileUrl]);
 
 	function handleFileUploadBoxClick() {
 		fileInputRef.current?.click();
