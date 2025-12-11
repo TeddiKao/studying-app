@@ -13,6 +13,7 @@ import { useNoteImportDialogStore } from "../../stores/noteImportDialog";
 import { FileIcon } from "lucide-react";
 import { useFileUploadBoxStore } from "../../stores/uploadBox";
 import { useRef } from "react";
+import { Button } from "@/components/ui/button";
 
 function NoteImportDialog() {
 	const { isOpen, openDialog, closeDialog } = useNoteImportDialogStore();
@@ -39,6 +40,11 @@ function NoteImportDialog() {
 
 		updatePreviewFileType(file.type);
 		updatePreviewFileUrl(fileUrl);
+	}
+
+	function clearFileInput() {
+		clearPreviewFileType();
+		clearPreviewFileUrl();
 	}
 
 	return (
@@ -75,7 +81,11 @@ function NoteImportDialog() {
 					<TabsContent value="uploadFile">
 						{previewFileUrl ? (
 							previewFileType?.startsWith("image") ? (
-								<img src={previewFileUrl} alt="Image preview" />
+								<div className="flex flex-col gap-2">
+									<img src={previewFileUrl} alt="Image preview" />
+									<Button onClick={clearFileInput} className="hover:cursor-pointer" type="button" variant="outline">Clear image</Button>
+									<Button className="hover:cursor-pointer" type="button">Import note</Button>
+								</div>
 							) : (
 								// TODO: Add file metadata info for other file types
 								<></>
