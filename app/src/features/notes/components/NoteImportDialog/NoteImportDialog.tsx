@@ -74,7 +74,7 @@ function NoteImportDialog() {
 
 					<TabsContent value="uploadFile">
 						{previewFileUrl ? (
-							previewFileType === "image/png" ? (
+							previewFileType?.startsWith("image") ? (
 								<img src={previewFileUrl} alt="Image preview" />
 							) : (
 								// TODO: Add file metadata info for other file types
@@ -98,6 +98,7 @@ function NoteImportDialog() {
 									type="file"
 									className="hidden"
 									onChange={handleFileInputChange}
+									accept="image/*"
 								/>
 							</>
 						)}
