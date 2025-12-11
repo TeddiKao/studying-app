@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Dialog,
 	DialogContent,
@@ -9,9 +11,16 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNoteImportDialogStore } from "../../stores/noteImportDialog";
 import { FileIcon, ImageIcon } from "lucide-react";
+import { useRef } from "react";
 
 function NoteImportDialog() {
 	const { isOpen, openDialog, closeDialog } = useNoteImportDialogStore();
+
+	const fileInputRef = useRef<HTMLInputElement>(null);
+
+	function handleFileUploadBoxClick() {
+		fileInputRef.current?.click();
+	}
 
 	return (
 		<Dialog
@@ -50,7 +59,7 @@ function NoteImportDialog() {
 							<p className="text-sm text-gray-500">Upload an image of your handwritten note</p>
 						</div>
 
-						<Input type="file" className="hidden" />
+						<Input ref={fileInputRef} type="file" className="hidden" />
 					</TabsContent>
 				</Tabs>
 				
