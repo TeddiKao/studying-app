@@ -3,6 +3,7 @@
 import EmptyNotesDisplay from "@/features/notes/components/EmptyNotesDisplay";
 import NoteCard from "@/features/notes/components/NoteCard";
 import NoteForm from "@/features/notes/components/NoteForm";
+import NoteImportDialog from "@/features/notes/components/NoteImportDialog/NoteImportDialog";
 import NotesPageHeader from "@/features/notes/components/NotesPageHeader/NotesPageHeader";
 import { useEditNoteFormStore } from "@/features/notes/stores/editNoteForm";
 import { api } from "@convex/_generated/api";
@@ -48,6 +49,7 @@ function NotesPage() {
 
 			<NoteForm mode="create" noteId={null} notebookId={notebookId} />
 			<NoteForm mode="edit" noteId={noteId} notebookId={notebookId} />
+			<NoteImportDialog />
 		</>
 	);
 }
