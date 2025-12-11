@@ -17,9 +17,12 @@ import { useRef } from "react";
 function NoteImportDialog() {
 	const { isOpen, openDialog, closeDialog } = useNoteImportDialogStore();
 	const {
-		previewImageUrl,
-		updatePreviewImageUrl,
-		clearPreviewImageUrl,
+		previewFileType,
+		updatePreviewFileType,
+		clearPreviewFileType,
+		previewFileUrl,
+		updatePreviewFileUrl,
+		clearPreviewFileUrl,
 	} = useFileUploadBoxStore();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -33,7 +36,8 @@ function NoteImportDialog() {
 		if (!file) return;
 
 		const fileUrl = URL.createObjectURL(file);
-		
+		updatePreviewFileType(file.type);
+		updatePreviewFileUrl(fileUrl);
 	}
 
 	return (
@@ -68,23 +72,34 @@ function NoteImportDialog() {
 					</TabsList>
 
 					<TabsContent value="uploadFile">
-						<button
-							type="button"
-							onClick={handleFileUploadBoxClick}
-							className="flex flex-col gap-2 hover:cursor-pointer items-center justify-center bg-gray-200 w-full rounded-lg py-6"
-						>
-							<FileIcon className="size-12 stroke-gray-500" />
-							<p className="text-sm text-gray-500">
-								Upload an image of your handwritten note
-							</p>
-						</button>
+						{previewFileUrl ? (
+							previewFileType === "image" ? (
+								<img src={previewFileUrl} alt="Image preview" />
+							) : (
+								// TODO: Add file metadata info for other file types
+								<></>
+							)
+						) : (
+							<>
+								<button
+									type="button"
+									onClick={handleFileUploadBoxClick}
+									className="flex flex-col gap-2 hover:cursor-pointer items-center justify-center bg-gray-200 w-full rounded-lg py-6"
+								>
+									<FileIcon className="size-12 stroke-gray-500" />
+									<p className="text-sm text-gray-500">
+										Upload an image of your handwritten note
+									</p>
+								</button>
 
-						<Input
-							ref={fileInputRef}
-							type="file"
-							className="hidden"
-							onChange={handleFileInputChange}
-						/>
+								<Input
+									ref={fileInputRef}
+									type="file"
+									className="hidden"
+									onChange={handleFileInputChange}
+								/>
+							</>
+						)}
 					</TabsContent>
 				</Tabs>
 			</DialogContent>
