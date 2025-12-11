@@ -23,7 +23,7 @@ function NoteImportDialog() {
 		clearPreviewFileType,
 		previewFileUrl,
 		updatePreviewFileUrl,
-		clearPreviewFileUrl,
+		clearAndRevokePreviewFileUrl,
 	} = useFileUploadBoxStore();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -44,7 +44,7 @@ function NoteImportDialog() {
 
 	function clearFileInput() {
 		clearPreviewFileType();
-		clearPreviewFileUrl();
+		clearAndRevokePreviewFileUrl();
 	}
 
 	return (
@@ -64,7 +64,7 @@ function NoteImportDialog() {
 					<DialogDescription>
 						Import a handwritten note. More options like uploading
 						files and importing from third-party apps will be coming
-						soon. 
+						soon.
 					</DialogDescription>
 				</DialogHeader>
 
@@ -82,9 +82,24 @@ function NoteImportDialog() {
 						{previewFileUrl ? (
 							previewFileType?.startsWith("image") ? (
 								<div className="flex flex-col gap-2">
-									<img src={previewFileUrl} alt="Image preview" />
-									<Button onClick={clearFileInput} className="hover:cursor-pointer" type="button" variant="outline">Clear image</Button>
-									<Button className="hover:cursor-pointer" type="button">Import note</Button>
+									<img
+										src={previewFileUrl}
+										alt="Image preview"
+									/>
+									<Button
+										onClick={clearFileInput}
+										className="hover:cursor-pointer"
+										type="button"
+										variant="outline"
+									>
+										Clear image
+									</Button>
+									<Button
+										className="hover:cursor-pointer"
+										type="button"
+									>
+										Import note
+									</Button>
 								</div>
 							) : (
 								// TODO: Add file metadata info for other file types
