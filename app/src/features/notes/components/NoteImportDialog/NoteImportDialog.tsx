@@ -54,10 +54,10 @@ function NoteImportDialog() {
 					</TabsList>
 
 					<TabsContent value="uploadFile">
-						<div className="flex flex-col gap-2 hover:cursor-pointer items-center justify-center bg-gray-200 w-full rounded-lg py-6">
+						<button type="button" onClick={handleFileUploadBoxClick} className="flex flex-col gap-2 hover:cursor-pointer items-center justify-center bg-gray-200 w-full rounded-lg py-6">
 							<FileIcon className="size-12 stroke-gray-500" />
 							<p className="text-sm text-gray-500">Upload an image of your handwritten note</p>
-						</div>
+						</button>
 
 						<Input ref={fileInputRef} type="file" className="hidden" />
 					</TabsContent>
