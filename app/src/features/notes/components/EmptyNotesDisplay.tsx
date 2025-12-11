@@ -9,9 +9,11 @@ import {
 } from "@/components/ui/empty";
 import { useCreateNoteFormStore } from "../stores/createNoteForm";
 import NoteIcon from "@/shared/components/icons/Note";
+import { useNoteImportDialogStore } from "../stores/noteImportDialog";
 
 function EmptyNotesDisplay() {
 	const { openForm } = useCreateNoteFormStore();
+	const { openDialog: openNoteImportDialog } = useNoteImportDialogStore();
 
 	return (
 		<Empty>
@@ -34,7 +36,7 @@ function EmptyNotesDisplay() {
 					>
 						Create note
 					</Button>
-					<Button variant="outline" type="button" className="hover:cursor-pointer">
+					<Button onClick={openNoteImportDialog} variant="outline" type="button" className="hover:cursor-pointer">
 						Import note
 					</Button>
 				</div>
