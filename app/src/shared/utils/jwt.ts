@@ -1,9 +1,9 @@
 import { auth } from "@clerk/nextjs/server";
 
-async function getToken() {
+async function getTokenForBackendVerification() {
 	const authInfo = await auth();
 	
-	return authInfo.getToken();
+	return authInfo.getToken({ template: "backend" });
 }
 
-export { getToken };
+export { getTokenForBackendVerification };
