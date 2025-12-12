@@ -1,8 +1,13 @@
 import { getTokenForBackendVerification } from "@/shared/utils/jwt";
 import axios from "axios";
 
+const baseApiUrl = process.env.NEXT_PUBLIC_API_URL;
+if (!baseApiUrl) {
+	throw new Error("NEXT_PUBLIC_API_URL is not set or defined");
+}
+
 const api = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_API_URL,
+	baseURL: baseApiUrl,
 	timeout: 5000,
 })
 
