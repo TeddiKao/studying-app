@@ -1,12 +1,14 @@
-import { auth } from "@clerk/nextjs/server";
+import { useBackendVerificationTokenStore } from "@/features/auth/stores/backendToken";
 
 async function getTokenForBackendVerification() {
-	try {
-		const authInfo = await auth();
+	const getToken = useBackendVerificationTokenStore.getState().getToken;
+	if (!getToken) return null;
 
-		return authInfo.getToken({ template: "backend" });
+	try {
+		const token = await getToken();
+		return token;
 	} catch (error) {
-		console.error("Failed to get token for backend verification", error);
+		console.error(error);
 		return null;
 	}
 }
