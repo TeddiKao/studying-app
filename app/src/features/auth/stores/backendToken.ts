@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-type BackendVerificationTokenManager = {
+type BackendVerificationTokenManagerStore = {
 	getToken: (() => Promise<string | null>) | null;
 	updateTokenGetter: (tokenGetter: () => Promise<string | null>) => void;
 }
 
-const useBackendVerificationTokenStore = create<BackendVerificationTokenManager>((set) => ({
+const useBackendVerificationTokenStore = create<BackendVerificationTokenManagerStore>((set) => ({
 	getToken: null,
 	updateTokenGetter: (tokenGetter) => {
 		set({ getToken: tokenGetter })
