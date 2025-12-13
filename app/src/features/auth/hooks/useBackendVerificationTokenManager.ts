@@ -14,3 +14,5 @@ function useBackendVerificationTokenManager() {
 		}
 	}, [getToken]);
 }
+
+export default useBackendVerificationTokenManager;
