@@ -1,4 +1,4 @@
-from fastapi import UploadFile
+from fastapi import File, UploadFile
 from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 from PIL import Image
 from io import BytesIO
