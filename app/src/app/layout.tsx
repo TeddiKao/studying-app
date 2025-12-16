@@ -6,7 +6,7 @@ import { ConvexClientProvider } from "./ConvexClientProvider";
 
 import { Inter } from "next/font/google";
 import useBackendVerificationTokenManager from "@/features/auth/hooks/useBackendVerificationTokenManager";
-import TokenManagerWrapper from "@/features/auth/components/TokenManagerProvider";
+import TokenManagerWrapper from "@/features/auth/components/TokenManagerWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
