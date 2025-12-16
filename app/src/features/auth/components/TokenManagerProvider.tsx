@@ -1,9 +1,11 @@
+"use client";
+
 import useBackendVerificationTokenManager from "../hooks/useBackendVerificationTokenManager";
 
-function TokenManagerProvider({ children }: { children: React.ReactNode }) {
+function TokenManagerWrapper() {
 	useBackendVerificationTokenManager();
-	
-	return <>{children}</>;
+
+	return <></>;
 }
 
-export default TokenManagerProvider;
+export default TokenManagerWrapper;
