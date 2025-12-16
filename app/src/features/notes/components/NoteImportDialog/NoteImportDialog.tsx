@@ -33,7 +33,7 @@ function NoteImportDialog() {
 		return () => {
 			clearAndRevokePreviewFileUrl();
 		};
-	}, [clearAndRevokePreviewFileUrl, previewFileUrl]);
+	}, [clearAndRevokePreviewFileUrl]);
 
 	function handleFileUploadBoxClick() {
 		fileInputRef.current?.click();
