@@ -9,7 +9,7 @@ function useBackendVerificationTokenManager() {
 	const { updateTokenGetter, clearTokenGetter } = useBackendVerificationTokenStore();
 
 	useEffect(() => {
-		updateTokenGetter(getToken);
+		updateTokenGetter(() => getToken({ template: "backend" }));
 
 		return () => {
 			clearTokenGetter();
