@@ -6,6 +6,7 @@ import { ConvexClientProvider } from "./ConvexClientProvider";
 
 import { Inter } from "next/font/google"
 import useBackendVerificationTokenManager from "@/features/auth/hooks/useBackendVerificationTokenManager";
+import TokenManagerProvider from "@/features/auth/components/TokenManagerProvider";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,7 +23,9 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 			<body className={`${inter.className} h-full overflow-hidden`}>
 				<ClerkProvider>
 					<ConvexClientProvider>
-                        {children}
+                        <TokenManagerProvider>
+							{children}
+						</TokenManagerProvider>
                     </ConvexClientProvider>
 				</ClerkProvider>
 			</body>
