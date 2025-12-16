@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { useBackendVerificationTokenStore } from "../stores/backendToken";
 import { useAuth } from "@clerk/nextjs";
