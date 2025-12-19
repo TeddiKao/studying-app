@@ -73,7 +73,7 @@ def verify_jwt_token(token: str) -> Dict[str, Any]:
 
 	return payload
 
-def verify_jwt_token_in_header(authorization_header: AuthorizationHeader = Header(None)) -> Dict[str, Any]:
+def verify_jwt_token_in_header(authorization_header: AuthorizationHeader) -> Dict[str, Any]:
 	if authorization_header is None:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
