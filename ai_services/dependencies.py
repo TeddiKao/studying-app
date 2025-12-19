@@ -1,5 +1,5 @@
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Annotated
 
 import requests
 from jose import jwt
@@ -9,6 +9,8 @@ jwks_endpoint = os.environ.get("CLERK_JWKS_ENDPOINT")
 jwt_issuer_domain = os.environ.get("CLERK_JWT_ISSUER_DOMAIN")
 
 jwks_cache: Optional[Dict[str, Any]] = None
+
+AuthorizationHeader = Annotated[str | None, Header(...)]
 
 
 def get_jwks() -> Dict[str, Any]:
@@ -71,7 +73,7 @@ def verify_jwt_token(token: str) -> Dict[str, Any]:
 
 	return payload
 
-def verify_jwt_token_in_header(authorization_header: str | None = Header(None)) -> Dict[str, Any]:
+def verify_jwt_token_in_header(authorization_header: AuthorizationHeader = Header(None)) -> Dict[str, Any]:
 	if authorization_header is None:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
