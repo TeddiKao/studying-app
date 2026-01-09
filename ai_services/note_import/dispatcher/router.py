@@ -1,5 +1,5 @@
 from fastapi import Header, APIRouter, Form, UploadFile
-from models.ocr_model import get_text_from_image
+from ai_services.note_import.ocr.model import get_text_from_image
 from typing import Annotated
 
 router = APIRouter(prefix="/notes")
