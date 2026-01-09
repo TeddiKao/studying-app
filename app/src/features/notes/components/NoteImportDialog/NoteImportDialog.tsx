@@ -62,9 +62,12 @@ function NoteImportDialog() {
 	}
 
 	async function handleNoteUpload() {
-		console.log(previewFile);
+		if (!previewFile) return;
+
+		const formData = new FormData();
+		formData.append("imageFile", previewFile);
 		
-		await sendFileToBackendForNoteImport("");
+		await sendFileToBackendForNoteImport(formData);
 	}
 
 	return (
