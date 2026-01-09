@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Header, APIRouter
+from fastapi import Header, APIRouter
 
 router = APIRouter(prefix="/notes")
 
