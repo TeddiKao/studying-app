@@ -47,7 +47,6 @@ def get_signing_key(token: str) -> Dict[str, Any]:
 
 
 def verify_jwt_token(token: str) -> Dict[str, Any]:
-	print("Calling function")
 	"""
 	Verify a JWT against the configured JWKS endpoint.
 
@@ -76,8 +75,6 @@ def verify_jwt_token(token: str) -> Dict[str, Any]:
 	return payload
 
 def verify_jwt_token_in_header(authorization_header: AuthorizationHeader = None) -> Dict[str, Any] | None:
-	print("Verifying token in header")
-	
 	if authorization_header is None:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
