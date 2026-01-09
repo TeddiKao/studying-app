@@ -1,17 +1,19 @@
 import os
+import requests
+
 from typing import Any, Dict, Optional, Annotated
 
-import requests
 from jose import jwt
 from fastapi import Header, HTTPException, status
+from dotenv import load_dotenv
+
+load_dotenv()
 
 jwks_endpoint = os.environ.get("CLERK_JWKS_ENDPOINT")
 jwt_issuer_domain = os.environ.get("CLERK_JWT_ISSUER_DOMAIN")
-
 jwks_cache: Optional[Dict[str, Any]] = None
 
-AuthorizationHeader = Annotated[str | None, Header(...)]
-
+AuthorizationHeader = Annotated[str | None, Header(alias="Authorization")]
 
 def get_jwks() -> Dict[str, Any]:
 	global jwks_cache
@@ -73,7 +75,9 @@ def verify_jwt_token(token: str) -> Dict[str, Any]:
 
 	return payload
 
-def verify_jwt_token_in_header(authorization_header: AuthorizationHeader) -> Dict[str, Any]:
+def verify_jwt_token_in_header(authorization_header: AuthorizationHeader = None) -> Dict[str, Any] | None:
+	print("Verifying token in header")
+	
 	if authorization_header is None:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -97,6 +101,7 @@ def verify_jwt_token_in_header(authorization_header: AuthorizationHeader) -> Dic
 	try:
 		payload = verify_jwt_token(token)
 	except Exception as exc:
+		print(exc)
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
 			detail="Invalid or expired token",
