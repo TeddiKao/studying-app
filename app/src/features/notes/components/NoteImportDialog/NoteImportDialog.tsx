@@ -22,9 +22,14 @@ function NoteImportDialog() {
 		previewFileType,
 		updatePreviewFileType,
 		clearPreviewFileType,
+
 		previewFileUrl,
 		updatePreviewFileUrl,
 		clearAndRevokePreviewFileUrl,
+
+		previewFile,
+		updatePreviewFile,
+		clearPreviewFile,
 	} = useFileUploadBoxStore();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -47,14 +52,18 @@ function NoteImportDialog() {
 
 		updatePreviewFileType(file.type);
 		updatePreviewFileUrl(fileUrl);
+		updatePreviewFile(file);
 	}
 
 	function clearFileInput() {
 		clearPreviewFileType();
 		clearAndRevokePreviewFileUrl();
+		clearPreviewFile();
 	}
 
 	async function handleNoteUpload() {
+		console.log(previewFile);
+		
 		await sendFileToBackendForNoteImport("");
 	}
 
