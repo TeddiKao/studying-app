@@ -98,7 +98,6 @@ def verify_jwt_token_in_header(authorization_header: AuthorizationHeader = None)
 	try:
 		payload = verify_jwt_token(token)
 	except Exception as exc:
-		print(exc)
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
 			detail="Invalid or expired token",
