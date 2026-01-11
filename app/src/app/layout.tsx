@@ -4,10 +4,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata } from "next";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 
-import { Inter } from "next/font/google"
-import useBackendVerificationTokenManager from "@/features/auth/hooks/useBackendVerificationTokenManager";
+import { Inter } from "next/font/google";
+import TokenManagerWrapper from "@/features/auth/components/TokenManagerWrapper";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: "Study app",
@@ -15,15 +15,14 @@ export const metadata: Metadata = {
 };
 
 function RootLayout({ children }: { children: React.ReactNode }) {
-	useBackendVerificationTokenManager();
-
 	return (
 		<html className="h-full" lang="en">
 			<body className={`${inter.className} h-full overflow-hidden`}>
 				<ClerkProvider>
 					<ConvexClientProvider>
-                        {children}
-                    </ConvexClientProvider>
+						<TokenManagerWrapper />
+						{children}
+					</ConvexClientProvider>
 				</ClerkProvider>
 			</body>
 		</html>

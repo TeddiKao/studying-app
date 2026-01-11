@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { useBackendVerificationTokenStore } from "../stores/backendToken";
 import { useAuth } from "@clerk/nextjs";
@@ -7,7 +9,7 @@ function useBackendVerificationTokenManager() {
 	const { updateTokenGetter, clearTokenGetter } = useBackendVerificationTokenStore();
 
 	useEffect(() => {
-		updateTokenGetter(getToken);
+		updateTokenGetter(() => getToken({ template: "backend" }));
 
 		return () => {
 			clearTokenGetter();

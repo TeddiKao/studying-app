@@ -14,6 +14,7 @@ import { FileIcon } from "lucide-react";
 import { useFileUploadBoxStore } from "../../stores/uploadBox";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { sendFileToBackendForNoteImport } from "../../api/upload";
 
 function NoteImportDialog() {
 	const { isOpen, openDialog, closeDialog } = useNoteImportDialogStore();
@@ -21,9 +22,14 @@ function NoteImportDialog() {
 		previewFileType,
 		updatePreviewFileType,
 		clearPreviewFileType,
+
 		previewFileUrl,
 		updatePreviewFileUrl,
 		clearAndRevokePreviewFileUrl,
+
+		previewFile,
+		updatePreviewFile,
+		clearPreviewFile,
 	} = useFileUploadBoxStore();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +38,7 @@ function NoteImportDialog() {
 		return () => {
 			clearAndRevokePreviewFileUrl();
 		};
-	}, [clearAndRevokePreviewFileUrl, previewFileUrl]);
+	}, [clearAndRevokePreviewFileUrl]);
 
 	function handleFileUploadBoxClick() {
 		fileInputRef.current?.click();
@@ -46,11 +52,22 @@ function NoteImportDialog() {
 
 		updatePreviewFileType(file.type);
 		updatePreviewFileUrl(fileUrl);
+		updatePreviewFile(file);
 	}
 
 	function clearFileInput() {
 		clearPreviewFileType();
 		clearAndRevokePreviewFileUrl();
+		clearPreviewFile();
+	}
+
+	async function handleNoteUpload() {
+		if (!previewFile) return;
+
+		const formData = new FormData();
+		formData.append("imageFile", previewFile);
+		
+		await sendFileToBackendForNoteImport(formData);
 	}
 
 	return (
@@ -103,6 +120,7 @@ function NoteImportDialog() {
 									<Button
 										className="hover:cursor-pointer"
 										type="button"
+										onClick={handleNoteUpload}
 									>
 										Import note
 									</Button>
