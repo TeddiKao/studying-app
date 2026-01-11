@@ -1,7 +1,6 @@
-from pydantic import BaseModel
-from typing import Optional
+from typing import TypedDict, NotRequired
 
-class Block(BaseModel):
+class Block(TypedDict):
 	type: str
-	level: Optional[int] = None
+	level: NotRequired[int]
 	text: str
