@@ -23,7 +23,7 @@ def get_jwks() -> Dict[str, Any]:
 			raise RuntimeError("CLERK_JWKS_ENDPOINT environment variable is not set")
 
 		response = requests.get(jwks_endpoint)
-		response.raise_for_status()
+		response.raise_for_status(timeout=10)
 		jwks_cache = response.json()
 
 	return jwks_cache
