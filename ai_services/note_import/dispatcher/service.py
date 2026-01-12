@@ -9,4 +9,4 @@ async def handle_note_import(file: UploadFile):
 	if file_type == "image/jpeg" or file_type == "image/png":
 		return await handle_note_import_by_ocr(file)
 	else:
-		raise UnsupportedFileTypeError
+		raise UnsupportedFileTypeError(file_type)
