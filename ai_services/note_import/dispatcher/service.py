@@ -5,5 +5,5 @@ from ai_services.note_import.ocr.service import handle_note_import_by_ocr
 async def handle_note_import(file: UploadFile):
 	file_type = await detect_file_type(file)
 
-	if file_type == "image/jpeg" or file_type == "image/png" or file_type == "image/jpg":
+	if file_type == "image/jpeg" or file_type == "image/png":
 		return await handle_note_import_by_ocr(file)
