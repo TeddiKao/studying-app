@@ -8,4 +8,9 @@ router = APIRouter(prefix="/notes")
 
 @router.post("/upload_note")
 async def upload_note(file: Annotated[UploadFile, Form()]):
-	return await handle_note_import(file)
+	blocks = await handle_note_import(file)
+
+	return {
+		"success": True,
+		"blocks": blocks
+	}
