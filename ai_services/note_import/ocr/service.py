@@ -6,7 +6,4 @@ async def handle_note_import_by_ocr(imageFile: UploadFile):
 	text = await get_text_from_image(imageFile)
 	blocks = parse_blocks_from_text(text)
 
-	return {
-		"success": True,
-		"blocks": blocks
-	}
+	return blocks
