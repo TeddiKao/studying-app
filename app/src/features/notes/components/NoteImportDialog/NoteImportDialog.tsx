@@ -65,7 +65,7 @@ function NoteImportDialog() {
 		if (!previewFile) return;
 
 		const formData = new FormData();
-		formData.append("imageFile", previewFile);
+		formData.append("file", previewFile);
 		
 		await sendFileToBackendForNoteImport(formData);
 	}
