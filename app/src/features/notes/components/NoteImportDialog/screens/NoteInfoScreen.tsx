@@ -56,6 +56,7 @@ function NoteInfoScreen() {
 				if (open) {
 					openForm();
 				} else {
+					closeForm();
 					performFormCleanup();
 					clearAllErrors();
 				}
