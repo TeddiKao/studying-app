@@ -37,7 +37,7 @@ type NoteImportInfoFormErrorStore = {
 };
 
 const useNoteImportInfoFormStore = create<NoteImportInfoFormStore>((set) => ({
-	isOpen: false,
+	isOpen: true,
 	openForm: () => set({ isOpen: true }),
 	closeForm: () => set({ isOpen: false }),
 
