@@ -20,6 +20,18 @@ type NoteImportInfoFormStore = {
 	performFormCleanup: () => void;
 };
 
+type NoteImportInfoFormErrorStore = {
+	title: string[];
+	updateTitleErrors: (errors: string[]) => void;
+	clearTitleErrors: () => void;
+
+	description: string[];
+	updateDescriptionErrors: (errors: string[]) => void;
+	clearDescriptionErrors: () => void;
+
+	clearAllErrors: () => void;
+};
+
 const useNoteImportInfoFormStore = create<NoteImportInfoFormStore>((set) => ({
 	isOpen: false,
 	openForm: () => set({ isOpen: true }),
@@ -45,5 +57,20 @@ const useNoteImportInfoFormStore = create<NoteImportInfoFormStore>((set) => ({
 			description: "",
 		}),
 }));
+
+const useNoteImportInfoFormErrorStore = create<NoteImportInfoFormErrorStore>(
+	(set) => ({
+		title: [],
+		updateTitleErrors: (errors: string[]) => set({ title: errors }),
+		clearTitleErrors: () => set({ title: [] }),
+
+		description: [],
+		updateDescriptionErrors: (errors: string[]) =>
+			set({ description: errors }),
+		clearDescriptionErrors: () => set({ description: [] }),
+
+		clearAllErrors: () => set({ title: [], description: [] }),
+	})
+);
 
 export { useNoteImportInfoFormStore };
