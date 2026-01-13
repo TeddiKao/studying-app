@@ -2,6 +2,7 @@
 
 import { useImportFlowStore } from "../../stores/importFlow";
 import NoteImportScreen from "./screens/NoteImportScreen";
+import NoteInfoScreen from "./screens/NoteInfoScreen";
 
 function NoteImportDialog() {
 	const { currentStage } = useImportFlowStore();
@@ -9,6 +10,9 @@ function NoteImportDialog() {
 	switch (currentStage) {
 		case "fileUpload":
 			return <NoteImportScreen />;
+
+		case "fileInfoInput":
+			return <NoteInfoScreen />;
 	}
 }
 
