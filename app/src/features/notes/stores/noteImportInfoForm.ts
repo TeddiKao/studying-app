@@ -1,6 +1,10 @@
 import { create } from "zustand";
 
 type NoteImportInfoFormStore = {
+	isOpen: boolean;
+	openForm: () => void;
+	closeForm: () => void;
+
 	title: string;
 	updateTitle: (title: string) => void;
 	clearTitle: () => void;
@@ -12,9 +16,15 @@ type NoteImportInfoFormStore = {
 	isSubmitting: boolean;
 	startSubmitting: () => void;
 	stopSubmitting: () => void;
-}
+
+	performFormCleanup: () => void;
+};
 
 const useNoteImportInfoFormStore = create<NoteImportInfoFormStore>((set) => ({
+	isOpen: false,
+	openForm: () => set({ isOpen: true }),
+	closeForm: () => set({ isOpen: false }),
+
 	title: "",
 	updateTitle: (title: string) => set({ title }),
 	clearTitle: () => set({ title: "" }),
@@ -26,6 +36,14 @@ const useNoteImportInfoFormStore = create<NoteImportInfoFormStore>((set) => ({
 	isSubmitting: false,
 	startSubmitting: () => set({ isSubmitting: true }),
 	stopSubmitting: () => set({ isSubmitting: false }),
-}))
+
+	performFormCleanup: () =>
+		set({
+			isOpen: false,
+			isSubmitting: false,
+			title: "",
+			description: "",
+		}),
+}));
 
 export { useNoteImportInfoFormStore };
