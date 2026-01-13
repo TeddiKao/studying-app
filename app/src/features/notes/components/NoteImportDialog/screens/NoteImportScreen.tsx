@@ -31,7 +31,7 @@ function NoteImportScreen() {
 	} = useFileUploadBoxStore();
 
 	const { isOpen, openDialog, closeDialog } = useNoteImportDialogStore();
-	const { currentStage, updateCurrentStage } = useImportFlowStore();
+	const { updateCurrentStage } = useImportFlowStore();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
