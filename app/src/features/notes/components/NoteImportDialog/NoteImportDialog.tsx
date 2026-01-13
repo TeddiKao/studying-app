@@ -15,6 +15,7 @@ import { useFileUploadBoxStore } from "../../stores/uploadBox";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { sendFileToBackendForNoteImport } from "../../api/upload";
+import { useImportFlowStore } from "../../stores/importFlow";
 
 function NoteImportDialog() {
 	const { isOpen, openDialog, closeDialog } = useNoteImportDialogStore();
@@ -31,6 +32,8 @@ function NoteImportDialog() {
 		updatePreviewFile,
 		clearPreviewFile,
 	} = useFileUploadBoxStore();
+
+	const { currentStage, updateCurrentStage } = useImportFlowStore();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -68,6 +71,8 @@ function NoteImportDialog() {
 		formData.append("file", previewFile);
 		
 		await sendFileToBackendForNoteImport(formData);
+
+		updateCurrentStage("fileInfoInput");
 	}
 
 	return (
