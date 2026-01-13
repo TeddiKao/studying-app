@@ -13,6 +13,10 @@ type NoteImportInfoFormStore = {
 	updateDescription: (description: string) => void;
 	clearDescription: () => void;
 
+	importResult: Record<string, unknown>[];
+	updateImportResult: (result: Record<string, unknown>[]) => void;
+	clearImportResult: () => void;
+
 	isSubmitting: boolean;
 	startSubmitting: () => void;
 	stopSubmitting: () => void;
@@ -44,6 +48,11 @@ const useNoteImportInfoFormStore = create<NoteImportInfoFormStore>((set) => ({
 	description: "",
 	updateDescription: (description: string) => set({ description }),
 	clearDescription: () => set({ description: "" }),
+
+	importResult: [],
+	updateImportResult: (result: Record<string, unknown>[]) =>
+		set({ importResult: result }),
+	clearImportResult: () => set({ importResult: [] }),
 
 	isSubmitting: false,
 	startSubmitting: () => set({ isSubmitting: true }),
